@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>@ViewData["Title"]</title>
+     
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" />
+
+        <link rel="stylesheet" href="/css/site.css" />
+        <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+        @RenderSection("Stylesheets", required: false)
+
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                
+                <div class="d-flex navbar-logo">
+                    <button  class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">MyCalcs</a>
+                </div>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <h2>hi</h2>
+            }
+            else
+            {
+                <div class="login">
+                    <button class="navbar-login-button" type="button" id="loginBtn" data-bs-toggle="dropdown">
+                        <svg alt="Login" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 512 512"><path fill="#9d9d9d" d="M416 32h-64c-17.67 0-32 14.33-32 32s14.33 32 32 32h64c17.67 0 32 14.33 32 32v256c0 17.67-14.33 32-32 32h-64c-17.67 0-32 14.33-32 32s14.33 32 32 32h64c53.02 0 96-42.98 96-96V128C512 74.98 469 32 416 32zM342.6 233.4l-128-128c-12.51-12.51-32.76-12.49-45.25 0c-12.5 12.5-12.5 32.75 0 45.25L242.8 224H32C14.31 224 0 238.3 0 256s14.31 32 32 32h210.8l-73.38 73.38c-12.5 12.5-12.5 32.75 0 45.25s32.75 12.5 45.25 0l128-128C355.1 266.1 355.1 245.9 342.6 233.4z" /></svg>
+                    </button>
+                    <ul class="dropdown-menu  dropdown-menu-end dropdown-menu-dark" aria-labelledby="loginBtn" >
+                        <li>
+                            
+                            <div id="g_id_onload"
+                                 data-client_id="85698311721-oirjtrrfhln6bhite8g4hig2sfd2iend.apps.googleusercontent.com"
+                                 data-context="signin"
+                                 data-ux_mode="popup"
+                                 data-login_uri="/signin-google"
+                                 data-auto_prompt="false">
+                            </div>
+
+                            <div class="g_id_signin"
+                                 data-type="standard"
+                                 data-shape="rectangular"
+                                 data-theme="filled_black"
+                                 data-text="$ {button.text}"
+                                 data-size="medium"
+                                 data-logo_alignment="left">
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+            }
+
+                
+                <div class="collapse navbar-collapse navbar-links" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Деревянные конструкции</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Стропильные системы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Фундаменты и основания</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Нагрузки и воздействия</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Beam/pro/">test</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container body">
+            @RenderBody()
+        </div>
+
+        <div class="container fixed-bottom">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 border-top border-1 border-dark border-opacity-25">
+                <div class="col-md-6 d-flex align-items-center">
+                    <a href="/" class=" me-4 mb-md-0 text-muted text-decoration-none lh-1 fs-3">
+                        <b>MyCalcs</b>
+                    </a>
+                    <span class="mb-md-0 text-muted"><p class="footer-copyright">Copyright © 2017-2022,</p><p class="footer-copyright"> Vadim Godunko</p></span>
+                </div>
+
+                <ul class="nav col-md-6 justify-content-end list-unstyled d-flex">
+                    
+                    <li class="ms-3">
+                        <a class="text-muted" href="https://vk.com/club205227623">
+                            <img rel="icon" src="/icons/vk.ico" type="image/x-icon" class="bi" width="30" height="30">
+                        </a>
+                    </li>
+                    <li class="ms-3">
+                        <a class="text-muted" href="https://www.forumhouse.ru/threads/424675/">
+                            <img rel="icon" src="/icons/forumhouse.ico" type="image/x-icon" class="bi" width="30" height="30">
+                        </a>
+                    </li>
+                </ul>
+            </footer>
+        </div>
+
+        @RenderSection("Scripts", required: false)
+
+        <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+    </body>
+</html>

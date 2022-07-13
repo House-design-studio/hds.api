@@ -1,0 +1,17 @@
+@import "Header.css";
+@import "Footer.css";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Roboto;
+}
+html, body {
+    background-color: #DCDCDC !important;
+}
+
+.body{
+    margin-top:65px;
+    margin-bottom: 65px;
+}

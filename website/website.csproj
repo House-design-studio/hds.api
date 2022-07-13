@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\css\Footer.css" />
+    <Content Remove="wwwroot\css\Header.css" />
+    <Content Remove="wwwroot\icons\forumhouse.ico" />
+    <Content Remove="wwwroot\icons\vk.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\View\" />
+    <Folder Include="wwwroot\css\NewFolder\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\Footer.css" />
+    <None Include="wwwroot\css\Header.css" />
+    <None Include="wwwroot\icons\forumhouse.ico" />
+    <None Include="wwwroot\icons\vk.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.6" />
+  </ItemGroup>
+
+</Project>

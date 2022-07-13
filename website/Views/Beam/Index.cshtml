@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "расчёт балки";
+}
+<div class="container body">
+    <h3 class="text-center">Расчёт деревянной балки прямоугольного сечения</h3>
+    <div class="container beam-preview">
+
+    </div>
+    <form class="container mt-3 row" action="/Beam/pro/Calculate" method="post">
+        <h3 class="col-12">Характеристики балки</h3>
+
+        <!--материал-->
+        <div class="input-group mb-2">
+            <snap class="input-group-text"> Материал </snap>
+            <select class="form-select" aria-label="Material" name="Material">
+                <option value="plank_k16">Доска сосна, ель класс K16/сорт 3</option>
+                <option value="plank_k24">Доска сосна, ель класс K24/сорт 2</option>
+                <option value="plank_k26">Доска сосна, ель класс K26/сорт 1</option>
+                <option value="lvl_k35">Брус LVL класс K35/сорт 3</option>
+                <option value="lvl_k40">Брус LVL класс K40/сорт 2</option>
+                <option value="lvl_k45">Брус LVL класс K45/сорт 1</option>
+            </select>
+        </div>
+
+        <!--Доска камерной сушки?-->
+        <div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Dry_wood" name="DryWood">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Доска камерной сушки
+                </label>
+            </div>
+        </div>
+        <!--Глубокая пропитка антипиренами?-->
+        <div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="FlameRetardants" name="FlameRetardants">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Глубокая пропитка антипиренами
+                </label>
+            </div>
+        </div>
+
+        <!--линия-->
+        <hr class="my-4">
+
+        <!--ширина-->
+        <div class="input-group mb-2">
+            <span class="input-group-text">ширина </span>
+            <input type="text" class="form-control" aria-label="Width" id="Width" name="Width"> 
+            <span class="input-group-text">мм</span>
+        </div>
+
+        <!--высота-->
+        <div class="input-group mb-2">
+            <span class="-text">Высота</span>
+            <input type="text" class="form-control" aria-label="Height" id="Height" name="Height">
+            <span class="input-group-text">мм</span>
+        </div>
+
+        <!--Длинна-->
+        <div class="input-group mb-2">
+            <span class="input-group-text">Высота</span>
+            <input type="text" class="form-control" aria-label="Length" id="Length" name="Length">
+            <span class="input-group-text">мм</span>
+        </div>
+
+        <!--Количество досок-->
+        <div class="input-group">
+            <span class="input-group-text">Количество</span>
+            <input type="text" class="form-control" aria-label="Amount" id="Amount" name="Amount">
+            <span class="input-group-text">шт</span>
+        </div>
+
+        <!--линия-->
+        <hr class="my-4">
+
+        <!--Класс условий эксплуатации-->
+        <div class="input-group mb-2">
+            <button class="input-group-text" type="button" data-bs-toggle="collapse" data-bs-target="#exploitation" aria-expanded="false" aria-controls="exploitation"> Класс условий эксплуатации <img class="ms-1" rel="icon" src="/icons/info.ico" type="image/x-icon" class="bi" width="16" height="16"></button>
+            <select class="form-select" aria-label="Exploitation" name="Exploitation">
+                <option value="class_1a">1а (сухой)</option>
+                <option value="class_1b">1б (сухой)</option>
+                <option value="class_2">2 (нормальный)</option>
+                <option value="class_3">3 (влажный)</option>
+                <option value="class_4a">4а (мокрый)</option>
+                <option value="class_4b">4б (мокрый)</option>
+            </select>
+        </div>
+
+        <div class="collapse" id="exploitation">
+            <!--таблица-->
+            <table class="table table-bordered border-secondary exploitation">
+                  <thead>
+                    <tr>
+                        <th colspan="3" class="align-top">Класс условий эксплуатации</th>
+                        <th rowspan="2" class="align-top">Дополнительная характеристика условий эксплуатации конструкций</th>
+                        <th rowspan="2" class="align-top">Особенность учёта классов при расчёте конструкций</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" class="align-top">Основной класс</th>
+                        <th class="align-top">Подкласс</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th rowspan="2" class="align-middle">1</th>
+                        <th class="align-top">1а</th>
+                        <th class="align-top">-</th>
+                        <th class="align-top">При сухом режиме помещений с относительно влажностью воздуха в отопительный сезон менее 40%</th>
+                    </tr>
+                    <tr>
+                        <th class="align-top">1б</th>
+                        <th class="align-top">-</th>
+                        <th class="align-top">При сухом режиме помещений с относительно влажностью воздуха в отопительный сезон от 40% до 50%</th>
+                    </tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--Срок службы-->
+        <div class="input-group mb-2">
+            <span class="input-group-text">Срок службы</span>
+            <input type="text" class="form-control" aria-label="Life_time" id="Life_time" name="Life_time">
+            <span class="input-group-text">лет</span>
+        </div>
+
+
+        <button type="submit" style="height:40px;"></button>
+    </form>
+</div>
+
+@section Stylesheets {
+    <link rel="stylesheet" href="~/css/BeamProIndex.css"/>
+}
