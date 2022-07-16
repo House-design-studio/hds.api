@@ -16,19 +16,19 @@ namespace website.Controllers
         [HttpPost]
         public IActionResult Calculate(BeamInputModel input)
         {
-            BeamModel tmpModel;
+            BeamModel beamModel;
             try
             {
-                tmpModel = input.GetBeamModel();
+                beamModel = input.GetBeamModel();
             }
             catch
             {
                 return Redirect("/Beam/pro/Index"); //TODO: добавить параметр строки ?alert=message и скрипт на js который при загрузке его обработает
             }
             Console.WriteLine(input.ToString());
-            Console.WriteLine(tmpModel.ToString());
+            Console.WriteLine(beamModel.ToString());
 
-            return View();
+            return View(beamModel);
         }
     }
 }

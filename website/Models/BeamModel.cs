@@ -4,8 +4,8 @@
     {
         public Matireals Material { get; private set; }
         
-        public bool Dry_wood { get; private set; }
-        public bool Flame_retardants { get; private set; }
+        public bool DryWood { get; private set; }
+        public bool FlameRetardants { get; private set; }
 
         public int Width { get; private set; }
         public int Height { get; private set; }
@@ -16,6 +16,26 @@
         public Exploitations Exploitation { get; private set; }
 
         public int LifeTime { get; private set; }
+
+        public LoadingModes LoadingMode { get; private set; }
+
+        public int[] Supports { get; private set;}
+
+
+        public enum LoadingModes
+        {
+            a,
+            b,
+            v,
+            g,
+            d,
+            e,
+            j,
+            z,
+            k,
+            l,
+            m
+        }
 
         public enum Exploitations
         {
@@ -37,37 +57,38 @@
             lvl_k45
         }
 
-        public BeamModel(
-            string material,
-            string? dry_wood,
-            string? flame_retardants,
-            string width,
-            string height,
-            string length,
-            string amount,
-            string exploitation,
-            string lifeTime)
+        public BeamModel(string material,
+                         string? dryWood,
+                         string? flameRetardants,
+                         string width,
+                         string height,
+                         string length,
+                         string amount,
+                         string exploitation,
+                         string lifeTime,
+                         string loadingMode,
+                         string[] supports)
         {   
             try
             {
                 this.Material = Enum.Parse<Matireals>(material);
 
-                if (String.IsNullOrEmpty(dry_wood))
+                if (String.IsNullOrEmpty(dryWood))
                 {
-                    this.Dry_wood = false;
+                    this.DryWood = false;
                 }
-                else if(dry_wood == "on")
+                else if(dryWood == "on")
                 {
-                    this.Dry_wood = true;
+                    this.DryWood = true;
                 }
 
-                if (String.IsNullOrEmpty(flame_retardants))
+                if (String.IsNullOrEmpty(flameRetardants))
                 {
-                    this.Flame_retardants = false;
+                    this.FlameRetardants = false;
                 }
-                else if (flame_retardants == "on")
+                else if (flameRetardants == "on")
                 {
-                    this.Flame_retardants = true;
+                    this.FlameRetardants = true;
                 }
 
                 this.Width = Int32.Parse(width);
@@ -78,12 +99,20 @@
 
                 this.Exploitation = Enum.Parse<Exploitations>(exploitation);
 
-                int tmp = Int32.Parse(lifeTime);
-                if(tmp < 0)
+                if(Int32.Parse(lifeTime) < 0)
                 {
                     throw new ArgumentException("life time < 0 ");
                 }
-                this.LifeTime = tmp;
+                this.LifeTime = Int32.Parse(lifeTime);
+                
+                this.LoadingMode = Enum.Parse<LoadingModes>(loadingMode);
+
+
+                this.Supports = new int[supports.Length];
+                for(int i = 0; i < supports.Length; i++)
+                {
+                    this.Supports[i] = Int32.Parse(supports[i]);
+                }
             }
             catch
             {
@@ -93,15 +122,25 @@
 
         public override string ToString()
         {
+
+            string supports = "\t";
+
+            foreach (var s in this.Supports)
+            {
+                supports = $"{supports} \n\t {s}";
+            }
+
             return 
-                $" Material: {Material.ToString()} \n " +
-                $" Dry_wood: {Dry_wood.ToString()} \n " +
-                $" Flame_retardants: {Flame_retardants.ToString()} \n " +
-                $" Width: {Width.ToString()} \n " +
-                $" Height: {Height.ToString()} \n " +
-                $" Length: {Length.ToString()} \n " +
-                $" Amount: {Amount.ToString()} \n " +
-                $" Exploitation: {Exploitation.ToString()} \n";
+                $" Material: {Material} \n " +
+                $" Dry_wood: {DryWood} \n " +
+                $" FlameRetardants: {FlameRetardants} \n " +
+                $" Width: {Width} \n " +
+                $" Height: {Height} \n " +
+                $" Length: {Length} \n " +
+                $" Amount: {Amount} \n " +
+                $" Exploitation: {Exploitation} \n" +
+                $" LoadingMode: {LoadingMode} \n" +
+                $" Supports: {supports}";
         }
     }
 }

@@ -1,7 +1,17 @@
-﻿@{
+﻿@model BeamModel
+@{
     ViewData["Title"] = "расчёт балки";
 }
 
 <div class="container">
-    <h1>asdasdsa</h1>
+    @{
+        string[] results = Model.ToString().Split("\n");
+    }
+    <h4>
+        @foreach(var r in results)
+        {
+            @r
+            <br />
+        }
+    </h4>
 </div>
