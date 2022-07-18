@@ -39,17 +39,21 @@ function AddUniformlyDistributedLoadV1() {
     elem.setAttribute('id', 'UniformlyDistributedLoadV1_' + nextNum)
     elem.innerHTML = `
                 <div class="row mb-1">
-                    <h6 class="col-4 col-xl-3 load_title align-middle">Нагрузка ${nextNum}</h6>
-                    <button type="button" class="btn btn-outline-danger col-4 col-xl-3 buttons-margin" onclick="DeleteElementById('UniformlyDistributedLoadV1_${nextNum}')"> Удалить</button>
+
+                    <div class="col-6 col-md-3 mb-0 d-flex align-items-center">
+                        <h5 class="mb-0">Нагрузка ${nextNum}</h5>
+                    </div>
+
+                    <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" onclick="DeleteElementById('UniformlyDistributedLoadV1_${nextNum}')"> Удалить</button>
                 </div>
                 <!--Нормативная величина кг/м2-->
                 <div class="row align-items-center mb-1">
                     <div class="col-12 col-lg-3">
-                        <label class="form-label" for="NormativeValue" > Нормативная величина </label>
+                        <label class="form-label" for="NormativeValue${nextNum}" > Нормативная величина </label>
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="NormativeValue" id="NormativeValue" name="NormativeValue" value="1">
+                            <input type="text" class="form-control" aria-label="NormativeValue" id="NormativeValue${nextNum}" name="NormativeValue" value="1">
                             <span class="input-group-text">кг/м<sup>2</sup></span>
                         </div>
                     </div>
@@ -58,11 +62,11 @@ function AddUniformlyDistributedLoadV1() {
                 <!--Ширина грузовой площади кг/м2-->
                 <div class="row align-items-center mb-1">
                     <div class="col-12 col-lg-3">
-                        <label class="form-label" for="LoadAreaWidth" > Ширина грузовой площади </label>
+                        <label class="form-label" for="LoadAreaWidth${nextNum}" > Ширина грузовой площади </label>
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="LoadAreaWidth" id="LoadAreaWidth" name="LoadAreaWidth" value="1">
+                            <input type="text" class="form-control" aria-label="LoadAreaWidth" id="LoadAreaWidth${nextNum}" name="LoadAreaWidth" value="1">
                             <span class="input-group-text">мм</span>
                         </div>
                     </div>
@@ -71,11 +75,11 @@ function AddUniformlyDistributedLoadV1() {
                 <!--коэффициент надёжности-->
                 <div class="row align-items-center mb-1">
                     <div class="col-12 col-lg-3">
-                        <label class="form-label" for="ReliabilityCoefficient" > Коэффициент надёжности </label>
+                        <label class="form-label" for="ReliabilityCoefficient${nextNum}" > Коэффициент надёжности </label>
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="ReliabilityCoefficient" id="ReliabilityCoefficient" name="ReliabilityCoefficient" value="1">
+                            <input type="text" class="form-control" aria-label="ReliabilityCoefficient" id="ReliabilityCoefficient${nextNum}" name="ReliabilityCoefficient" value="1">
                         </div>
                     </div>
                 </div>
@@ -95,7 +99,49 @@ function AddUniformlyDistributedLoadV1() {
 }
 
 function AddUniformlyDistributedLoadsV2() {
+    let nextNum = GetNextNum('.UniformlyDistributedLoadV2');
 
+    let elem = document.createElement("div");
+    elem.className = 'UniformlyDistributedLoadV2 mb-4';
+    elem.setAttribute('name', nextNum);
+    elem.setAttribute('id', 'UniformlyDistributedLoadV2_' + nextNum)
+    elem.innerHTML = `
+            <div id="UniformlyDistributedLoadV2_${nextNum}" class="UniformlyDistributedLoadV2 mb-4" >
+                    
+                <div class="row mb-1">
+                    <div class="col-6 col-md-3 mb-0 d-flex align-items-center">
+                        <h5 class="mb-0">Нагрузка ${nextNum}</h5>
+                    </div>
+                    <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" onclick="DeleteElementById('UniformlyDistributedLoadV2_${nextNum}')"> Удалить</button>
+                </div>
+                <!--нагрузка для расчёта по первой группе предельных состояний-->
+                <div class="row align-items-center mb-1">
+                    <div class="col-12 col-lg-5">
+                        <label class="form-label" for="LoadForFirstGroup${nextNum}"> нагрузка для расчёта по первой группе </label>
+                    </div>
+                    <div class="col-12 col-lg-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="LoadForFirstGroup" id="LoadForFirstGroup${nextNum}" name="LoadForFirstGroup" value="1">
+                            <span class="input-group-text">кг/м</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--нагрузка для расчёта по второй группе предельных состояний-->
+                <div class="row align-items-center mb-1">
+                    <div class="col-12 col-lg-5">
+                        <label class="form-label" for="LoadForSecondGroup${nextNum}"> нагрузка для расчёта по второй группе </label>
+                    </div>
+                    <div class="col-12 col-lg-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="LoadForSecondGroup" id="LoadForSecondGroup${nextNum}" name="LoadForSecondGroup" value="1">
+                            <span class="input-group-text">кг/м</span>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+    $UDLV2s.append(elem);
 }
 
 function GetLastNum(selector) {

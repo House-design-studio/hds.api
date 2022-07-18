@@ -348,7 +348,7 @@
 
                 <div class="col-8 col-lg-6">
                     <div class="input-group">
-                        <input type="text" class="form-control" aria-label="Support" id="support1" name="Supports" value="3000">
+                        <input type="text" class="form-control" aria-label="Support" id="support1" name="Supports" value="0">
                         <span class="input-group-text">мм</span>
                     </div>
                 </div>
@@ -384,85 +384,18 @@
         <button onclick="AddUniformlyDistributedLoadV1()" type="button" class="btn btn-secondary col-12 col-md-4 col-lg-3 mb-2 mb-md-4 me-4 buttons-margin" id="AddUniformlyDistributedV1">Добавить Вариант 1</button>
 
         <!--добавить Нормативные равномерно распределённые нагрузки в2-->
-        <button onclick="UniformlyDistributedLoadsV2()" type="button" class="btn btn-secondary col-12 col-md-4 col-lg-3 mb-2 mb-md-4" id="AddUniformlyDistributedV2">Добавить Вариант 2</button>
+        <button onclick="AddUniformlyDistributedLoadsV2()" type="button" class="btn btn-secondary col-12 col-md-4 col-lg-3 mb-2 mb-md-4 buttons-margin" id="AddUniformlyDistributedV2">Добавить Вариант 2</button>
 
         <!--Нормативные равномерно распределённые нагрузки в1-->
-        <h5 class="mb-4">Вариант 1</h5>
         <div id="UniformlyDistributedLoadsV1">
 
-            <!--элемент-->
-            <div class="UniformlyDistributedLoadV1 mb-4">
-                <div class="row mb-1">
-                    <h6 class="col-4 col-xl-3 load_title align-middle">Нагрузка 1</h6>
-                    <button type="button" class="btn btn-outline-danger col-4 col-xl-3 buttons-margin"> Удалить</button>
-                </div>
-                <!--Нормативная величина кг/м2-->
-                <div class="row align-items-center mb-1">
-                    <div class="col-12 col-lg-4 col-xl-3">
-                        <label class="form-label" for="NormativeValue" > Нормативная величина </label>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="input-group">
-                            <input type="text" class="form-control" aria-label="NormativeValue" id="NormativeValue" name="NormativeValue" value="1">
-
-                            <!--TODO: select UM kg/m or kg/m + width and script 'on change'.-->
-                            <span class="input-group-text">кг/м<sup>2</sup></span>
-
-
-                        </div>
-                    </div>
-                </div>
-
-                <!--Ширина грузовой площади кг/м2-->
-                <div class="row align-items-center mb-1">
-                    <div class="col-12 col-lg-4 col-xl-3">
-                        <label class="form-label" for="LoadAreaWidth" > Ширина грузовой площади </label>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="input-group">
-                            <input type="text" class="form-control" aria-label="LoadAreaWidth" id="LoadAreaWidth" name="LoadAreaWidth" value="1">
-                            <span class="input-group-text">мм</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!--коэффициент надёжности-->
-                <div class="row align-items-center mb-1">
-                    <div class="col-12 col-lg-4 col-xl-3">
-                        <label class="form-label" for="ReliabilityCoefficient" > Коэффициент надёжности </label>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="input-group">
-                            <input type="text" class="form-control" aria-label="ReliabilityCoefficient" id="ReliabilityCoefficient" name="ReliabilityCoefficient" value="1">
-                        </div>
-                    </div>
-                </div>
-
-                <!--коэффициент понижающий-->
-                <div class="row align-items-center">
-                    <div class="col-12 col-lg-4 col-xl-3">
-                        <label class="form-label" for="ReducingFactor" > Понижающий коэффициент </label>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="input-group">
-                            <input type="text" class="form-control" aria-label="ReducingFactor" id="ReducingFactor" name="ReducingFactor" value="1">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
         </div>
-
-        <!--линия-->
-        <hr class="my-4">
 
         <!--Нормативные равномерно распределённые нагрузки в2-->
-        <h6>Вариант 2</h6>
         <div id="UniformlyDistributedLoadsV2">
-            <!---->
+
         </div>
+
         <!--линия-->
         <hr class="my-4">
 

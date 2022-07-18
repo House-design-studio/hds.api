@@ -21,7 +21,12 @@
 .buttons-margin {
     margin-left: 12px;
 }
+.but-ms-md {
+    margin-left: 13px;
+}
 
-.load_title {
-    margin-bottom: 0;
+@media (max-width:768px){
+    .but-ms-md{
+        margin-left:0px;
+    }
 }
