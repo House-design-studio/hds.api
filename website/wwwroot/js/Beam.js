@@ -27,11 +27,7 @@ function AddSupport() {
 
 
     $supports.append(elem);
-    
-}
 
-function DeleteSupport(number) {
-    $supports.removeChild(document.getElementById('support' + number).parentElement.parentElement.parentElement);
 }
 
 function AddUniformlyDistributedLoadV1() {
@@ -40,9 +36,12 @@ function AddUniformlyDistributedLoadV1() {
     let elem = document.createElement("div");
     elem.className = 'UniformlyDistributedLoadV1 mb-4';
     elem.setAttribute('name', nextNum);
-    elem.innerHTML =
-        `            
-                <h6>Нагрузка ${nextNum}</h6>
+    elem.setAttribute('id', 'UniformlyDistributedLoadV1_' + nextNum)
+    elem.innerHTML = `
+                <div class="row mb-1">
+                    <h6 class="col-4 col-xl-3 load_title align-middle">Нагрузка ${nextNum}</h6>
+                    <button type="button" class="btn btn-outline-danger col-4 col-xl-3 buttons-margin" onclick="DeleteElementById('UniformlyDistributedLoadV1_${nextNum}')"> Удалить</button>
+                </div>
                 <!--Нормативная величина кг/м2-->
                 <div class="row align-items-center mb-1">
                     <div class="col-12 col-lg-3">
@@ -112,9 +111,11 @@ function GetLastNum(selector) {
 
     return nextNum;
 }
+
 function GetNextNum(selector) {
     return GetLastNum(selector) + 1;
 }
+
 function DeleteElementById(id) {
     let element = document.getElementById(id);
     element.parentNode.removeChild(element);

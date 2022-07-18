@@ -1,16 +1,27 @@
-﻿.beam-preview{
-    height:350px;
+﻿.beam-preview {
+    height: 350px;
     background-color: darkblue;
 }
-.table-text{
-    font-size:0.8rem !important;
+
+.table-text {
+    font-size: 0.8rem !important;
 }
+
 .form-label {
     margin-bottom: 0 !important;
 }
+
 .link-no-style:active,
 .link-no-style:hover,
 .link-no-style {
     text-decoration: none;
     color: #212529;
+}
+
+.buttons-margin {
+    margin-left: 12px;
+}
+
+.load_title {
+    margin-bottom: 0;
 }
