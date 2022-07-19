@@ -25,10 +25,12 @@ namespace website.Controllers
             {
                 return Redirect("/Beam/pro/Index"); //TODO: добавить параметр строки ?alert=message и скрипт на js который при загрузке его обработает
             }
+
+            var output = new BeamOutputModel(beamModel);
             Console.WriteLine(input.ToString());
             Console.WriteLine(beamModel.ToString());
 
-            return View("Calculate", beamModel);
+            return View("Calculate", output);
         }
     }
 }

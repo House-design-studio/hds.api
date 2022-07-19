@@ -12,6 +12,9 @@ html, body {
 }
 
 .body{
-    margin-top:65px;
+    margin-top:65px !important;
     margin-bottom: 65px;
+}
+.content {
+    padding: 0 !important;
 }
