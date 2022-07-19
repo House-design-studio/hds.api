@@ -5,8 +5,8 @@ builder.Services.AddMvc();
 builder.Services.AddAuthentication()
     .AddGoogle(opt =>
     {
-       //
-       //opt.CallbackPath = "/signin-google";
+        //
+        //opt.CallbackPath = "/signin-google";
         opt.ClientId = "85698311721-oirjtrrfhln6bhite8g4hig2sfd2iend.apps.googleusercontent.com";
         opt.ClientSecret = "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";
     });

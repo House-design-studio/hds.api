@@ -21,7 +21,7 @@ namespace website.Controllers
             {
                 beamModel = input.Parse();
             }
-            catch 
+            catch
             {
                 return Redirect("/Beam/pro/Index"); //TODO: добавить параметр строки ?alert=message и скрипт на js который при загрузке его обработает
             }

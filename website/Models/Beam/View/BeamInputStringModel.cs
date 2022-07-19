@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace website.Models.Beam.View
+﻿namespace website.Models.Beam.View
 {
     public class BeamInputStringModel
     {
