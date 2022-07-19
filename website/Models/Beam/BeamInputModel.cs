@@ -1,4 +1,4 @@
-﻿namespace website.Models
+﻿namespace website.Models.Beam
 {
     public class BeamInputModel
     {
@@ -10,7 +10,6 @@
         public int Width { get; private set; }
         public int Height { get; private set; }
         public int Length { get; private set; }
-
         public int Amount { get; private set; }
 
         public Exploitations Exploitation { get; private set; }
@@ -30,15 +29,15 @@
             public int NormativeValue { get; private set; }
             public UnitsOfMeasurement NormativValueUM { get; private set; }
             public int? LoadAreaWidth { get; private set; }
-            public int ReliabilityCoefficient { get; private set; }
-            public int ReducingFactor { get; private set; }
+            public double ReliabilityCoefficient { get; private set; }
+            public double ReducingFactor { get; private set; }
 
             public NormativeEvenlyDistributedLoadV1(
                 int normativeValue,
                 UnitsOfMeasurement normativValueUM,
                 int? loadAreaWidth,
-                int reliabilityCoefficient,
-                int reducingFactor)
+                double reliabilityCoefficient,
+                double reducingFactor)
             {
                 this.NormativeValue = normativeValue;
                 this.NormativValueUM = normativValueUM;

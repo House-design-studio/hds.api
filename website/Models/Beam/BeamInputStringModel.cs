@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Globalization;
 
-namespace website.Models
+namespace website.Models.Beam
 {
     public class BeamInputStringModel
     {
@@ -55,8 +55,12 @@ namespace website.Models
                 {
                     var normativValue = Int32.Parse(this.NormativeValue[i]);
                     var normativValueUM = Enum.Parse<BeamInputModel.UnitsOfMeasurement>(this.NormativeValueumUM[i]);
-                    var reliabilityCoefficient = Int32.Parse(this.ReliabilityCoefficient[i]);
-                    var reducingFactor = Int32.Parse(this.ReducingFactor[i]);
+
+                    var tmp = this.ReliabilityCoefficient[i].Replace('.', ',');
+                    var tmp2 = this.ReducingFactor[i].Replace('.', ',');
+                    var reliabilityCoefficient = Double.Parse(tmp);
+                    var reducingFactor = Double.Parse(tmp2);
+
                     int? loadAreaWidth;
 
                     if (normativValueUM == BeamInputModel.UnitsOfMeasurement.kgm)
