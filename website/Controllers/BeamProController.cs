@@ -14,12 +14,12 @@ namespace website.Controllers
         }
 
         [HttpPost]
-        public IActionResult Calculate(BeamInputModel input)
+        public IActionResult Calculate(BeamInputStringModel input)
         {
-            BeamModel beamModel;
+            BeamInputModel beamModel;
             try
             {
-                beamModel = input.GetBeamModel();
+                beamModel = input.Parse();
             }
             catch 
             {

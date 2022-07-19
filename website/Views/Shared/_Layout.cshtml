@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
 
         @RenderSection("Stylesheets", required: false)
-
+        
     </head>
     <body>
         <nav class="navbar navbar-expand-xl navbar-dark bg-dark fixed-top">
@@ -113,9 +113,10 @@
             </footer>
         </div>
 
-        @RenderSection("Scripts", required: false)
+        
 
         <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://accounts.google.com/gsi/client" async defer></script>
+        @RenderSection("Scripts", required: false)
     </body>
 </html>

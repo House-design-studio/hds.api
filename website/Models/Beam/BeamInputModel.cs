@@ -1,136 +1,180 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace website.Models
+﻿namespace website.Models
 {
     public class BeamInputModel
     {
-#pragma warning disable CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
-        public string Material { get; set; }
+        public Matireals Material { get; private set; }
+        
+        public bool DryWood { get; private set; }
+        public bool FlameRetardants { get; private set; }
 
-        public string? DryWood { get; set; }
-        public string? FlameRetardants { get; set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
+        public int Length { get; private set; }
 
-        public string Width { get; set; }
-        public string Height { get; set; }
-        public string Length { get; set; }
+        public int Amount { get; private set; }
 
-        public string Amount { get; set; }
+        public Exploitations Exploitation { get; private set; }
 
-        public string Exploitation { get; set; }
+        public int LifeTime { get; private set; }
 
-        public string LifeTime { get; set; }
+        public LoadingModes LoadingMode { get; private set; }
 
-        public string LoadingMode { get; set; }
+        public int[] Supports { get; private set;}
 
-        public string[] Supports { get; set; }
-
-
-        public string[] NormativeValue { get; set; }
-        public string[] LoadAreaWidth { get; set; }
-        public string[] ReliabilityCoefficient { get; set; }
-        public string[] ReducingFactor { get; set; }
-
-        public string[] LoadForFirstGroup { get; set; }
-        public string[] LoadForSecondGroup { get; set; }
+        public List<NormativeEvenlyDistributedLoadV1>? NormativeEvenlyDistributedLoadsV1 { get; set; }
+        public List<NormativeEvenlyDistributedLoadV2>? NormativeEvenlyDistributedLoadsV2 { get; set; }
 
 
-#pragma warning restore CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
-
-        public BeamModel GetBeamModel()
+        public class NormativeEvenlyDistributedLoadV1
         {
-            bool dryWood;
-            bool flameRetardants;
-            int[] supports = new int[Supports.Length];
+            public int NormativeValue { get; private set; }
+            public UnitsOfMeasurement NormativValueUM { get; private set; }
+            public int? LoadAreaWidth { get; private set; }
+            public int ReliabilityCoefficient { get; private set; }
+            public int ReducingFactor { get; private set; }
 
-            List<BeamModel.NormativeEvenlyDistributedLoadV1>? normativeEvenlyDistributedLoadsV1;
-            List<BeamModel.NormativeEvenlyDistributedLoadV2>? normativeEvenlyDistributedLoadsV2;
-
-            if (this.NormativeValue != null)
+            public NormativeEvenlyDistributedLoadV1(
+                int normativeValue,
+                UnitsOfMeasurement normativValueUM,
+                int? loadAreaWidth,
+                int reliabilityCoefficient,
+                int reducingFactor)
             {
-                normativeEvenlyDistributedLoadsV1 = new List<BeamModel.NormativeEvenlyDistributedLoadV1>();
+                this.NormativeValue = normativeValue;
+                this.NormativValueUM = normativValueUM;
+                this.LoadAreaWidth = loadAreaWidth;
+                this.ReliabilityCoefficient = reliabilityCoefficient;
+                this.ReducingFactor = reducingFactor;
+            }
+        }
 
-                for (int i = 0; i < NormativeValue.Length; i++)
+        public class NormativeEvenlyDistributedLoadV2
+        {
+            public int LoadForFirstGroup { get; set; }
+            public int LoadForSecondGroup { get; set; }
+
+            public NormativeEvenlyDistributedLoadV2(
+                int loadForFirstGroup,
+                int loadForSecondGroup)
+            {
+                this.LoadForFirstGroup = loadForFirstGroup;
+                this.LoadForSecondGroup = loadForSecondGroup;
+            }
+        }
+
+        public enum UnitsOfMeasurement
+        {
+            kgm,
+            kgm2
+        }
+        public enum LoadingModes
+        {
+            a,
+            b,
+            v,
+            g,
+            d,
+            e,
+            j,
+            z,
+            k,
+            l,
+            m
+        }
+
+        public enum Exploitations
+        {
+            class_1a,
+            class_1b,
+            class_2,
+            class_3,
+            class_4a,
+            class_4b
+        }
+
+        public enum Matireals
+        {
+            plank_k16,
+            plank_k24,
+            plank_k26,
+            lvl_k35,
+            lvl_k40,
+            lvl_k45
+        }
+
+        public BeamInputModel(Matireals material,
+                         bool dryWood,
+                         bool flameRetardants,
+                         int width,
+                         int height,
+                         int length,
+                         int amount,
+                         Exploitations exploitation,
+                         int lifeTime,
+                         LoadingModes loadingMode,
+                         int[] supports,
+                         List<NormativeEvenlyDistributedLoadV1>? normativeEvenlyDistributedLoadsV1,
+                         List<NormativeEvenlyDistributedLoadV2>? normativeEvenlyDistributedLoadsV2)
+        {
+            this.Material = material;
+            this.DryWood = dryWood;
+            this.Width = width;
+            this.Height = height;
+            this.Length = length;
+            this.Amount = amount;
+            this.Exploitation = exploitation;
+
+            if(lifeTime < 0)
+            {
+                throw new ArgumentException("not valid life time");
+            }
+            this.LifeTime = lifeTime;
+            this.LoadingMode = loadingMode;
+            this.Supports = supports;
+
+            this.NormativeEvenlyDistributedLoadsV1 = normativeEvenlyDistributedLoadsV1;
+            this.NormativeEvenlyDistributedLoadsV2 = normativeEvenlyDistributedLoadsV2;
+        }
+
+        public override string ToString()
+        {
+
+            string supports = "\t";
+            string loads = "\t";
+
+            foreach (var s in this.Supports)
+            {
+                supports = $"{supports} \n\t {s}";
+            }
+
+            if(this.NormativeEvenlyDistributedLoadsV1 != null)
+            {
+                foreach(var n in this.NormativeEvenlyDistributedLoadsV1)
                 {
-                    normativeEvenlyDistributedLoadsV1.Add(
-                        new BeamModel.NormativeEvenlyDistributedLoadV1(
-                            Int32.Parse(this.NormativeValue[i]),
-                            Int32.Parse(this.LoadAreaWidth[i]),
-                            Int32.Parse(this.ReliabilityCoefficient[i]),
-                            Int32.Parse(this.ReducingFactor[i])));
+                    loads = $"{loads} \n\t {n.NormativeValue} {n.NormativValueUM} {n.LoadAreaWidth} {n.ReliabilityCoefficient} {n.ReducingFactor} \n\t";
                 }
             }
-            else
+
+            if (this.NormativeEvenlyDistributedLoadsV2 != null)
             {
-                normativeEvenlyDistributedLoadsV1 = null;
-            }
-
-
-            
-            if (this.LoadForFirstGroup != null)
-            {
-                normativeEvenlyDistributedLoadsV2 = new List<BeamModel.NormativeEvenlyDistributedLoadV2>();
-
-                for (int i = 0; i < LoadForFirstGroup.Length; i++)
+                foreach (var n in this.NormativeEvenlyDistributedLoadsV2)
                 {
-                    normativeEvenlyDistributedLoadsV2.Add(
-                        new BeamModel.NormativeEvenlyDistributedLoadV2(
-                            Int32.Parse(this.LoadForFirstGroup[i]),
-                            Int32.Parse(this.LoadForSecondGroup[i])));
+                    loads = $"{loads} \n\t {n.LoadForFirstGroup} {n.LoadForSecondGroup} \n\t";
                 }
             }
-            else
-            {
-                normativeEvenlyDistributedLoadsV2 = null;
-            }
 
-            if (String.IsNullOrEmpty(this.DryWood))
-            {
-                dryWood = false;
-            }else if(this.DryWood == "on")
-            {
-                dryWood = true;
-            }
-            else
-            {
-                throw new ArgumentException("bad dry wood input");
-            }
-
-            if (String.IsNullOrEmpty(this.FlameRetardants))
-            {
-                flameRetardants = false;
-            }
-            else if (this.FlameRetardants == "on")
-            {
-                flameRetardants = true;
-            }
-            else
-            {
-                throw new ArgumentException("bad flame retardants input");
-            }
-
-            for(int i = 0; i < this.Supports.Length; i++)
-            {
-                supports[i] = Int32.Parse(this.Supports[i]);
-            }
-
-
-
-            return new BeamModel(
-                Enum.Parse<BeamModel.Matireals>(this.Material),
-                dryWood,
-                flameRetardants,
-                Int32.Parse(this.Width),
-                Int32.Parse(this.Height),
-                Int32.Parse(this.Length),
-                Int32.Parse(this.Amount),
-                Enum.Parse<BeamModel.Exploitations>(this.Exploitation),
-                Int32.Parse(this.LifeTime),
-                Enum.Parse<BeamModel.LoadingModes>(this.LoadingMode),
-                supports,
-                normativeEvenlyDistributedLoadsV1,
-                normativeEvenlyDistributedLoadsV2
-                );
-
+            return 
+                $" Material: {Material} \n " +
+                $" Dry_wood: {DryWood} \n " +
+                $" FlameRetardants: {FlameRetardants} \n " +
+                $" Width: {Width} \n " +
+                $" Height: {Height} \n " +
+                $" Length: {Length} \n " +
+                $" Amount: {Amount} \n " +
+                $" Exploitation: {Exploitation} \n" +
+                $" LoadingMode: {LoadingMode} \n" +
+                $" Supports: {supports} \n" +
+                $" loads: {loads}";
         }
     }
 }

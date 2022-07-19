@@ -25,7 +25,12 @@
     margin-left: 13px;
 }
 
-@media (max-width:768px){
+.UMChoise {
+    padding-right: 2rem;
+    width:95px !important;
+}
+
+@media (max-width:768px) {
     .but-ms-md{
         margin-left:0px;
     }

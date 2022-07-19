@@ -54,13 +54,18 @@ function AddUniformlyDistributedLoadV1() {
                     <div class="col-12 col-lg-6">
                         <div class="input-group">
                             <input type="text" class="form-control" aria-label="NormativeValue" id="NormativeValue${nextNum}" name="NormativeValue" value="1">
-                            <span class="input-group-text">кг/м<sup>2</sup></span>
+                            <div class="input-group-text p-0">
+                                <select class="form-select input-group-text pe-4 UMChoise" aria-label="NormativeValueumUM" name="NormativeValueumUM" id="NormativeValueumUM${nextNum}" onchange="UpdateUniformlyDistributedLoadV1('NormativeValueumUM${nextNum}', 'LoadAreaWidthContainer${nextNum}', 'ReliabilityCoefficientContainer${nextNum}')">
+                                    <option value="kgm2" select>кг/м<sup>2</sup></option>
+                                    <option value="kgm">кг/м</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!--Ширина грузовой площади кг/м2-->
-                <div class="row align-items-center mb-1">
+                <div class="row align-items-center mb-1" id="LoadAreaWidthContainer${nextNum}">
                     <div class="col-12 col-lg-3">
                         <label class="form-label" for="LoadAreaWidth${nextNum}" > Ширина грузовой площади </label>
                     </div>
@@ -73,7 +78,7 @@ function AddUniformlyDistributedLoadV1() {
                 </div>
 
                 <!--коэффициент надёжности-->
-                <div class="row align-items-center mb-1">
+                <div class="row align-items-center mb-1" id="ReliabilityCoefficientContainer${nextNum}">
                     <div class="col-12 col-lg-3">
                         <label class="form-label" for="ReliabilityCoefficient${nextNum}" > Коэффициент надёжности </label>
                     </div>
@@ -98,6 +103,44 @@ function AddUniformlyDistributedLoadV1() {
     $UDLV1s.append(elem);
 }
 
+function UpdateUniformlyDistributedLoadV1(choise_id, update_id, insert_id) {
+    let choiseElem = document.getElementById(choise_id);
+    let choise = choiseElem.selectedIndex;
+
+    let updateElem = document.getElementById(update_id);
+
+    let insertElem = document.getElementById(insert_id);
+
+    if (choise === 0) { //kgm2
+        if (updateElem === null) {
+            let elem = document.createElement("div");
+            let id_num = choise_id.slice(18);
+
+            elem.className = 'row align-items-center mb-1';
+            elem.setAttribute('id', 'LoadAreaWidthContainer' + id_num);
+            elem.innerHTML = `
+                    <div class="col-12 col-lg-3">
+                        <label class="form-label" for="LoadAreaWidth${id_num}" > Ширина грузовой площади </label>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="LoadAreaWidth" id="LoadAreaWidth${id_num}" name="LoadAreaWidth" value="1">
+                            <span class="input-group-text">мм</span>
+                        </div>
+                    </div>
+            `;
+
+            insertElem.parentNode.insertBefore(elem, insertElem);
+        }
+    }
+    else if (choise === 1) { //kgm
+        try {
+            DeleteElementById(update_id)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+}
 function AddUniformlyDistributedLoadsV2() {
     let nextNum = GetNextNum('.UniformlyDistributedLoadV2');
 
@@ -109,7 +152,7 @@ function AddUniformlyDistributedLoadsV2() {
             <div id="UniformlyDistributedLoadV2_${nextNum}" class="UniformlyDistributedLoadV2 mb-4" >
                     
                 <div class="row mb-1">
-                    <div class="col-6 col-md-3 mb-0 d-flex align-items-center">
+                    <div class="col-6 col-md-5 mb-0 d-flex align-items-center">
                         <h5 class="mb-0">Нагрузка ${nextNum}</h5>
                     </div>
                     <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" onclick="DeleteElementById('UniformlyDistributedLoadV2_${nextNum}')"> Удалить</button>
