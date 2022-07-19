@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace website.Models.Beam
+namespace website.Models.Beam.View
 {
     public class BeamInputStringModel
     {
@@ -46,20 +46,20 @@ namespace website.Models.Beam
             List<BeamInputModel.NormativeEvenlyDistributedLoadV1>? normativeEvenlyDistributedLoadsV1;
             List<BeamInputModel.NormativeEvenlyDistributedLoadV2>? normativeEvenlyDistributedLoadsV2;
 
-            if (this.NormativeValue != null)
+            if (NormativeValue != null)
             {
                 normativeEvenlyDistributedLoadsV1 = new List<BeamInputModel.NormativeEvenlyDistributedLoadV1>();
                 int loadAreaIterator = 0;
 
                 for (int i = 0; i < NormativeValue.Length; i++)
                 {
-                    var normativValue = Int32.Parse(this.NormativeValue[i]);
-                    var normativValueUM = Enum.Parse<BeamInputModel.UnitsOfMeasurement>(this.NormativeValueumUM[i]);
+                    var normativValue = int.Parse(NormativeValue[i]);
+                    var normativValueUM = Enum.Parse<BeamInputModel.UnitsOfMeasurement>(NormativeValueumUM[i]);
 
-                    var tmp = this.ReliabilityCoefficient[i].Replace('.', ',');
-                    var tmp2 = this.ReducingFactor[i].Replace('.', ',');
-                    var reliabilityCoefficient = Double.Parse(tmp);
-                    var reducingFactor = Double.Parse(tmp2);
+                    var tmp = ReliabilityCoefficient[i].Replace('.', ',');
+                    var tmp2 = ReducingFactor[i].Replace('.', ',');
+                    var reliabilityCoefficient = double.Parse(tmp);
+                    var reducingFactor = double.Parse(tmp2);
 
                     int? loadAreaWidth;
 
@@ -67,9 +67,9 @@ namespace website.Models.Beam
                     {
                         loadAreaWidth = null;
                     }
-                    else if(normativValueUM == BeamInputModel.UnitsOfMeasurement.kgm2)
+                    else if (normativValueUM == BeamInputModel.UnitsOfMeasurement.kgm2)
                     {
-                        loadAreaWidth = Int32.Parse(this.LoadAreaWidth[loadAreaIterator]);
+                        loadAreaWidth = int.Parse(LoadAreaWidth[loadAreaIterator]);
                         loadAreaIterator++;
                     }
                     else
@@ -91,8 +91,8 @@ namespace website.Models.Beam
             }
 
 
-            
-            if (this.LoadForFirstGroup != null)
+
+            if (LoadForFirstGroup != null)
             {
                 normativeEvenlyDistributedLoadsV2 = new List<BeamInputModel.NormativeEvenlyDistributedLoadV2>();
 
@@ -100,8 +100,8 @@ namespace website.Models.Beam
                 {
                     normativeEvenlyDistributedLoadsV2.Add(
                         new BeamInputModel.NormativeEvenlyDistributedLoadV2(
-                            Int32.Parse(this.LoadForFirstGroup[i]),
-                            Int32.Parse(this.LoadForSecondGroup[i])));
+                            int.Parse(LoadForFirstGroup[i]),
+                            int.Parse(LoadForSecondGroup[i])));
                 }
             }
             else
@@ -109,10 +109,11 @@ namespace website.Models.Beam
                 normativeEvenlyDistributedLoadsV2 = null;
             }
 
-            if (String.IsNullOrEmpty(this.DryWood))
+            if (string.IsNullOrEmpty(DryWood))
             {
                 dryWood = false;
-            }else if(this.DryWood == "on")
+            }
+            else if (DryWood == "on")
             {
                 dryWood = true;
             }
@@ -121,11 +122,11 @@ namespace website.Models.Beam
                 throw new ArgumentException("bad dry wood input");
             }
 
-            if (String.IsNullOrEmpty(this.FlameRetardants))
+            if (string.IsNullOrEmpty(FlameRetardants))
             {
                 flameRetardants = false;
             }
-            else if (this.FlameRetardants == "on")
+            else if (FlameRetardants == "on")
             {
                 flameRetardants = true;
             }
@@ -134,24 +135,24 @@ namespace website.Models.Beam
                 throw new ArgumentException("bad flame retardants input");
             }
 
-            for(int i = 0; i < this.Supports.Length; i++)
+            for (int i = 0; i < Supports.Length; i++)
             {
-                supports[i] = Int32.Parse(this.Supports[i]);
+                supports[i] = int.Parse(Supports[i]);
             }
 
 
 
             return new BeamInputModel(
-                Enum.Parse<BeamInputModel.Matireals>(this.Material),
+                Enum.Parse<BeamInputModel.Matireals>(Material),
                 dryWood,
                 flameRetardants,
-                Int32.Parse(this.Width),
-                Int32.Parse(this.Height),
-                Int32.Parse(this.Length),
-                Int32.Parse(this.Amount),
-                Enum.Parse<BeamInputModel.Exploitations>(this.Exploitation),
-                Int32.Parse(this.LifeTime),
-                Enum.Parse<BeamInputModel.LoadingModes>(this.LoadingMode),
+                int.Parse(Width),
+                int.Parse(Height),
+                int.Parse(Length),
+                int.Parse(Amount),
+                Enum.Parse<BeamInputModel.Exploitations>(Exploitation),
+                int.Parse(LifeTime),
+                Enum.Parse<BeamInputModel.LoadingModes>(LoadingMode),
                 supports,
                 normativeEvenlyDistributedLoadsV1,
                 normativeEvenlyDistributedLoadsV2

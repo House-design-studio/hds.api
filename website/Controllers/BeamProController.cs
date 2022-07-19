@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using website.Models.Beam;
+using website.Models.Beam.View;
 
 namespace website.Controllers
 {
@@ -14,7 +14,7 @@ namespace website.Controllers
         }
 
         [HttpPost]
-        public IActionResult Calculate(BeamInputStringModel input)
+        public IActionResult Index(BeamInputStringModel input)
         {
             BeamInputModel beamModel;
             try
@@ -28,7 +28,7 @@ namespace website.Controllers
             Console.WriteLine(input.ToString());
             Console.WriteLine(beamModel.ToString());
 
-            return View(beamModel);
+            return View("Calculate", beamModel);
         }
     }
 }

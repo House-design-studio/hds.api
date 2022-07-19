@@ -1,9 +1,9 @@
-﻿namespace website.Models.Beam
+﻿namespace website.Models.Beam.View
 {
     public class BeamInputModel
     {
         public Matireals Material { get; private set; }
-        
+
         public bool DryWood { get; private set; }
         public bool FlameRetardants { get; private set; }
 
@@ -18,7 +18,7 @@
 
         public LoadingModes LoadingMode { get; private set; }
 
-        public int[] Supports { get; private set;}
+        public int[] Supports { get; private set; }
 
         public List<NormativeEvenlyDistributedLoadV1>? NormativeEvenlyDistributedLoadsV1 { get; set; }
         public List<NormativeEvenlyDistributedLoadV2>? NormativeEvenlyDistributedLoadsV2 { get; set; }
@@ -39,11 +39,11 @@
                 double reliabilityCoefficient,
                 double reducingFactor)
             {
-                this.NormativeValue = normativeValue;
-                this.NormativValueUM = normativValueUM;
-                this.LoadAreaWidth = loadAreaWidth;
-                this.ReliabilityCoefficient = reliabilityCoefficient;
-                this.ReducingFactor = reducingFactor;
+                NormativeValue = normativeValue;
+                NormativValueUM = normativValueUM;
+                LoadAreaWidth = loadAreaWidth;
+                ReliabilityCoefficient = reliabilityCoefficient;
+                ReducingFactor = reducingFactor;
             }
         }
 
@@ -56,8 +56,8 @@
                 int loadForFirstGroup,
                 int loadForSecondGroup)
             {
-                this.LoadForFirstGroup = loadForFirstGroup;
-                this.LoadForSecondGroup = loadForSecondGroup;
+                LoadForFirstGroup = loadForFirstGroup;
+                LoadForSecondGroup = loadForSecondGroup;
             }
         }
 
@@ -115,24 +115,24 @@
                          List<NormativeEvenlyDistributedLoadV1>? normativeEvenlyDistributedLoadsV1,
                          List<NormativeEvenlyDistributedLoadV2>? normativeEvenlyDistributedLoadsV2)
         {
-            this.Material = material;
-            this.DryWood = dryWood;
-            this.Width = width;
-            this.Height = height;
-            this.Length = length;
-            this.Amount = amount;
-            this.Exploitation = exploitation;
+            Material = material;
+            DryWood = dryWood;
+            Width = width;
+            Height = height;
+            Length = length;
+            Amount = amount;
+            Exploitation = exploitation;
 
-            if(lifeTime < 0)
+            if (lifeTime < 0)
             {
                 throw new ArgumentException("not valid life time");
             }
-            this.LifeTime = lifeTime;
-            this.LoadingMode = loadingMode;
-            this.Supports = supports;
+            LifeTime = lifeTime;
+            LoadingMode = loadingMode;
+            Supports = supports;
 
-            this.NormativeEvenlyDistributedLoadsV1 = normativeEvenlyDistributedLoadsV1;
-            this.NormativeEvenlyDistributedLoadsV2 = normativeEvenlyDistributedLoadsV2;
+            NormativeEvenlyDistributedLoadsV1 = normativeEvenlyDistributedLoadsV1;
+            NormativeEvenlyDistributedLoadsV2 = normativeEvenlyDistributedLoadsV2;
         }
 
         public override string ToString()
@@ -141,28 +141,28 @@
             string supports = "\t";
             string loads = "\t";
 
-            foreach (var s in this.Supports)
+            foreach (var s in Supports)
             {
                 supports = $"{supports} \n\t {s}";
             }
 
-            if(this.NormativeEvenlyDistributedLoadsV1 != null)
+            if (NormativeEvenlyDistributedLoadsV1 != null)
             {
-                foreach(var n in this.NormativeEvenlyDistributedLoadsV1)
+                foreach (var n in NormativeEvenlyDistributedLoadsV1)
                 {
                     loads = $"{loads} \n\t {n.NormativeValue} {n.NormativValueUM} {n.LoadAreaWidth} {n.ReliabilityCoefficient} {n.ReducingFactor} \n\t";
                 }
             }
 
-            if (this.NormativeEvenlyDistributedLoadsV2 != null)
+            if (NormativeEvenlyDistributedLoadsV2 != null)
             {
-                foreach (var n in this.NormativeEvenlyDistributedLoadsV2)
+                foreach (var n in NormativeEvenlyDistributedLoadsV2)
                 {
                     loads = $"{loads} \n\t {n.LoadForFirstGroup} {n.LoadForSecondGroup} \n\t";
                 }
             }
 
-            return 
+            return
                 $" Material: {Material} \n " +
                 $" Dry_wood: {DryWood} \n " +
                 $" FlameRetardants: {FlameRetardants} \n " +
