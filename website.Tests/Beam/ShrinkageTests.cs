@@ -1,4 +1,4 @@
-﻿using static website.BusinessLogic.Beam.Shrinkage;
+﻿using static website.BusinessLogic.Beam.Analyze;
 
 namespace website.Tests.Beam
 {

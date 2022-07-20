@@ -108,19 +108,19 @@
                     <td>Расчётная ширина сечения балки</td>
                     <td></td>
                     <td>мм</td>
-                    <td>@Math.Round(Model.EstimatedWidth * 1000, 1)</td>
+                    <td>@Math.Round(Model.EffectiveWidth * 1000, 1)</td>
                 </tr>
                 <tr>
                     <td>Расчётная высота сечения балки</td>
                     <td></td>
                     <td>мм</td>
-                    <td>@Math.Round(Model.EstimatedHeight * 1000, 1)</td>
+                    <td>@Math.Round(Model.EffectiveHeight * 1000, 1)</td>
                 </tr>
                 <tr>
                     <td>Площадь поперечного сечения балки</td>
                     <td><math><mi>F</mi></math></td>
                     <td>мм<sup>2</sup></td>
-                    <td></td>
+                    <td>@Math.Round(Model.CrossSectionArea * 1000 * 1000, 1)</td>
                 </tr>
                 <tr>
                     <td>Полярный момент инерции сечения</td>
