@@ -1,6 +1,6 @@
-﻿namespace website.Models.Beam.View
+﻿namespace website.BusinessLogic.Beam
 {
-    public class BeamInputModel
+    public class Input
     {
         public Matireals Material { get; private set; }
 
@@ -101,7 +101,7 @@
             lvl_k45
         }
 
-        public BeamInputModel(Matireals material,
+        public Input(Matireals material,
                          bool dryWood,
                          bool flameRetardants,
                          int width,

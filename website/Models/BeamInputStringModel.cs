@@ -1,4 +1,6 @@
-﻿namespace website.Models.Beam.View
+﻿using website.BusinessLogic.Beam;
+
+namespace website.Models
 {
     public class BeamInputStringModel
     {
@@ -35,24 +37,24 @@
 
 #pragma warning restore CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
 
-        public BeamInputModel Parse()
+        public Input Parse()
         {
             bool dryWood;
             bool flameRetardants;
             int[] supports = new int[Supports.Length];
 
-            List<BeamInputModel.NormativeEvenlyDistributedLoadV1>? normativeEvenlyDistributedLoadsV1;
-            List<BeamInputModel.NormativeEvenlyDistributedLoadV2>? normativeEvenlyDistributedLoadsV2;
+            List<Input.NormativeEvenlyDistributedLoadV1>? normativeEvenlyDistributedLoadsV1;
+            List<Input.NormativeEvenlyDistributedLoadV2>? normativeEvenlyDistributedLoadsV2;
 
             if (NormativeValue != null)
             {
-                normativeEvenlyDistributedLoadsV1 = new List<BeamInputModel.NormativeEvenlyDistributedLoadV1>();
+                normativeEvenlyDistributedLoadsV1 = new List<Input.NormativeEvenlyDistributedLoadV1>();
                 int loadAreaIterator = 0;
 
                 for (int i = 0; i < NormativeValue.Length; i++)
                 {
                     var normativValue = int.Parse(NormativeValue[i]);
-                    var normativValueUM = Enum.Parse<BeamInputModel.UnitsOfMeasurement>(NormativeValueumUM[i]);
+                    var normativValueUM = Enum.Parse<Input.UnitsOfMeasurement>(NormativeValueumUM[i]);
 
                     var tmp = ReliabilityCoefficient[i].Replace('.', ',');
                     var tmp2 = ReducingFactor[i].Replace('.', ',');
@@ -61,11 +63,11 @@
 
                     int? loadAreaWidth;
 
-                    if (normativValueUM == BeamInputModel.UnitsOfMeasurement.kgm)
+                    if (normativValueUM == Input.UnitsOfMeasurement.kgm)
                     {
                         loadAreaWidth = null;
                     }
-                    else if (normativValueUM == BeamInputModel.UnitsOfMeasurement.kgm2)
+                    else if (normativValueUM == Input.UnitsOfMeasurement.kgm2)
                     {
                         loadAreaWidth = int.Parse(LoadAreaWidth[loadAreaIterator]);
                         loadAreaIterator++;
@@ -75,7 +77,7 @@
                         throw new ArgumentException("bad unit of measurement");
                     }
                     normativeEvenlyDistributedLoadsV1.Add(
-                        new BeamInputModel.NormativeEvenlyDistributedLoadV1(
+                        new Input.NormativeEvenlyDistributedLoadV1(
                             normativValue,
                             normativValueUM,
                             loadAreaWidth,
@@ -92,12 +94,12 @@
 
             if (LoadForFirstGroup != null)
             {
-                normativeEvenlyDistributedLoadsV2 = new List<BeamInputModel.NormativeEvenlyDistributedLoadV2>();
+                normativeEvenlyDistributedLoadsV2 = new List<Input.NormativeEvenlyDistributedLoadV2>();
 
                 for (int i = 0; i < LoadForFirstGroup.Length; i++)
                 {
                     normativeEvenlyDistributedLoadsV2.Add(
-                        new BeamInputModel.NormativeEvenlyDistributedLoadV2(
+                        new Input.NormativeEvenlyDistributedLoadV2(
                             int.Parse(LoadForFirstGroup[i]),
                             int.Parse(LoadForSecondGroup[i])));
                 }
@@ -140,17 +142,17 @@
 
 
 
-            return new BeamInputModel(
-                Enum.Parse<BeamInputModel.Matireals>(Material),
+            return new Input(
+                Enum.Parse<Input.Matireals>(Material),
                 dryWood,
                 flameRetardants,
                 int.Parse(Width),
                 int.Parse(Height),
                 int.Parse(Length),
                 int.Parse(Amount),
-                Enum.Parse<BeamInputModel.Exploitations>(Exploitation),
+                Enum.Parse<Input.Exploitations>(Exploitation),
                 int.Parse(LifeTime),
-                Enum.Parse<BeamInputModel.LoadingModes>(LoadingMode),
+                Enum.Parse<Input.LoadingModes>(LoadingMode),
                 supports,
                 normativeEvenlyDistributedLoadsV1,
                 normativeEvenlyDistributedLoadsV2

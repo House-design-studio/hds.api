@@ -1,4 +1,4 @@
-﻿@model BeamOutputModel
+﻿@model FullReport
 @{
     ViewData["Title"] = "расчёт балки";
 }
@@ -17,28 +17,28 @@
                     @{
                         switch (Model.Input.Material)
                         {
-                            case BeamInputModel.Matireals.plank_k16:
-                                            @: Доска сосна, ель класс K16/сорт 3
+                            case Input.Matireals.plank_k16:
+                                    @: Доска сосна, ель класс K16/сорт 3
                                 break;
 
-                            case BeamInputModel.Matireals.plank_k24:
-                                            @: Доска сосна, ель класс K24/сорт 2
+                            case Input.Matireals.plank_k24:
+                                    @: Доска сосна, ель класс K24/сорт 2
                                 break;
 
-                            case BeamInputModel.Matireals.plank_k26:
-                                            @: Доска сосна, ель класс K26/сорт 1
+                            case Input.Matireals.plank_k26:
+                                    @: Доска сосна, ель класс K26/сорт 1
                                 break;
 
-                            case BeamInputModel.Matireals.lvl_k35:
-                                            @: Брус LVL класс K35/сорт 3
+                            case Input.Matireals.lvl_k35:
+                                    @: Брус LVL класс K35/сорт 3
                                 break;
 
-                            case BeamInputModel.Matireals.lvl_k40:
-                                            @: Брус LVL класс K40/сорт 2
+                            case Input.Matireals.lvl_k40:
+                                    @: Брус LVL класс K40/сорт 2
                                 break;
 
-                            case BeamInputModel.Matireals.lvl_k45:
-                                            @: Брус LVL класс K45/сорт 1
+                            case Input.Matireals.lvl_k45:
+                                    @: Брус LVL класс K45/сорт 1
                                 break;
                         }
                     }    

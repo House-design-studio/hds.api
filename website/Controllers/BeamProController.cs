@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using website.Models.Beam.View;
+using website.Models;
 
 namespace website.Controllers
 {
