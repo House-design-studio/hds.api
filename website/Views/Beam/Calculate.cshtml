@@ -126,43 +126,43 @@
                     <td>Полярный момент инерции сечения</td>
                     <td><math><msub><mi>J</mi><mi>p</mi></msub></math></td>
                     <td>мм<sup>4</sup></td>
-                    <td></td>
+                    <td>@Math.Round(Model.PolarMomentOfInertia * 1000 * 1000 * 1000 * 1000)</td>
                 </tr>
                 <tr>
                     <td>Осевой момент инерции сечения относительно оси Y</td>
                     <td><math><msub><mi>I</mi><mi>y</mi></msub></math></td>
                     <td>мм<sup>4</sup></td>
-                    <td></td>
+                    <td>@Math.Round(Model.MomentOfInertiaY * 1000 * 1000 * 1000 * 1000)</td>
                 </tr>
                 <tr>
                     <td>Осевой момент инерции сечения относительно оси Z</td>
                     <td><math><msub><mi>I</mi><mi>z</mi></msub></math></td>
                     <td>мм<sup>4</sup></td>
-                    <td></td>
+                    <td>@Math.Round(Model.MomentOfInertiaZ * 1000 * 1000 * 1000 * 1000)</td>
                 </tr>
                 <tr>
                     <td>Момент сопротивления сечения относительно оси Y</td>
                     <td><math><msub><mi>W</mi><mi>y</mi></msub></math></td>
                     <td>мм<sup>3</sup></td>
-                    <td></td>
+                    <td>@Math.Round(Model.MomentOfResistanceY * 1000 * 1000 * 1000)</td>
                 </tr>
                 <tr>
                     <td>Момент сопротивления сечения относительно оси Z</td>
                     <td><math><msub><mi>W</mi><mi>z</mi></msub></math></td>
                     <td>мм<sup>3</sup></td>
-                    <td></td>
+                    <td>@Math.Round(Model.MomentOfResistanceZ * 1000 * 1000 * 1000)</td>
                 </tr>
                 <tr>
                     <td>Статический момент площади сдвигаемого сечения относительно оси Y</td>
                     <td><math><msub><mi>S</mi><mi>y</mi></msub></math></td>
                     <td>мм<sup>3</sup></td>
-                    <td></td>
+                    <td>@Math.Round(Model.StaticMomentOfShearSectionY * 1000 * 1000 * 1000)</td>
                 </tr>
                 <tr>
                     <td>Статический момент площади сдвигаемого сечения относительно оси Z</td>
                     <td><math><msub><mi>S</mi><mi>z</mi></msub></math></td>
                     <td>мм<sup>3</sup></td>
-                    <td></td>
+                    <td>@Math.Round(Model.StaticMomentOfShearSectionZ * 1000 * 1000 * 1000)</td>
                 </tr>
 
 

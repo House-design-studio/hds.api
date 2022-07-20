@@ -59,8 +59,8 @@ namespace website.BusinessLogic.Beam
         /// <summary>
         /// Расчитывает величину усушки планки 
         /// </summary>
-        /// <param name="thickness">толщина планки метры</param>
-        /// <returns>величина усушки метры</returns>
+        /// <param name="thickness">толщина планки</param>
+        /// <returns>величина усушки</returns>
         public static double GetShrinkage(double thickness)
         {
             var point1_index = Array.FindIndex(ShrinkageValues, (v) => thickness <= v.size);
