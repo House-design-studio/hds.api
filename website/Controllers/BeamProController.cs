@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using website.Models;
+using website.BusinessLogic.Beam;
 
 namespace website.Controllers
 {
@@ -16,7 +17,7 @@ namespace website.Controllers
         [HttpPost]
         public IActionResult Index(BeamInputStringModel input)
         {
-            BeamInputModel beamModel;
+            Input beamModel;
             try
             {
                 beamModel = input.Parse();
@@ -26,7 +27,7 @@ namespace website.Controllers
                 return Redirect("/Beam/pro/Index"); //TODO: добавить параметр строки ?alert=message и скрипт на js который при загрузке его обработает
             }
 
-            var output = new BeamOutputModel(beamModel);
+            var output = new FullReport(beamModel);
             Console.WriteLine(input.ToString());
             Console.WriteLine(beamModel.ToString());
 

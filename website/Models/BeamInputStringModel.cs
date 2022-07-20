@@ -36,12 +36,25 @@ namespace website.Models
 
 
 #pragma warning restore CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
-
         public Input Parse()
         {
+            var material = Enum.Parse<Input.Matireals>(Material);
             bool dryWood;
             bool flameRetardants;
-            int[] supports = new int[Supports.Length];
+
+            double width = Int32.Parse(Width) * 0.001;
+            double height = Int32.Parse(Height) * 0.001;
+            double length = Int32.Parse(Length) * 0.001;
+
+            int amount = Int32.Parse(Amount);
+
+            Input.Exploitations exploitation = Enum.Parse<Input.Exploitations>(Exploitation);
+
+            int lifeTime = Int32.Parse(LifeTime);
+
+            Input.LoadingModes loadingMode = Enum.Parse<Input.LoadingModes>(LoadingMode);
+
+            double[] supports = new double[Supports.Length];
 
             List<Input.NormativeEvenlyDistributedLoadV1>? normativeEvenlyDistributedLoadsV1;
             List<Input.NormativeEvenlyDistributedLoadV2>? normativeEvenlyDistributedLoadsV2;
@@ -53,15 +66,19 @@ namespace website.Models
 
                 for (int i = 0; i < NormativeValue.Length; i++)
                 {
-                    var normativValue = int.Parse(NormativeValue[i]);
+                    var tmp1 = NormativeValue[i].Replace('.', ',');
+                    var normativValue = Double.Parse(tmp1);
+
                     var normativValueUM = Enum.Parse<Input.UnitsOfMeasurement>(NormativeValueumUM[i]);
 
-                    var tmp = ReliabilityCoefficient[i].Replace('.', ',');
-                    var tmp2 = ReducingFactor[i].Replace('.', ',');
-                    var reliabilityCoefficient = double.Parse(tmp);
-                    var reducingFactor = double.Parse(tmp2);
+                    
+                    var tmp2 = ReliabilityCoefficient[i].Replace('.', ',');
+                    var reliabilityCoefficient = double.Parse(tmp2);
 
-                    int? loadAreaWidth;
+                    var tmp3 = ReducingFactor[i].Replace('.', ',');
+                    var reducingFactor = double.Parse(tmp3);
+
+                    double? loadAreaWidth;
 
                     if (normativValueUM == Input.UnitsOfMeasurement.kgm)
                     {
@@ -69,7 +86,7 @@ namespace website.Models
                     }
                     else if (normativValueUM == Input.UnitsOfMeasurement.kgm2)
                     {
-                        loadAreaWidth = int.Parse(LoadAreaWidth[loadAreaIterator]);
+                        loadAreaWidth = Double.Parse(LoadAreaWidth[loadAreaIterator]) * 0.001;
                         loadAreaIterator++;
                     }
                     else
@@ -89,8 +106,6 @@ namespace website.Models
             {
                 normativeEvenlyDistributedLoadsV1 = null;
             }
-
-
 
             if (LoadForFirstGroup != null)
             {
@@ -137,22 +152,22 @@ namespace website.Models
 
             for (int i = 0; i < Supports.Length; i++)
             {
-                supports[i] = int.Parse(Supports[i]);
+                supports[i] = Double.Parse(Supports[i]) * 0.001;
             }
 
 
 
             return new Input(
-                Enum.Parse<Input.Matireals>(Material),
+                material,
                 dryWood,
                 flameRetardants,
-                int.Parse(Width),
-                int.Parse(Height),
-                int.Parse(Length),
-                int.Parse(Amount),
-                Enum.Parse<Input.Exploitations>(Exploitation),
-                int.Parse(LifeTime),
-                Enum.Parse<Input.LoadingModes>(LoadingMode),
+                width,
+                height,
+                length,
+                amount,
+                exploitation,
+                lifeTime,
+                loadingMode,
                 supports,
                 normativeEvenlyDistributedLoadsV1,
                 normativeEvenlyDistributedLoadsV2

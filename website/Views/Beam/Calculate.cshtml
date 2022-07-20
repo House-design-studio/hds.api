@@ -47,17 +47,17 @@
             <tr>
                 <td> Ширина сечения доски </td>
                 <td> мм </td>
-                <td> @Model.Input.Width </td>
+                <td> @(Model.Input.Width * 1000)</td>
             </tr>
             <tr>
                 <td> Высота сечения доски </td>
                 <td> мм </td>
-                <td> @Model.Input.Height </td>
+                <td> @(Model.Input.Height * 1000)</td>
             </tr>
             <tr>
                 <td> Длина балки </td>
                 <td> мм </td>
-                <td> @Model.Input.Length </td>
+                <td> @(Model.Input.Length * 1000)</td>
             </tr>
             <tr>
                 <td> Количество досок в пакете </td>
@@ -79,7 +79,7 @@
                             <tr>
                                 <td>@i</td>
                                 <td>мм</td>
-                                <td>@s</td>
+                                <td>@(s * 1000)</td>
                             </tr>
                         i++;
                     }

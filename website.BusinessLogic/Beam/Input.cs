@@ -7,9 +7,9 @@
         public bool DryWood { get; private set; }
         public bool FlameRetardants { get; private set; }
 
-        public int Width { get; private set; }
-        public int Height { get; private set; }
-        public int Length { get; private set; }
+        public double Width { get; private set; }
+        public double Height { get; private set; }
+        public double Length { get; private set; }
         public int Amount { get; private set; }
 
         public Exploitations Exploitation { get; private set; }
@@ -18,7 +18,7 @@
 
         public LoadingModes LoadingMode { get; private set; }
 
-        public int[] Supports { get; private set; }
+        public double[] Supports { get; private set; }
 
         public List<NormativeEvenlyDistributedLoadV1>? NormativeEvenlyDistributedLoadsV1 { get; set; }
         public List<NormativeEvenlyDistributedLoadV2>? NormativeEvenlyDistributedLoadsV2 { get; set; }
@@ -26,16 +26,16 @@
 
         public class NormativeEvenlyDistributedLoadV1
         {
-            public int NormativeValue { get; private set; }
+            public double NormativeValue { get; private set; }
             public UnitsOfMeasurement NormativValueUM { get; private set; }
-            public int? LoadAreaWidth { get; private set; }
+            public double? LoadAreaWidth { get; private set; }
             public double ReliabilityCoefficient { get; private set; }
             public double ReducingFactor { get; private set; }
 
             public NormativeEvenlyDistributedLoadV1(
-                int normativeValue,
+                double normativeValue,
                 UnitsOfMeasurement normativValueUM,
-                int? loadAreaWidth,
+                double? loadAreaWidth,
                 double reliabilityCoefficient,
                 double reducingFactor)
             {
@@ -49,12 +49,12 @@
 
         public class NormativeEvenlyDistributedLoadV2
         {
-            public int LoadForFirstGroup { get; set; }
-            public int LoadForSecondGroup { get; set; }
+            public double LoadForFirstGroup { get; set; }
+            public double LoadForSecondGroup { get; set; }
 
             public NormativeEvenlyDistributedLoadV2(
-                int loadForFirstGroup,
-                int loadForSecondGroup)
+                double loadForFirstGroup,
+                double loadForSecondGroup)
             {
                 LoadForFirstGroup = loadForFirstGroup;
                 LoadForSecondGroup = loadForSecondGroup;
@@ -104,14 +104,14 @@
         public Input(Matireals material,
                          bool dryWood,
                          bool flameRetardants,
-                         int width,
-                         int height,
-                         int length,
+                         double width,
+                         double height,
+                         double length,
                          int amount,
                          Exploitations exploitation,
                          int lifeTime,
                          LoadingModes loadingMode,
-                         int[] supports,
+                         double[] supports,
                          List<NormativeEvenlyDistributedLoadV1>? normativeEvenlyDistributedLoadsV1,
                          List<NormativeEvenlyDistributedLoadV2>? normativeEvenlyDistributedLoadsV2)
         {
