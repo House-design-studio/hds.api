@@ -96,25 +96,25 @@
                     <td>Величина усушки доски по ширине</td>
                     <td></td>
                     <td>мм</td>
-                    <td></td>
+                    <td>@Math.Round(Model.ShrinkageInWidth * 1000, 1)</td>
                 </tr>
                 <tr>
                     <td>Величина усушки доски по высоте</td>
                     <td></td>
                     <td>мм</td>
-                    <td></td>
+                    <td>@Math.Round(Model.ShrinkageInHeight * 1000, 1)</td>
                 </tr>
                 <tr>
                     <td>Расчётная ширина сечения балки</td>
                     <td></td>
                     <td>мм</td>
-                    <td></td>
+                    <td>@Math.Round(Model.EstimatedWidth * 1000, 1)</td>
                 </tr>
                 <tr>
                     <td>Расчётная высота сечения балки</td>
                     <td></td>
                     <td>мм</td>
-                    <td></td>
+                    <td>@Math.Round(Model.EstimatedHeight * 1000, 1)</td>
                 </tr>
                 <tr>
                     <td>Площадь поперечного сечения балки</td>
