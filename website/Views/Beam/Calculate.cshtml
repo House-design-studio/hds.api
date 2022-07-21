@@ -17,27 +17,27 @@
                     @{
                         switch (Model.Input.Material)
                         {
-                            case Input.Matireals.plank_k16:
+                            case BeamMatireals.plank_k16:
                                     @: Доска сосна, ель класс K16/сорт 3
                                 break;
 
-                            case Input.Matireals.plank_k24:
+                            case BeamMatireals.plank_k24:
                                     @: Доска сосна, ель класс K24/сорт 2
                                 break;
 
-                            case Input.Matireals.plank_k26:
+                            case BeamMatireals.plank_k26:
                                     @: Доска сосна, ель класс K26/сорт 1
                                 break;
 
-                            case Input.Matireals.lvl_k35:
+                            case BeamMatireals.lvl_k35:
                                     @: Брус LVL класс K35/сорт 3
                                 break;
 
-                            case Input.Matireals.lvl_k40:
+                            case BeamMatireals.lvl_k40:
                                     @: Брус LVL класс K40/сорт 2
                                 break;
 
-                            case Input.Matireals.lvl_k45:
+                            case BeamMatireals.lvl_k45:
                                     @: Брус LVL класс K45/сорт 1
                                 break;
                         }
@@ -166,6 +166,65 @@
                 </tr>
 
 
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12">
+        <table class="table table-bordered table-hover border-secondary caption-top w-auto">
+            <caption class="text-body">Физико-механические характеристики материала</caption>
+            <tbody>
+                <tr>
+                    <td>Нормативный модуль упругости при изгибе с обеспеченностью 0.95</td>
+                    <td><math><msub><mi>E</mi><mi>н</mi></msub></math></td>
+                    <td>МПа</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Средний модуль упругости при изгибе</td>
+                    <td><math><msub><mi>E</mi><mi>ср</mi></msub></math></td>
+                    <td>МПа</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Средний модуль сдвига</td>
+                    <td><math><msub><mi>G</mi><mi>ср</mi></msub></math></td>
+                    <td>МПа</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Расчётное сопротивление изгибу</td>
+                    <td><math><msubsup><mi>R</mi><mi>и</mi><mi>А</mi></msubsup></math></td>
+                    <td>МПа</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Расчётное сопротивление скалыванию при изгибе</td>
+                    <td><math><msubsup><mi>R</mi><mi>ск</mi><mi>А</mi></msubsup></math></td>
+                    <td>МПа</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12">
+        <table class="table table-bordered table-hover border-secondary caption-top w-auto  ">
+        <caption class="text-body">Коэффициенты условий работы</caption>
+            <tbody>
+                <tr>
+                    <td>Глубокая пропитка антипиренами</td>
+                    <td><math><msub><mi>m</mi><mi>а</mi></msub></math></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Класс условий эксплуатации</td>
+                    <td><math><msub><mi>m</mi><mi>В</mi></msub></math></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Срок службы</td>
+                    <td><math><msub><mi>m</mi><mi>с.с</mi></msub></math></td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     </div>

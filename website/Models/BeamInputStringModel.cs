@@ -1,4 +1,5 @@
 ﻿using website.BusinessLogic.Beam;
+using website.BusinessLogic.Data;
 
 namespace website.Models
 {
@@ -38,7 +39,7 @@ namespace website.Models
 #pragma warning restore CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
         public Input Parse()
         {
-            var material = Enum.Parse<Input.Matireals>(Material);
+            var material = Enum.Parse<BeamMatireals>(Material);
             bool dryWood;
             bool flameRetardants;
 
@@ -48,11 +49,11 @@ namespace website.Models
 
             int amount = Int32.Parse(Amount);
 
-            Input.Exploitations exploitation = Enum.Parse<Input.Exploitations>(Exploitation);
+            Exploitations exploitation = Enum.Parse<Exploitations>(Exploitation);
 
             int lifeTime = Int32.Parse(LifeTime);
 
-            Input.LoadingModes loadingMode = Enum.Parse<Input.LoadingModes>(LoadingMode);
+            LoadingModes loadingMode = Enum.Parse<LoadingModes>(LoadingMode);
 
             double[] supports = new double[Supports.Length];
 
@@ -71,7 +72,7 @@ namespace website.Models
 
                     var normativValueUM = Enum.Parse<Input.UnitsOfMeasurement>(NormativeValueumUM[i]);
 
-                    
+
                     var tmp2 = ReliabilityCoefficient[i].Replace('.', ',');
                     var reliabilityCoefficient = double.Parse(tmp2);
 

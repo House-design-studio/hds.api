@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using website.Models;
 using website.BusinessLogic.Beam;
+using website.Models;
 
 namespace website.Controllers
 {

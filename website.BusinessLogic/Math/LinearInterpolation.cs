@@ -11,7 +11,7 @@
         /// <returns>Значение функции в точке X</returns>
         public static double LinearInterpolation(Point2D first, Point2D second, double X)
         {
-            if(first.X == 0 && second.X == 0)
+            if (first.X == 0 && second.X == 0)
             {
                 return 0;
             }

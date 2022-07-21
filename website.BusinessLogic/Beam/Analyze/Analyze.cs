@@ -1,4 +1,5 @@
-using static website.BusinessLogic.Math;
+using website.BusinessLogic.Data;
+
 namespace website.BusinessLogic.Beam
 {
     /// <summary>
@@ -12,7 +13,7 @@ namespace website.BusinessLogic.Beam
         /// <param name="width">ширина</param>
         /// <param name="height">высота</param>
         /// <returns>площадь поперечного сечения</returns>
-        public static double GetCrossSectionArea(double width, double height) => 
+        public static double GetCrossSectionArea(double width, double height) =>
             width * height;
 
         /// <summary>
@@ -21,7 +22,7 @@ namespace website.BusinessLogic.Beam
         /// <param name="width">ширина</param>
         /// <param name="height">высота</param>
         /// <returns>Полярный момент инерции сечения</returns>
-        public static double GetPolarMomentOfInertia(double width, double height) => 
+        public static double GetPolarMomentOfInertia(double width, double height) =>
             width * height * (width * width + height * height) / 12;
 
         /// <summary>
@@ -77,5 +78,10 @@ namespace website.BusinessLogic.Beam
         /// <returns>Статический момент площади сдвигаемого сечения относительно оси Z</returns>
         public static double GetStaticMomentOfShearSectionZ(double width, double height) =>
             width * width * height / 8;
+
+        public static double GetStiffnessModule095(BeamMatireals material)
+        {
+            return 0;
+        }
     }
 }

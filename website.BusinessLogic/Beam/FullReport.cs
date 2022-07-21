@@ -1,6 +1,4 @@
-﻿using website.BusinessLogic.Beam;
-
-namespace website.BusinessLogic.Beam
+﻿namespace website.BusinessLogic.Beam
 {
     /// <summary>
     /// Полный расчёт информации по планке
@@ -72,7 +70,7 @@ namespace website.BusinessLogic.Beam
         public FullReport(Input input)
         {
             this.Input = input;
-            
+
             this.ShrinkageInWidth = Analyze.GetShrinkage(input.Width);
             this.ShrinkageInHeight = Analyze.GetShrinkage(input.Height);
 

@@ -7,7 +7,7 @@ namespace website.BusinessLogic.Beam
         /// Величины усушки пилопродукции смешанной распиловки из древесины ели, сосны, кедра, пихты для конечной влажности от 11 до 13%
         /// https://docs.cntd.ru/document/1200006340
         /// </summary>
-        private static ShrinkageValue[] ShrinkageValues =
+        private static readonly ShrinkageValue[] ShrinkageValues =
         {
             new ShrinkageValue(0.013, 0.0007),
             new ShrinkageValue(0.016, 0.0009),
@@ -63,30 +63,30 @@ namespace website.BusinessLogic.Beam
         /// <returns>величина усушки</returns>
         public static double GetShrinkage(double thickness)
         {
-            var point1_index = Array.FindIndex(ShrinkageValues, (v) => thickness <= v.size);
+            var point1_index = Array.FindIndex(ShrinkageValues, (v) => thickness <= v.Size);
             var point2_index = point1_index + 1;
 
             Point2D point1;
             Point2D point2;
 
-            if(point1_index == 0)
+            if (point1_index == 0)
             {
-                point1 = new Point2D(ShrinkageValues[0].size, ShrinkageValues[0].Value);
-                point2 = new Point2D(ShrinkageValues[1].size, ShrinkageValues[1].Value);
+                point1 = new Point2D(ShrinkageValues[0].Size, ShrinkageValues[0].Value);
+                point2 = new Point2D(ShrinkageValues[1].Size, ShrinkageValues[1].Value);
             }
-            else if(point1_index == -1)
+            else if (point1_index == -1)
             {
-                point1 = new Point2D(ShrinkageValues[ShrinkageValues.Length - 2].size, ShrinkageValues[ShrinkageValues.Length - 2].Value);
-                point2 = new Point2D(ShrinkageValues[ShrinkageValues.Length - 1].size, ShrinkageValues[ShrinkageValues.Length - 1].Value);
+                point1 = new Point2D(ShrinkageValues[^2].Size, ShrinkageValues[^2].Value);
+                point2 = new Point2D(ShrinkageValues[^1].Size, ShrinkageValues[^1].Value);
             }
             else
             {
-                point1 = new Point2D(ShrinkageValues[point1_index].size, ShrinkageValues[point1_index].Value);
-                point2 = new Point2D(ShrinkageValues[point2_index].size, ShrinkageValues[point2_index].Value);
+                point1 = new Point2D(ShrinkageValues[point1_index].Size, ShrinkageValues[point1_index].Value);
+                point2 = new Point2D(ShrinkageValues[point2_index].Size, ShrinkageValues[point2_index].Value);
             }
             return LinearInterpolation(point1, point2, thickness);
         }
 
-        private record struct ShrinkageValue(double size, double Value);
+        private record struct ShrinkageValue(double Size, double Value);
     }
 }
