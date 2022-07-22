@@ -1,4 +1,4 @@
-using website.BusinessLogic.Data;
+using website.BusinessLogic;
 
 namespace website.BusinessLogic.Beam
 {
@@ -79,7 +79,7 @@ namespace website.BusinessLogic.Beam
         public static double GetStaticMomentOfShearSectionZ(double width, double height) =>
             width * width * height / 8;
 
-        public static double GetStiffnessModule095(BeamMatireals material)
+        public static double GetStiffnessModule095(Data.BeamMatireals material)
         {
             return 0;
         }
