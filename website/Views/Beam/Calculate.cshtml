@@ -17,27 +17,27 @@
                     @{
                         switch (Model.Input.Material)
                         {
-                            case BeamMatireals.plank_k16:
+                            case Data.BeamMatireals.plank_k16:
                                     @: Доска сосна, ель класс K16/сорт 3
                                 break;
 
-                            case BeamMatireals.plank_k24:
+                            case Data.BeamMatireals.plank_k24:
                                     @: Доска сосна, ель класс K24/сорт 2
                                 break;
 
-                            case BeamMatireals.plank_k26:
+                            case Data.BeamMatireals.plank_k26:
                                     @: Доска сосна, ель класс K26/сорт 1
                                 break;
 
-                            case BeamMatireals.lvl_k35:
+                            case Data.BeamMatireals.lvl_k35:
                                     @: Брус LVL класс K35/сорт 3
                                 break;
 
-                            case BeamMatireals.lvl_k40:
+                            case Data.BeamMatireals.lvl_k40:
                                     @: Брус LVL класс K40/сорт 2
                                 break;
 
-                            case BeamMatireals.lvl_k45:
+                            case Data.BeamMatireals.lvl_k45:
                                     @: Брус LVL класс K45/сорт 1
                                 break;
                         }
@@ -96,73 +96,73 @@
                     <td>Величина усушки доски по ширине</td>
                     <td></td>
                     <td>мм</td>
-                    <td>@Math.Round(Model.ShrinkageInWidth * 1000, 1)</td>
+                    <td>@System.Math.Round(Model.ShrinkageInWidth * 1000, 1)</td>
                 </tr>
                 <tr>
                     <td>Величина усушки доски по высоте</td>
                     <td></td>
                     <td>мм</td>
-                    <td>@Math.Round(Model.ShrinkageInHeight * 1000, 1)</td>
+                    <td>@System.Math.Round(Model.ShrinkageInHeight * 1000, 1)</td>
                 </tr>
                 <tr>
                     <td>Расчётная ширина сечения балки</td>
                     <td></td>
                     <td>мм</td>
-                    <td>@Math.Round(Model.EffectiveWidth * 1000, 1)</td>
+                    <td>@System.Math.Round(Model.EffectiveWidth * 1000, 1)</td>
                 </tr>
                 <tr>
                     <td>Расчётная высота сечения балки</td>
                     <td></td>
                     <td>мм</td>
-                    <td>@Math.Round(Model.EffectiveHeight * 1000, 1)</td>
+                    <td>@System.Math.Round(Model.EffectiveHeight * 1000, 1)</td>
                 </tr>
                 <tr>
                     <td>Площадь поперечного сечения балки</td>
                     <td><math><mi>F</mi></math></td>
                     <td>мм<sup>2</sup></td>
-                    <td>@Math.Round(Model.CrossSectionArea * 1000 * 1000, 1)</td>
+                    <td>@System.Math.Round(Model.CrossSectionArea * 1000 * 1000, 1)</td>
                 </tr>
                 <tr>
                     <td>Полярный момент инерции сечения</td>
                     <td><math><msub><mi>J</mi><mi>p</mi></msub></math></td>
                     <td>мм<sup>4</sup></td>
-                    <td>@Math.Round(Model.PolarMomentOfInertia * 1000 * 1000 * 1000 * 1000)</td>
+                    <td>@System.Math.Round(Model.PolarMomentOfInertia * 1000 * 1000 * 1000 * 1000)</td>
                 </tr>
                 <tr>
                     <td>Осевой момент инерции сечения относительно оси Y</td>
                     <td><math><msub><mi>I</mi><mi>y</mi></msub></math></td>
                     <td>мм<sup>4</sup></td>
-                    <td>@Math.Round(Model.MomentOfInertiaY * 1000 * 1000 * 1000 * 1000)</td>
+                    <td>@System.Math.Round(Model.MomentOfInertiaY * 1000 * 1000 * 1000 * 1000)</td>
                 </tr>
                 <tr>
                     <td>Осевой момент инерции сечения относительно оси Z</td>
                     <td><math><msub><mi>I</mi><mi>z</mi></msub></math></td>
                     <td>мм<sup>4</sup></td>
-                    <td>@Math.Round(Model.MomentOfInertiaZ * 1000 * 1000 * 1000 * 1000)</td>
+                    <td>@System.Math.Round(Model.MomentOfInertiaZ * 1000 * 1000 * 1000 * 1000)</td>
                 </tr>
                 <tr>
                     <td>Момент сопротивления сечения относительно оси Y</td>
                     <td><math><msub><mi>W</mi><mi>y</mi></msub></math></td>
                     <td>мм<sup>3</sup></td>
-                    <td>@Math.Round(Model.MomentOfResistanceY * 1000 * 1000 * 1000)</td>
+                    <td>@System.Math.Round(Model.MomentOfResistanceY * 1000 * 1000 * 1000)</td>
                 </tr>
                 <tr>
                     <td>Момент сопротивления сечения относительно оси Z</td>
                     <td><math><msub><mi>W</mi><mi>z</mi></msub></math></td>
                     <td>мм<sup>3</sup></td>
-                    <td>@Math.Round(Model.MomentOfResistanceZ * 1000 * 1000 * 1000)</td>
+                    <td>@System.Math.Round(Model.MomentOfResistanceZ * 1000 * 1000 * 1000)</td>
                 </tr>
                 <tr>
                     <td>Статический момент площади сдвигаемого сечения относительно оси Y</td>
                     <td><math><msub><mi>S</mi><mi>y</mi></msub></math></td>
                     <td>мм<sup>3</sup></td>
-                    <td>@Math.Round(Model.StaticMomentOfShearSectionY * 1000 * 1000 * 1000)</td>
+                    <td>@System.Math.Round(Model.StaticMomentOfShearSectionY * 1000 * 1000 * 1000)</td>
                 </tr>
                 <tr>
                     <td>Статический момент площади сдвигаемого сечения относительно оси Z</td>
                     <td><math><msub><mi>S</mi><mi>z</mi></msub></math></td>
                     <td>мм<sup>3</sup></td>
-                    <td>@Math.Round(Model.StaticMomentOfShearSectionZ * 1000 * 1000 * 1000)</td>
+                    <td>@System.Math.Round(Model.StaticMomentOfShearSectionZ * 1000 * 1000 * 1000)</td>
                 </tr>
 
 
@@ -177,31 +177,31 @@
                     <td>Нормативный модуль упругости при изгибе с обеспеченностью 0.95</td>
                     <td><math><msub><mi>E</mi><mi>н</mi></msub></math></td>
                     <td>МПа</td>
-                    <td></td>
+                    <td>@(Model.StiffnessModulus / 1000000)</td>
                 </tr>
                 <tr>
                     <td>Средний модуль упругости при изгибе</td>
                     <td><math><msub><mi>E</mi><mi>ср</mi></msub></math></td>
                     <td>МПа</td>
-                    <td></td>
+                    <td>@(Model.StiffnessModulusAverage / 1000000)</td>
                 </tr>
                 <tr>
                     <td>Средний модуль сдвига</td>
                     <td><math><msub><mi>G</mi><mi>ср</mi></msub></math></td>
                     <td>МПа</td>
-                    <td></td>
+                    <td>@(Model.ShearModulusAverage / 1000000)</td>
                 </tr>
                 <tr>
                     <td>Расчётное сопротивление изгибу</td>
                     <td><math><msubsup><mi>R</mi><mi>и</mi><mi>А</mi></msubsup></math></td>
                     <td>МПа</td>
-                    <td></td>
+                    <td>@(Model.BendingResistance / 1000000)</td>
                 </tr>
                 <tr>
                     <td>Расчётное сопротивление скалыванию при изгибе</td>
                     <td><math><msubsup><mi>R</mi><mi>ск</mi><mi>А</mi></msubsup></math></td>
                     <td>МПа</td>
-                    <td></td>
+                    <td>@(Model.BendingShearResistance / 1000000)</td>
                 </tr>
             </tbody>
         </table>

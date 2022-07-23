@@ -1,10 +1,10 @@
-﻿using website.BusinessLogic.Data;
+﻿using website.BusinessLogic;
 
 namespace website.BusinessLogic.Beam
 {
     public class Input
     {
-        public BeamMatireals Material { get; private set; }
+        public Data.BeamMatireals Material { get; private set; }
 
         public bool DryWood { get; private set; }
         public bool FlameRetardants { get; private set; }
@@ -14,11 +14,11 @@ namespace website.BusinessLogic.Beam
         public double Length { get; private set; }
         public int Amount { get; private set; }
 
-        public Exploitations Exploitation { get; private set; }
+        public Data.Exploitations Exploitation { get; private set; }
 
         public int LifeTime { get; private set; }
 
-        public LoadingModes LoadingMode { get; private set; }
+        public Data.LoadingModes LoadingMode { get; private set; }
 
         public double[] Supports { get; private set; }
 
@@ -69,22 +69,23 @@ namespace website.BusinessLogic.Beam
             kgm2
         }
 
-        public Input(BeamMatireals material,
+        public Input(Data.BeamMatireals material,
                          bool dryWood,
                          bool flameRetardants,
                          double width,
                          double height,
                          double length,
                          int amount,
-                         Exploitations exploitation,
+                         Data.Exploitations exploitation,
                          int lifeTime,
-                         LoadingModes loadingMode,
+                         Data.LoadingModes loadingMode,
                          double[] supports,
                          List<NormativeEvenlyDistributedLoadV1>? normativeEvenlyDistributedLoadsV1,
                          List<NormativeEvenlyDistributedLoadV2>? normativeEvenlyDistributedLoadsV2)
         {
             Material = material;
             DryWood = dryWood;
+            FlameRetardants = flameRetardants;
             Width = width;
             Height = height;
             Length = length;

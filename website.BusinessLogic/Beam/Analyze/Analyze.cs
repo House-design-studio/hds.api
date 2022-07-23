@@ -78,10 +78,5 @@ namespace website.BusinessLogic.Beam
         /// <returns>Статический момент площади сдвигаемого сечения относительно оси Z</returns>
         public static double GetStaticMomentOfShearSectionZ(double width, double height) =>
             width * width * height / 8;
-
-        public static double GetStiffnessModule095(Data.BeamMatireals material)
-        {
-            return 0;
-        }
     }
 }

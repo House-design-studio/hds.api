@@ -66,6 +66,32 @@
         /// </summary>
         public double StaticMomentOfShearSectionZ { get; set; }
 
+        /// <summary>
+        /// Нормативный модуль упругости при изгибе с обеспеченностью 0.95 <br/>
+        /// Нормативное значение модуля упругости, 5-процентный квантиль B.3
+        /// </summary>
+        public double StiffnessModulus { get; set; }
+        /// <summary>
+        /// Средний модуль упругости при изгибе <br/>
+        /// Среднее значение модуля упругости при изгибе B.3
+        /// </summary>
+        public double StiffnessModulusAverage { get; set; }
+        /// <summary>
+        /// Средний модуль сдвига <br/>
+        /// Среднее значение модуля сдвига B.3
+        /// </summary>
+        public double ShearModulusAverage { get; set; }
+        /// <summary>
+        /// Расчётное сопротивление изгибу <br/>
+        /// Расчетное сопротивление , Rаи МПа, для сортов древесины "Таблица 3"   
+        /// </summary>
+        public double BendingResistance { get; set; }
+        /// <summary>
+        /// Расчётное сопротивление скалыванию при изгибе
+        /// RАск
+        /// </summary>
+        public double BendingShearResistance { get; set; }
+
 
         public FullReport(Input input)
         {
@@ -89,6 +115,13 @@
 
             this.StaticMomentOfShearSectionY = Analyze.GetStaticMomentOfShearSectionY(this.EffectiveWidth, this.EffectiveHeight);
             this.StaticMomentOfShearSectionZ = Analyze.GetStaticMomentOfShearSectionZ(this.EffectiveWidth, this.EffectiveHeight);
+
+            this.StiffnessModulus = Data.BeamMaterialСharacteristics[input.Material].StiffnessModulus;
+            this.StiffnessModulusAverage = Data.BeamMaterialСharacteristics[input.Material].StiffnessModulusAverage;
+            this.ShearModulusAverage = Data.BeamMaterialСharacteristics[input.Material].ShearModulusAverage;
+            this.BendingResistance = Data.BeamMaterialСharacteristics[input.Material].BendingResistance;
+            this.BendingShearResistance = Data.BeamMaterialСharacteristics[input.Material].BendingShearResistance;
+
         }
     }
 }
