@@ -92,6 +92,18 @@
         /// </summary>
         public double BendingShearResistance { get; set; }
 
+        /// <summary>
+        /// коэффициент ma
+        /// </summary>
+        public double maCoefficient { get; set; }
+        /// <summary>
+        /// коэффициент mb
+        /// </summary>
+        public double mBCoefficient { get; set; }
+        /// <summary>
+        /// коэффициент mc c
+        /// </summary>
+        public double mccCoefficient { get; set; }
 
         public FullReport(Input input)
         {
@@ -100,8 +112,8 @@
             this.ShrinkageInWidth = Analyze.GetShrinkage(input.Width);
             this.ShrinkageInHeight = Analyze.GetShrinkage(input.Height);
 
-            this.EffectiveWidth = Input.Width - this.ShrinkageInWidth;
-            this.EffectiveHeight = Input.Height - this.ShrinkageInHeight;
+            this.EffectiveWidth = input.Width - this.ShrinkageInWidth;
+            this.EffectiveHeight = input.Height - this.ShrinkageInHeight;
 
             this.CrossSectionArea = Analyze.GetCrossSectionArea(this.EffectiveWidth, this.EffectiveHeight);
 
@@ -121,6 +133,10 @@
             this.ShearModulusAverage = Data.BeamMaterialСharacteristics[input.Material].ShearModulusAverage;
             this.BendingResistance = Data.BeamMaterialСharacteristics[input.Material].BendingResistance;
             this.BendingShearResistance = Data.BeamMaterialСharacteristics[input.Material].BendingShearResistance;
+
+            this.maCoefficient = Analyze.GetMaCoefficient(input.FlameRetardants);
+            this.mBCoefficient = Analyze.GetMBCoefficient(input.Exploitation);
+            this.mccCoefficient = Analyze.GetMccCoefficient(input.LifeTime);
 
         }
     }

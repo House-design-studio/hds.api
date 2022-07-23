@@ -87,6 +87,6 @@ namespace website.BusinessLogic.Beam
             return LinearInterpolation(point1, point2, thickness);
         }
 
-        private record struct ShrinkageValue(double Size, double Value);
+        private record class ShrinkageValue(double Size, double Value);
     }
 }
