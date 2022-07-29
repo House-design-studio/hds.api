@@ -1,5 +1,5 @@
-﻿using website.BusinessLogic.Beam;
-using website.BusinessLogic;
+﻿using website.BusinessLogic;
+using website.BusinessLogic.Beam;
 
 namespace website.Models
 {

@@ -1,5 +1,3 @@
-using website.BusinessLogic;
-
 namespace website.BusinessLogic.Beam
 {
     /// <summary>

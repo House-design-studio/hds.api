@@ -1,6 +1,7 @@
 ﻿namespace website.BusinessLogic
 {
-    public static class Data{
+    public static class Data
+    {
         /// <summary>
         /// Режимы нагружения
         /// </summary>
@@ -65,33 +66,34 @@
             /// Нормативный модуль упругости при изгибе с обеспеченностью 0.95 <br/>
             /// Нормативное значение модуля упругости, 5-процентный квантиль B.3
             /// </summary>
-            public double StiffnessModulus {get; set;}
+            public double StiffnessModulus { get; set; }
             /// <summary>
             /// Средний модуль упругости при изгибе <br/>
             /// Среднее значение модуля упругости при изгибе B.3
             /// </summary>
-            public double StiffnessModulusAverage {get; set;}
+            public double StiffnessModulusAverage { get; set; }
             /// <summary>
             /// Средний модуль сдвига <br/>
             /// Среднее значение модуля сдвига B.3
             /// </summary>
-            public double ShearModulusAverage {get; set;}
+            public double ShearModulusAverage { get; set; }
             /// <summary>
             /// Расчётное сопротивление изгибу <br/>
             /// Расчетное сопротивление , Rаи МПа, для сортов древесины "Таблица 3"   
             /// </summary>
-            public double BendingResistance {get; set;}
+            public double BendingResistance { get; set; }
             /// <summary>
             /// Расчётное сопротивление скалыванию при изгибе
             /// RАск
             /// </summary>
-            public double BendingShearResistance {get; set;}
+            public double BendingShearResistance { get; set; }
 
-            public BeamMaterialСharacteristic(double stiffnessModulus, 
-                                              double stiffnessModulusAverage, 
+            public BeamMaterialСharacteristic(double stiffnessModulus,
+                                              double stiffnessModulusAverage,
                                               double shearModulusAverage,
                                               double bendingResistance,
-                                              double bendingShearResistance){
+                                              double bendingShearResistance)
+            {
 
                 this.StiffnessModulus = stiffnessModulus;
                 this.StiffnessModulusAverage = stiffnessModulusAverage;

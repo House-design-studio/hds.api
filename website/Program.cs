@@ -1,11 +1,8 @@
-using website.Models.Database;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using website.Models.Database;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,7 +24,7 @@ builder.Services.AddAuthentication(options =>
         options.ClientSecret = builder.Configuration["Oauth:Google:ClientSecret"];
         options.SaveTokens = true;
     });
-    
+
 
 builder.Services.AddAuthorization(options =>
 {
@@ -42,13 +39,13 @@ builder.Services.AddAuthorization(options =>
 
     bool UserHaveSubscriptin(AuthorizationHandlerContext context, int level)
     {
-        if(level == 1)
+        if (level == 1)
         {
             return (context.User.HasClaim("SubscriptionLevel", "1") || context.User.HasClaim("SubscriptionLevel", "2"));
         }
-        else if(level == 2)
+        else if (level == 2)
         {
-            return  context.User.HasClaim("SubscriptionLevel", "2");
+            return context.User.HasClaim("SubscriptionLevel", "2");
         }
         else
         {

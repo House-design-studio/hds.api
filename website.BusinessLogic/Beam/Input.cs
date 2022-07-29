@@ -1,6 +1,4 @@
-﻿using website.BusinessLogic;
-
-namespace website.BusinessLogic.Beam
+﻿namespace website.BusinessLogic.Beam
 {
     public class Input
     {

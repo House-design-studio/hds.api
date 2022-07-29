@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace website.Models.Database
+﻿namespace website.Models.Database
 {
     public partial class PayedOrder
     {

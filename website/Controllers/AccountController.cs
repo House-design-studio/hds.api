@@ -21,7 +21,7 @@ namespace website.Controllers
         public IActionResult SignIn(string provider, string returnUrl)
         {
             return Challenge(new AuthenticationProperties { RedirectUri = "https://localhost:3001/Account/SignInCallback" }, provider);
-            
+
         }
 
         [Authorize]
@@ -29,7 +29,7 @@ namespace website.Controllers
         {
             //переписываем signin гугла на signin куков
             var newClaims = new List<Claim>();
-            
+
             string? userGoogleId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             if (userGoogleId == null)
             {
@@ -41,13 +41,13 @@ namespace website.Controllers
             if (user is null)
             {
                 user = new User
+                {
+                    SignupDate = DateOnly.FromDateTime(DateTime.Now),
+                    OauthGoogle = new OauthGoogle
                     {
-                        SignupDate = DateOnly.FromDateTime(DateTime.Now),
-                        OauthGoogle = new OauthGoogle
-                        {
-                            Subject = userGoogleId
-                        }
-                    };
+                        Subject = userGoogleId
+                    }
+                };
                 await _db.Users.AddAsync(user);
             }
 
@@ -92,5 +92,5 @@ namespace website.Controllers
         {
             return View();
         }
-    }   
+    }
 }
