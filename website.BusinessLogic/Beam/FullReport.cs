@@ -1,7 +1,7 @@
 ﻿namespace website.BusinessLogic.Beam
 {
     /// <summary>
-    /// Полный расчёт информации по планке
+    /// Полный расчёт информации по балке
     /// </summary>
     public class FullReport
     {
@@ -95,11 +95,11 @@
         /// <summary>
         /// коэффициент ma
         /// </summary>
-        public double maCoefficient { get; set; }
+        public double MaCoefficient { get; set; }
         /// <summary>
         /// коэффициент mb
         /// </summary>
-        public double mBCoefficient { get; set; }
+        public double MBCoefficient { get; set; }
         /// <summary>
         /// коэффициент mc c
         /// </summary>
@@ -134,8 +134,8 @@
             this.BendingResistance = Data.BeamMaterialСharacteristics[input.Material].BendingResistance;
             this.BendingShearResistance = Data.BeamMaterialСharacteristics[input.Material].BendingShearResistance;
 
-            this.maCoefficient = Analyze.GetMaCoefficient(input.FlameRetardants);
-            this.mBCoefficient = Analyze.GetMBCoefficient(input.Exploitation);
+            this.MaCoefficient = Analyze.GetMaCoefficient(input.FlameRetardants);
+            this.MBCoefficient = Analyze.GetMBCoefficient(input.Exploitation);
             this.mccCoefficient = Analyze.GetMccCoefficient(input.LifeTime);
 
         }

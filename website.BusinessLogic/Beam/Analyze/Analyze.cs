@@ -1,7 +1,7 @@
 namespace website.BusinessLogic.Beam
 {
     /// <summary>
-    /// Класс для расчётов планки 
+    /// Класс для расчётов физических характеристик балки 
     /// </summary>
     public static partial class Analyze
     {
@@ -82,10 +82,8 @@ namespace website.BusinessLogic.Beam
         /// </summary>
         /// <param name="flameRetardants">Пропитан ли материал антипиренами?</param>
         /// <returns>коэффициэнт ma</returns>
-        public static double GetMaCoefficient(bool flameRetardants)
-        {
-            return flameRetardants ? 0.9 : 1.0;
-        }
+        public static double GetMaCoefficient(bool flameRetardants) =>
+           flameRetardants ? 0.9 : 1.0;
 
         /// <summary>
         /// расчёт коэффициента mB
@@ -94,23 +92,17 @@ namespace website.BusinessLogic.Beam
         /// <returns>коэффициэнт mB</returns>
         public static double GetMBCoefficient(Data.Exploitations exploitation)
         {
-            switch (exploitation)
+            return exploitation switch
             {
-                case Data.Exploitations.class_1a:
-                case Data.Exploitations.class_1b:
-                case Data.Exploitations.class_2:
-                    return 1.0;
+                Data.Exploitations.class_1a or 
+                Data.Exploitations.class_1b or 
+                Data.Exploitations.class_2 => 1.0,
 
-                case Data.Exploitations.class_3:
-                    return 0.9;
-
-                case Data.Exploitations.class_4a:
-                    return 0.85;
-
-                case Data.Exploitations.class_4b:
-                    return 0.75;
-            }
-            throw new NotImplementedException("Коэффициент mb для данного типа нагрузки не реализован");
+                Data.Exploitations.class_3 => 0.9,
+                Data.Exploitations.class_4a => 0.85,
+                Data.Exploitations.class_4b => 0.75,
+                _ => throw new NotImplementedException("Коэффициент mb для данного типа нагрузки не реализован"),
+            };
         }
 
         /// <summary>
@@ -120,17 +112,13 @@ namespace website.BusinessLogic.Beam
         /// <returns>коэффициэнт mB</returns>
         public static double GetMccCoefficient(int lifeTime)
         {
-            if (lifeTime <= 50)
-                return 1.0;
-
-            else if (lifeTime <= 75)
-                return Math.LinearInterpolation(new(50, 1.0), new(75, 0.9), lifeTime);
-
-            else if (lifeTime <= 100)
-                return Math.LinearInterpolation(new(75, 0.9), new(100, 0.8), lifeTime);
-
-            else
-                return 0.8;
+            return lifeTime switch
+            {
+                (<= 50)  => 1.0,
+                (<= 75)  => Math.LinearInterpolation(new(50, 1.0), new(75, 0.9), lifeTime),
+                (<= 100) => Math.LinearInterpolation(new(75, 0.9), new(100, 0.8), lifeTime),
+                (_) => 0.8,
+            };
         }
 
     }

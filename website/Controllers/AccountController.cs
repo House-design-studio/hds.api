@@ -73,7 +73,7 @@ namespace website.Controllers
             }
             newClaims.Add(User.Claims.First(c => c.Type == ClaimTypes.Name));
 
-            ClaimsIdentity applicationClaimsIdentity = new ClaimsIdentity(newClaims, "Cookies");
+            var applicationClaimsIdentity = new ClaimsIdentity(newClaims, "Cookies");
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(applicationClaimsIdentity));
             // потеря всех данных с гугла
             await _db.SaveChangesAsync();
