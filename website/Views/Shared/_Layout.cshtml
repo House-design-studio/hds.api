@@ -39,24 +39,11 @@
                     </button>
                     <ul class="dropdown-menu  dropdown-menu-end dropdown-menu-dark" aria-labelledby="loginBtn" >
                         <li>
-                            
-                            <div id="g_id_onload"
-                                 data-client_id="85698311721-oirjtrrfhln6bhite8g4hig2sfd2iend.apps.googleusercontent.com"
-                                 data-context="signin"
-                                 data-ux_mode="popup"
-                                 data-login_uri="/signin-google"
-                                 data-auto_prompt="false">
-                            </div>
-
-                            <div class="g_id_signin"
-                                 data-type="standard"
-                                 data-shape="rectangular"
-                                 data-theme="filled_black"
-                                 data-text="$ {button.text}"
-                                 data-size="medium"
-                                 data-logo_alignment="left">
-                            </div>
-
+                            <form action="/Account/SignIn">
+                                <button type="submit" name="provider" value="Google">
+                                    google login
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </div>

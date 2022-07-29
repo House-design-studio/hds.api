@@ -16,7 +16,7 @@ namespace website.Controllers
 
         [HttpPost]
         public IActionResult Index(BeamInputStringModel input)
-        {
+            {
             Input beamModel;
             try
             {

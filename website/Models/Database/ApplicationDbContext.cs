@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace website.Models.Database
 {
-    public partial class testContext : DbContext
+    public partial class ApplicationDbContext : DbContext
     {
-        public testContext()
+        public ApplicationDbContext()
         {
         }
 
-        public testContext(DbContextOptions<testContext> options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }

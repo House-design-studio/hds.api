@@ -3,6 +3,12 @@
 {
   "ConnectionStrings": {
     "DefaultConnection": ""
+  },
+  "Oauth": {
+      "Google" : {
+          "ClientId" : "",
+          "ClientSecret" : ""
+      }
   }
 }
 
