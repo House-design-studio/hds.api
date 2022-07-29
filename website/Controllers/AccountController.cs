@@ -71,13 +71,26 @@ namespace website.Controllers
                     new Claim("SubscriptionTime", "01.01.9999")
                 };
             }
-            
+            newClaims.Add(User.Claims.First(c => c.Type == ClaimTypes.Name));
 
             ClaimsIdentity applicationClaimsIdentity = new ClaimsIdentity(newClaims, "Cookies");
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(applicationClaimsIdentity));
             // потеря всех данных с гугла
             await _db.SaveChangesAsync();
+            return Redirect("/Account/");
+        }
+
+        [Authorize, ActionName("SignOut")]
+        public async Task<IActionResult> AccountSignOut()
+        {
+            await HttpContext.SignOutAsync();
             return Redirect("/");
+        }
+
+        [Authorize]
+        public IActionResult Index()
+        {
+            return View();
         }
     }   
 }

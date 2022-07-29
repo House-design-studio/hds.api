@@ -1,0 +1,11 @@
+﻿@using System.Security.Claims
+<div class="mt-5">
+    <div class="card w-auto mt-5 p-0 " id="userInfo">
+        <h5 class="card-header">Пользователь: @User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.Name).Value</h5>
+        <div class="card-body">
+            <h5 class="card-title">Уровень подписки: @User.Claims.FirstOrDefault(u => u.Type == "SubscriptionLevel").Value</h5>
+            <p class="card-text">Подписка истекает @User.Claims.FirstOrDefault(u => u.Type == "SubscriptionTime").Value</p>
+            <a href="/Account/SignOut" class="btn btn-primary">Выйти из аккаунта</a>
+        </div>
+    </div>
+</div>
