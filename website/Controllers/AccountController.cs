@@ -11,10 +11,12 @@ namespace website.Controllers
     public class AccountController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly ILogger<AccountController> _logger;
 
-        public AccountController(ApplicationDbContext dbContext)
+        public AccountController(ApplicationDbContext dbContext, ILogger<AccountController> logger)
         {
             _db = dbContext;
+            _logger = logger;
         }
 
         [AllowAnonymous]
@@ -48,7 +50,9 @@ namespace website.Controllers
                         Subject = userGoogleId
                     }
                 };
+                
                 await _db.Users.AddAsync(user);
+                _logger.LogInformation($"Registration. userId : {user.UserId}");
             }
 
             var userSubscriptions = await _db.Subscriptions.Where(s => s.UserId == user.UserId).ToListAsync();
@@ -59,7 +63,7 @@ namespace website.Controllers
 
                 newClaims = new List<Claim>()
                 {
-                    new Claim("SubscriptionLevel", $"{subscriptionLevel}") ,
+                    new Claim("SubscriptionLevel", $"{subscriptionLevel}"),
                     new Claim("SubscriptionTime", $"{lastSubscriptinTime}")
                 };
             }
@@ -72,6 +76,9 @@ namespace website.Controllers
                 };
             }
             newClaims.Add(User.Claims.First(c => c.Type == ClaimTypes.Name));
+            newClaims.Add(new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()));
+
+            _logger.LogInformation($"SignIn. userId : {user.UserId}");
 
             var applicationClaimsIdentity = new ClaimsIdentity(newClaims, "Cookies");
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(applicationClaimsIdentity));
@@ -84,6 +91,7 @@ namespace website.Controllers
         public async Task<IActionResult> AccountSignOut()
         {
             await HttpContext.SignOutAsync();
+            _logger.LogInformation($"SignOut. userId : {User.Claims.FirstOrDefault(c=>c.Type == ClaimTypes.NameIdentifier)?.Value}");
             return Redirect("/");
         }
 

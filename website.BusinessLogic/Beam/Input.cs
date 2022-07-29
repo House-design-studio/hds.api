@@ -105,22 +105,23 @@
         public override string ToString()
         {
 
-            string supports = "\t";
-            string loads = "\t";
+            string supports = "";
+            string loads = "Type 1:";
 
             foreach (var s in Supports)
             {
-                supports = $"{supports} \n\t {s}";
+                supports = $"{supports}{s * 1000}, ";
             }
+            supports = supports.Remove(supports.Length - 2);
 
             if (NormativeEvenlyDistributedLoadsV1 != null)
             {
                 foreach (var n in NormativeEvenlyDistributedLoadsV1)
                 {
-                    loads = $"{loads} \n\t {n.NormativeValue} {n.NormativValueUM} {n.LoadAreaWidth} {n.ReliabilityCoefficient} {n.ReducingFactor} \n\t";
+                    loads = $"{loads}({n.NormativeValue} {n.NormativValueUM} {n.LoadAreaWidth * 1000} {n.ReliabilityCoefficient} {n.ReducingFactor}), ";
                 }
             }
-
+            loads = $"{loads}\n\t Type 2:";
             if (NormativeEvenlyDistributedLoadsV2 != null)
             {
                 foreach (var n in NormativeEvenlyDistributedLoadsV2)
@@ -133,13 +134,13 @@
                 $" Material: {Material} \n " +
                 $" Dry_wood: {DryWood} \n " +
                 $" FlameRetardants: {FlameRetardants} \n " +
-                $" Width: {Width} \n " +
-                $" Height: {Height} \n " +
-                $" Length: {Length} \n " +
+                $" Width: {Width * 1000} \n " +
+                $" Height: {Height * 1000} \n " +
+                $" Length: {Length * 1000} \n " +
                 $" Amount: {Amount} \n " +
-                $" Exploitation: {Exploitation} \n" +
-                $" LoadingMode: {LoadingMode} \n" +
-                $" Supports: {supports} \n" +
+                $" Exploitation: {Exploitation} \n " +
+                $" LoadingMode: {LoadingMode} \n " +
+                $" Supports: {supports} \n " +
                 $" loads: {loads}";
         }
     }

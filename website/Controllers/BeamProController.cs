@@ -7,6 +7,13 @@ namespace website.Controllers
     [Route("/{controller}/pro/{action=Index}")]
     public class BeamController : Controller
     {
+        private readonly ILogger<BeamController> _logger;
+
+        public BeamController(ILogger<BeamController> logger)
+        {
+            _logger = logger;
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -28,8 +35,8 @@ namespace website.Controllers
             }
 
             var output = new FullReport(beamModel);
-            Console.WriteLine(input.ToString());
-            Console.WriteLine(beamModel.ToString());
+
+            _logger.LogTrace($"New calculation : {output}, \n {beamModel.ToString()}");
 
             return View("Calculate", output);
         }
