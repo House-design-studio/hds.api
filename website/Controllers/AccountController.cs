@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using website.Models.Database;
+using HDS.Models.Database;
 
-namespace website.Controllers
+namespace HDS.Controllers
 {
     public class AccountController : Controller
     {

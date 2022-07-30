@@ -1,4 +1,4 @@
-﻿namespace website.BusinessLogic.Beam
+﻿namespace HDS.BusinessLogic.Beam.Entities
 {
     /// <summary>
     /// Полный расчёт информации по балке
@@ -8,7 +8,7 @@
         /// <summary>
         /// Входные данные
         /// </summary>
-        public Input Input { get; set; }
+        public BeamInput Input { get; set; }
 
 
         /// <summary>
@@ -104,40 +104,5 @@
         /// коэффициент mc c
         /// </summary>
         public double mccCoefficient { get; set; }
-
-        public FullReport(Input input)
-        {
-            this.Input = input;
-
-            this.ShrinkageInWidth = Analyze.GetShrinkage(input.Width);
-            this.ShrinkageInHeight = Analyze.GetShrinkage(input.Height);
-
-            this.EffectiveWidth = input.Width - this.ShrinkageInWidth;
-            this.EffectiveHeight = input.Height - this.ShrinkageInHeight;
-
-            this.CrossSectionArea = Analyze.GetCrossSectionArea(this.EffectiveWidth, this.EffectiveHeight);
-
-            this.PolarMomentOfInertia = Analyze.GetPolarMomentOfInertia(this.EffectiveWidth, this.EffectiveHeight);
-
-            this.MomentOfInertiaY = Analyze.GetMomentOfInertiaY(this.EffectiveWidth, this.EffectiveHeight);
-            this.MomentOfInertiaZ = Analyze.GetMomentOfInertiaZ(this.EffectiveWidth, this.EffectiveHeight);
-
-            this.MomentOfResistanceY = Analyze.GetMomentOfResistanceY(this.EffectiveWidth, this.EffectiveHeight);
-            this.MomentOfResistanceZ = Analyze.GetMomentOfResistanceZ(this.EffectiveWidth, this.EffectiveHeight);
-
-            this.StaticMomentOfShearSectionY = Analyze.GetStaticMomentOfShearSectionY(this.EffectiveWidth, this.EffectiveHeight);
-            this.StaticMomentOfShearSectionZ = Analyze.GetStaticMomentOfShearSectionZ(this.EffectiveWidth, this.EffectiveHeight);
-
-            this.StiffnessModulus = Data.BeamMaterialСharacteristics[input.Material].StiffnessModulus;
-            this.StiffnessModulusAverage = Data.BeamMaterialСharacteristics[input.Material].StiffnessModulusAverage;
-            this.ShearModulusAverage = Data.BeamMaterialСharacteristics[input.Material].ShearModulusAverage;
-            this.BendingResistance = Data.BeamMaterialСharacteristics[input.Material].BendingResistance;
-            this.BendingShearResistance = Data.BeamMaterialСharacteristics[input.Material].BendingShearResistance;
-
-            this.MaCoefficient = Analyze.GetMaCoefficient(input.FlameRetardants);
-            this.MBCoefficient = Analyze.GetMBCoefficient(input.Exploitation);
-            this.mccCoefficient = Analyze.GetMccCoefficient(input.LifeTime);
-
-        }
     }
 }

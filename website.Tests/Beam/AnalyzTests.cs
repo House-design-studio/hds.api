@@ -1,6 +1,6 @@
-﻿using static website.BusinessLogic.Beam.Analyze;
+﻿using static HDS.BusinessLogic.Beam.Analyze;
 
-namespace website.Tests.Beam
+namespace HDS.Tests.Beam
 {
     internal class AnalyzTests
     {

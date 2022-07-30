@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace website.BusinessLogic.Beam
+namespace HDS.BusinessLogic.Beam
 {
     /// <summary>
     /// Класс для создания запроса к fem server 

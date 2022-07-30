@@ -1,4 +1,4 @@
-﻿namespace website.Models.Database
+﻿namespace HDS.Models.Database
 {
     public partial class User
     {

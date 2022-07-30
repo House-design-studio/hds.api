@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\website.BusinessLogic\website.BusinessLogic.csproj" />
+    <ProjectReference Include="..\website.BusinessLogic\HDS.BusinessLogic.csproj" />
   </ItemGroup>
 
 </Project>

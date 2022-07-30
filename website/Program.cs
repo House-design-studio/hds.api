@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using website.Models.Database;
+using HDS.BusinessLogic.Interfaces;
+using HDS.BusinessLogic.Beam;
+using HDS.Models.Database;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connection));
-
+builder.Services.AddSingleton<IBeamCalculator, BeamCalculator>();
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -24,7 +26,6 @@ builder.Services.AddAuthentication(options =>
         options.ClientSecret = builder.Configuration["Oauth:Google:ClientSecret"];
         options.SaveTokens = true;
     });
-
 
 builder.Services.AddAuthorization(options =>
 {
@@ -60,8 +61,6 @@ builder.Services.AddAuthorization(options =>
         return (DateOnly.Parse(userTime.Value) > currentTime);
     }
 });
-
-
 builder.Services.AddMvc();
 
 var app = builder.Build();

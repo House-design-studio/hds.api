@@ -1,6 +1,6 @@
-﻿namespace website.BusinessLogic.Beam
+﻿namespace HDS.BusinessLogic.Beam.Entities
 {
-    public class Input
+    public class BeamInput
     {
         public Data.BeamMatireals Material { get; private set; }
 
@@ -67,7 +67,7 @@
             kgm2
         }
 
-        public Input(Data.BeamMatireals material,
+        public BeamInput(Data.BeamMatireals material,
                          bool dryWood,
                          bool flameRetardants,
                          double width,
@@ -90,10 +90,6 @@
             Amount = amount;
             Exploitation = exploitation;
 
-            if (lifeTime < 0)
-            {
-                throw new ArgumentException("not valid life time");
-            }
             LifeTime = lifeTime;
             LoadingMode = loadingMode;
             Supports = supports;

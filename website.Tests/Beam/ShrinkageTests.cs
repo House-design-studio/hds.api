@@ -1,8 +1,8 @@
-﻿using static website.BusinessLogic.Beam.Analyze;
+﻿using static HDS.BusinessLogic.Beam.Analyze;
 
-namespace website.Tests.Beam
+namespace HDS.Tests.Beam
 {
-    internal class ShrinkageTests
+    public class ShrinkageTests
     {
         [Test]
         public void Get_Shrinkage_Returns_Table()

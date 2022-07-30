@@ -1,17 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using website.BusinessLogic.Beam;
-using website.Models;
+using HDS.Models;
+using HDS.BusinessLogic.Beam.Entities;
+using HDS.BusinessLogic.Interfaces;
+using HDS.BusinessLogic.Beam;
 
-namespace website.Controllers
+namespace HDS.Controllers
 {
     [Route("/{controller}/pro/{action=Index}")]
     public class BeamController : Controller
     {
         private readonly ILogger<BeamController> _logger;
+        private readonly IBeamCalculator _beamCalculator;
 
-        public BeamController(ILogger<BeamController> logger)
+        public BeamController(ILogger<BeamController> logger, IBeamCalculator beamCalculator)
         {
             _logger = logger;
+            _beamCalculator = beamCalculator;
         }
 
         [HttpGet]
@@ -22,9 +26,9 @@ namespace website.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(BeamInputStringModel input)
+        public async Task<IActionResult> IndexAsync(BeamInputStringModel input)
         {
-            Input beamModel;
+            BeamInput beamModel;
             try
             {
                 beamModel = input.Parse();
@@ -34,8 +38,7 @@ namespace website.Controllers
                 return Redirect("/Beam/pro/Index"); //TODO: добавить параметр строки ?alert=message и скрипт на js который при загрузке его обработает
             }
 
-            var output = new FullReport(beamModel);
-
+            var output = await _beamCalculator.GetFullReportAsync(beamModel);
             _logger.LogTrace($"New calculation : {output}, \n {beamModel.ToString()}");
 
             return View("Calculate", output);

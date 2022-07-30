@@ -1,7 +1,7 @@
-﻿using website.BusinessLogic;
-using website.BusinessLogic.Beam;
+﻿using HDS.BusinessLogic;
+using HDS.BusinessLogic.Beam.Entities;
 
-namespace website.Models
+namespace HDS.Models
 {
     public class BeamInputStringModel
     {
@@ -37,7 +37,7 @@ namespace website.Models
 
 
 #pragma warning restore CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
-        public Input Parse()
+        public BeamInput Parse()
         {
             var material = Enum.Parse<Data.BeamMatireals>(Material);
             bool dryWood;
@@ -57,12 +57,12 @@ namespace website.Models
 
             double[] supports = new double[Supports.Length];
 
-            List<Input.NormativeEvenlyDistributedLoadV1>? normativeEvenlyDistributedLoadsV1;
-            List<Input.NormativeEvenlyDistributedLoadV2>? normativeEvenlyDistributedLoadsV2;
+            List<BeamInput.NormativeEvenlyDistributedLoadV1>? normativeEvenlyDistributedLoadsV1;
+            List<BeamInput.NormativeEvenlyDistributedLoadV2>? normativeEvenlyDistributedLoadsV2;
 
             if (NormativeValue != null)
             {
-                normativeEvenlyDistributedLoadsV1 = new List<Input.NormativeEvenlyDistributedLoadV1>();
+                normativeEvenlyDistributedLoadsV1 = new List<BeamInput.NormativeEvenlyDistributedLoadV1>();
                 int loadAreaIterator = 0;
 
                 for (int i = 0; i < NormativeValue.Length; i++)
@@ -70,7 +70,7 @@ namespace website.Models
                     var tmp1 = NormativeValue[i].Replace('.', ',');
                     var normativValue = Double.Parse(tmp1);
 
-                    var normativValueUM = Enum.Parse<Input.UnitsOfMeasurement>(NormativeValueumUM[i]);
+                    var normativValueUM = Enum.Parse<BeamInput.UnitsOfMeasurement>(NormativeValueumUM[i]);
 
 
                     var tmp2 = ReliabilityCoefficient[i].Replace('.', ',');
@@ -81,11 +81,11 @@ namespace website.Models
 
                     double? loadAreaWidth;
 
-                    if (normativValueUM == Input.UnitsOfMeasurement.kgm)
+                    if (normativValueUM == BeamInput.UnitsOfMeasurement.kgm)
                     {
                         loadAreaWidth = null;
                     }
-                    else if (normativValueUM == Input.UnitsOfMeasurement.kgm2)
+                    else if (normativValueUM == BeamInput.UnitsOfMeasurement.kgm2)
                     {
                         loadAreaWidth = Double.Parse(LoadAreaWidth[loadAreaIterator]) * 0.001;
                         loadAreaIterator++;
@@ -95,7 +95,7 @@ namespace website.Models
                         throw new ArgumentException("bad unit of measurement");
                     }
                     normativeEvenlyDistributedLoadsV1.Add(
-                        new Input.NormativeEvenlyDistributedLoadV1(
+                        new BeamInput.NormativeEvenlyDistributedLoadV1(
                             normativValue,
                             normativValueUM,
                             loadAreaWidth,
@@ -110,12 +110,12 @@ namespace website.Models
 
             if (LoadForFirstGroup != null)
             {
-                normativeEvenlyDistributedLoadsV2 = new List<Input.NormativeEvenlyDistributedLoadV2>();
+                normativeEvenlyDistributedLoadsV2 = new List<BeamInput.NormativeEvenlyDistributedLoadV2>();
 
                 for (int i = 0; i < LoadForFirstGroup.Length; i++)
                 {
                     normativeEvenlyDistributedLoadsV2.Add(
-                        new Input.NormativeEvenlyDistributedLoadV2(
+                        new BeamInput.NormativeEvenlyDistributedLoadV2(
                             int.Parse(LoadForFirstGroup[i]),
                             int.Parse(LoadForSecondGroup[i])));
                 }
@@ -158,7 +158,7 @@ namespace website.Models
 
 
 
-            return new Input(
+            return new BeamInput(
                 material,
                 dryWood,
                 flameRetardants,

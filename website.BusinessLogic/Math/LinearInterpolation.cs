@@ -1,4 +1,4 @@
-﻿namespace website.BusinessLogic
+﻿namespace HDS.BusinessLogic
 {
     public static partial class Math
     {

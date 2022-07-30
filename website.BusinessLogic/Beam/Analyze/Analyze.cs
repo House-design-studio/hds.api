@@ -1,4 +1,4 @@
-namespace website.BusinessLogic.Beam
+namespace HDS.BusinessLogic.Beam
 {
     /// <summary>
     /// Класс для расчётов физических характеристик балки 

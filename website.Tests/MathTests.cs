@@ -1,6 +1,6 @@
-using static website.BusinessLogic.Math;
+using static HDS.BusinessLogic.Math;
 
-namespace website.Tests
+namespace HDS.Tests
 {
     public class MathTests
     {
