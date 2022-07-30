@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace website.BusinessLogic.Requests
+namespace website.BusinessLogic.Beam
 {
     /// <summary>
     /// Класс для создания запроса к fem server 
@@ -24,7 +24,7 @@ namespace website.BusinessLogic.Requests
             json = json.Replace("Fixed", "fixed");
             return json;
         }
-        
+
         private class Nodes
         {
             public int _first => 1;
@@ -63,7 +63,7 @@ namespace website.BusinessLogic.Requests
         {
             public int _first => 1;
             public int _last { get; set; }
-            public FemServerRequest.Beam[] A { get; set; }
+            public Beam[] A { get; set; }
         }
         private class Beam
         {
@@ -83,7 +83,7 @@ namespace website.BusinessLogic.Requests
         {
             public int node { get; set; }
             public Flexible flexible { get; set; }
-            public Fixed Fixed{get; set;}
+            public Fixed Fixed { get; set; }
         }
         private class Flexible
         {
