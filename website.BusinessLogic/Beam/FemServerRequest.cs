@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using static HDS.BusinessLogic.Math;
 
 namespace HDS.BusinessLogic.Beam
 {
@@ -10,39 +11,31 @@ namespace HDS.BusinessLogic.Beam
 #pragma warning disable IDE1006 // Стили именования
         private int nc;
         private int bc;
-        private Nodes nodes;
-        private Beams beams;
+        private Node[] nodes;
+        private Beam[] beams;
 
+        private void SetUpData()
+        {
+
+        }
         /// <summary>
         /// На основе класса сериализует в json
         /// </summary>
         /// <returns>json сериализация</returns>
-        public string ToJson()
+        private string ToJson()
         {
             var json = JsonConvert.SerializeObject(this);
 
-            json = json.Replace("Fixed", "fixed");
+            json = json.ToLower();
             return json;
-        }
-
-        private class Nodes
-        {
-            public int _first => 1;
-            public int _last { get; set; }
-            public Node[] A { get; set; }
         }
         private class Node
         {
-            public Coordinate coordinate { get; set; }
+            public Point3D coordinate { get; set; }
             public Support support { get; set; }
             public Load load { get; set; }
         }
-        private class Coordinate
-        {
-            public double x { get; set; }
-            public double y { get; set; }
-            public double z { get; set; }
-        }
+
         private class Support
         {
             public bool x { get; set; }
@@ -59,12 +52,6 @@ namespace HDS.BusinessLogic.Beam
             public double w { get; set; }
         }
 
-        private class Beams
-        {
-            public int _first => 1;
-            public int _last { get; set; }
-            public Beam[] A { get; set; }
-        }
         private class Beam
         {
             public BeamInfo first { get; set; }
