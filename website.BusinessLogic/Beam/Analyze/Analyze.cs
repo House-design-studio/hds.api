@@ -1,3 +1,4 @@
+using static HDS.BusinessLogic.Mathematics;
 namespace HDS.BusinessLogic.Beam
 {
     /// <summary>
@@ -115,8 +116,8 @@ namespace HDS.BusinessLogic.Beam
             return lifeTime switch
             {
                 (<= 50)  => 1.0,
-                (<= 75)  => Math.LinearInterpolation(new(50, 1.0), new(75, 0.9), lifeTime),
-                (<= 100) => Math.LinearInterpolation(new(75, 0.9), new(100, 0.8), lifeTime),
+                (<= 75)  => LinearInterpolation(new(50, 1.0), new(75, 0.9), lifeTime),
+                (<= 100) => LinearInterpolation(new(75, 0.9), new(100, 0.8), lifeTime),
                 (_) => 0.8,
             };
         }

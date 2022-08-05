@@ -31,7 +31,7 @@ namespace HDS.Controllers
             BeamInput beamModel;
             try
             {
-                beamModel = input.Parse();
+                beamModel = input.Parse(_beamCalculator.GetBeamInputBuilder());
             }
             catch
             {

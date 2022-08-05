@@ -7,6 +7,11 @@ namespace HDS.BusinessLogic.Beam
     {
         private FullReport Report = new();
 
+        public BeamInputBuilder GetBeamInputBuilder()
+        {
+            return new BeamInputBuilder();
+        }
+
         public async Task<FullReport> GetFullReportAsync(BeamInput input)
         {
             Report.Input = input;

@@ -4,6 +4,7 @@ namespace HDS.BusinessLogic.Interfaces
 {
     public interface IBeamCalculator
     {
-        public Task<FullReport> GetFullReportAsync(BeamInput input);  
+        public Task<FullReport> GetFullReportAsync(BeamInput input);
+        public BeamInputBuilder GetBeamInputBuilder();
     }
 }

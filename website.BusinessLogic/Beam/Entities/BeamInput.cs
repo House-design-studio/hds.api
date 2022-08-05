@@ -2,57 +2,32 @@
 {
     public class BeamInput
     {
-        public Data.BeamMatireals Material { get; private set; }
+        public Data.BeamMatireals Material { get; internal set; }
 
-        public bool DryWood { get; private set; }
-        public bool FlameRetardants { get; private set; }
+        public bool DryWood { get; internal set; } = false;
+        public bool FlameRetardants { get; internal set; } = false;
 
-        public double Width { get; private set; }
-        public double Height { get; private set; }
-        public double Length { get; private set; }
-        public int Amount { get; private set; }
+        public double Width { get; internal set; }
+        public double Height { get; internal set; }
+        public double Length { get; internal set; }
+        public int Amount { get; internal set; } = 1;
 
-        public Data.Exploitations Exploitation { get; private set; }
+        public Data.Exploitations Exploitation { get; internal set; }
 
-        public int LifeTime { get; private set; }
+        public int LifeTime { get; internal set; }
 
-        public Data.LoadingModes LoadingMode { get; private set; }
+        public Data.LoadingModes LoadingMode { get; internal set; }
 
-        public double[] Supports { get; private set; }
+        public List<double> Supports { get; internal set; } = new List<double>();
 
-        public List<NormativeEvenlyDistributedLoadV1>? NormativeEvenlyDistributedLoadsV1 { get; set; }
-        public List<NormativeEvenlyDistributedLoadV2>? NormativeEvenlyDistributedLoadsV2 { get; set; }
+        public List<NormativeEvenlyDistributedLoad> NormativeEvenlyDistributedLoads { get; internal set; } = new List<NormativeEvenlyDistributedLoad>();
 
-
-        public class NormativeEvenlyDistributedLoadV1
+        public class NormativeEvenlyDistributedLoad
         {
-            public double NormativeValue { get; private set; }
-            public UnitsOfMeasurement NormativValueUM { get; private set; }
-            public double? LoadAreaWidth { get; private set; }
-            public double ReliabilityCoefficient { get; private set; }
-            public double ReducingFactor { get; private set; }
+            public double LoadForFirstGroup { get; internal set; }
+            public double LoadForSecondGroup { get; internal set; }
 
-            public NormativeEvenlyDistributedLoadV1(
-                double normativeValue,
-                UnitsOfMeasurement normativValueUM,
-                double? loadAreaWidth,
-                double reliabilityCoefficient,
-                double reducingFactor)
-            {
-                NormativeValue = normativeValue;
-                NormativValueUM = normativValueUM;
-                LoadAreaWidth = loadAreaWidth;
-                ReliabilityCoefficient = reliabilityCoefficient;
-                ReducingFactor = reducingFactor;
-            }
-        }
-
-        public class NormativeEvenlyDistributedLoadV2
-        {
-            public double LoadForFirstGroup { get; set; }
-            public double LoadForSecondGroup { get; set; }
-
-            public NormativeEvenlyDistributedLoadV2(
+            public NormativeEvenlyDistributedLoad(
                 double loadForFirstGroup,
                 double loadForSecondGroup)
             {
@@ -60,71 +35,23 @@
                 LoadForSecondGroup = loadForSecondGroup;
             }
         }
-
-        public enum UnitsOfMeasurement
-        {
-            kgm,
-            kgm2
-        }
-
-        public BeamInput(Data.BeamMatireals material,
-                         bool dryWood,
-                         bool flameRetardants,
-                         double width,
-                         double height,
-                         double length,
-                         int amount,
-                         Data.Exploitations exploitation,
-                         int lifeTime,
-                         Data.LoadingModes loadingMode,
-                         double[] supports,
-                         List<NormativeEvenlyDistributedLoadV1>? normativeEvenlyDistributedLoadsV1,
-                         List<NormativeEvenlyDistributedLoadV2>? normativeEvenlyDistributedLoadsV2)
-        {
-            Material = material;
-            DryWood = dryWood;
-            FlameRetardants = flameRetardants;
-            Width = width;
-            Height = height;
-            Length = length;
-            Amount = amount;
-            Exploitation = exploitation;
-
-            LifeTime = lifeTime;
-            LoadingMode = loadingMode;
-            Supports = supports;
-
-            NormativeEvenlyDistributedLoadsV1 = normativeEvenlyDistributedLoadsV1;
-            NormativeEvenlyDistributedLoadsV2 = normativeEvenlyDistributedLoadsV2;
-        }
-
         public override string ToString()
         {
 
             string supports = "";
-            string loads = "Type 1:";
+            string loads = "";
 
             foreach (var s in Supports)
             {
                 supports = $"{supports}{s * 1000}, ";
             }
             supports = supports.Remove(supports.Length - 2);
-
-            if (NormativeEvenlyDistributedLoadsV1 != null)
+            
+            foreach(var s in NormativeEvenlyDistributedLoads)
             {
-                foreach (var n in NormativeEvenlyDistributedLoadsV1)
-                {
-                    loads = $"{loads}({n.NormativeValue} {n.NormativValueUM} {n.LoadAreaWidth * 1000} {n.ReliabilityCoefficient} {n.ReducingFactor}), ";
-                }
+                loads = $"{loads} {s.LoadForFirstGroup * 1000} {s.LoadForSecondGroup * 1000}, ";
             }
-            loads = $"{loads}\n\t Type 2:";
-            if (NormativeEvenlyDistributedLoadsV2 != null)
-            {
-                foreach (var n in NormativeEvenlyDistributedLoadsV2)
-                {
-                    loads = $"{loads} \n\t {n.LoadForFirstGroup} {n.LoadForSecondGroup} \n\t";
-                }
-            }
+            if(loads.Length > 0) loads = loads.Remove(loads.Length - 2);
 
             return
                 $" Material: {Material} \n " +
