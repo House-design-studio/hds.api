@@ -1,4 +1,4 @@
-using static HDS.BusinessLogic.Math;
+using static HDS.BusinessLogic.Mathematics;
 
 namespace HDS.Tests
 {

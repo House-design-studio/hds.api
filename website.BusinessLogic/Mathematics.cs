@@ -3,7 +3,7 @@
     /// <summary>
     /// Класс для математический рассчётов
     /// </summary>
-    public static class Math
+    public static class Mathematics
     {
         /// <summary>
         /// Точка в трёхмерном пространстве
@@ -11,14 +11,32 @@
         /// <param name="X">координата X</param>
         /// <param name="Y">координата Y</param>
         /// <param name="Z">координата Z</param>
-        public record struct Point3D(double X, double Y, double Z);
+        public class Point3D : Point2D
+        {
+            public double Z { get; set; }
+
+            public Point3D(double x, double y, double z) : base(x,y)
+            {
+                Z = z;
+            }
+        }
 
         /// <summary>
         /// Точка в двухмерном пространстве
         /// </summary>
         /// <param name="X">координата X</param>
         /// <param name="Y">координата Y</param>
-        public record struct Point2D(double X, double Y);
+        public class Point2D
+        {
+            public double X { get; set; }
+            public double Y { get; set; }
+
+            public Point2D(double x, double y)
+            {
+                X = x;
+                Y = y;
+            }
+        }
 
         /// <summary>
         /// Вычисляет промежуточное значение функции в точке с координатой X по двум данным точкам 
