@@ -11,11 +11,13 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpClient();
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connection));
-builder.Services.AddSingleton<IBeamCalculator, BeamCalculator>();
-//builder.Services.AddSingleton<IFemClient, FemClient>();
+
+builder.Services.AddScoped<IBeamCalculator, BeamCalculator>();
+builder.Services.AddScoped<IFemClient, FemClient>();
 
 builder.Services.AddAuthentication(options =>
     {
