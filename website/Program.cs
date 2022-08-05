@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using HDS.BusinessLogic.FemClient;
 using HDS.BusinessLogic.Interfaces;
 using HDS.BusinessLogic.Beam;
 using HDS.Models.Database;
@@ -14,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connection));
 builder.Services.AddSingleton<IBeamCalculator, BeamCalculator>();
+builder.Services.AddSingleton<IFemClient, FemClient>();
+
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
