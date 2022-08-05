@@ -1,7 +1,7 @@
 ﻿using static HDS.BusinessLogic.Data;
 
 namespace HDS.BusinessLogic.Beam.Entities
-{ 
+{
     public class BeamInputBuilder
     {
         private BeamInput result = new();
@@ -30,7 +30,7 @@ namespace HDS.BusinessLogic.Beam.Entities
             result.Width = width > 0 ? width : throw new ArgumentException($"{nameof(width)} <= 0", nameof(width));
             result.Height = height > 0 ? height : throw new ArgumentException($"{nameof(height)} <= 0", nameof(height));
             result.Length = length > 0 ? length : throw new ArgumentException($"{nameof(length)} <= 0", nameof(length));
-        }   
+        }
         public void SetAmount(int amount)
         {
             result.Amount = amount > 0 ? amount : throw new ArgumentException($"{nameof(amount)} <= 0", nameof(amount));
@@ -75,7 +75,7 @@ namespace HDS.BusinessLogic.Beam.Entities
 
             var load = new BeamInput.NormativeEvenlyDistributedLoad(firstLoad, secondLoad);
             result.NormativeEvenlyDistributedLoads.Add(load);
-        }        
+        }
         public void AddNormativeEvenlyDistributedLoad(double loadForFirstGroup, double loadForSecondGroup)
         {
             var load = new BeamInput.NormativeEvenlyDistributedLoad(

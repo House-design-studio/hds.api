@@ -1,11 +1,11 @@
+using HDS.BusinessLogic.Beam;
+using HDS.BusinessLogic.FemClient;
+using HDS.BusinessLogic.Interfaces;
+using HDS.Models.Database;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using HDS.BusinessLogic.FemClient;
-using HDS.BusinessLogic.Interfaces;
-using HDS.BusinessLogic.Beam;
-using HDS.Models.Database;
 
 
 var builder = WebApplication.CreateBuilder(args);

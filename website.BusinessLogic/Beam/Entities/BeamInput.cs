@@ -46,12 +46,12 @@
                 supports = $"{supports}{s * 1000}, ";
             }
             supports = supports.Remove(supports.Length - 2);
-            
-            foreach(var s in NormativeEvenlyDistributedLoads)
+
+            foreach (var s in NormativeEvenlyDistributedLoads)
             {
                 loads = $"{loads} {s.LoadForFirstGroup * 1000} {s.LoadForSecondGroup * 1000}, ";
             }
-            if(loads.Length > 0) loads = loads.Remove(loads.Length - 2);
+            if (loads.Length > 0) loads = loads.Remove(loads.Length - 2);
 
             return
                 $" Material: {Material} \n " +

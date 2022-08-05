@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using HDS.Models;
-using HDS.BusinessLogic.Beam.Entities;
+﻿using HDS.BusinessLogic.Beam.Entities;
 using HDS.BusinessLogic.Interfaces;
-using HDS.BusinessLogic.Beam;
+using HDS.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HDS.Controllers
 {

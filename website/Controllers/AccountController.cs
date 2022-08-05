@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using HDS.Models.Database;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using HDS.Models.Database;
 
 namespace HDS.Controllers
 {
@@ -50,7 +50,7 @@ namespace HDS.Controllers
                         Subject = userGoogleId
                     }
                 };
-                
+
                 await _db.Users.AddAsync(user);
                 _logger.LogInformation($"Registration. userId : {user.UserId}");
             }
@@ -91,7 +91,7 @@ namespace HDS.Controllers
         public async Task<IActionResult> AccountSignOut()
         {
             await HttpContext.SignOutAsync();
-            _logger.LogInformation($"SignOut. userId : {User.Claims.FirstOrDefault(c=>c.Type == ClaimTypes.NameIdentifier)?.Value}");
+            _logger.LogInformation($"SignOut. userId : {User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value}");
             return Redirect("/");
         }
 

@@ -19,7 +19,7 @@ namespace HDS.BusinessLogic.Beam
             SetStaticData();
             return Report;
         }
-        
+
         private void SetStaticData()
         {
             Report.ShrinkageInWidth = Analyze.GetShrinkage(Report.Input.Width);

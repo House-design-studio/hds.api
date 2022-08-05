@@ -50,11 +50,11 @@ namespace HDS.Models
             builder.SetLifetime(Int32.Parse(LifeTime));
             builder.SetLoadingMode(Enum.Parse<Data.LoadingModes>(LoadingMode));
 
-            foreach(var support in Supports)
+            foreach (var support in Supports)
             {
                 builder.AddSupport(Int32.Parse(support) * 0.001);
             }
-            for(int i = 0; i <= LoadForFirstGroup?.Length; i++)
+            for (int i = 0; i <= LoadForFirstGroup?.Length; i++)
             {
                 builder.AddNormativeEvenlyDistributedLoad(
                     Int32.Parse(LoadForFirstGroup[i]),

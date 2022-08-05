@@ -95,8 +95,8 @@ namespace HDS.BusinessLogic.Beam
         {
             return exploitation switch
             {
-                Data.Exploitations.class_1a or 
-                Data.Exploitations.class_1b or 
+                Data.Exploitations.class_1a or
+                Data.Exploitations.class_1b or
                 Data.Exploitations.class_2 => 1.0,
 
                 Data.Exploitations.class_3 => 0.9,
@@ -115,8 +115,8 @@ namespace HDS.BusinessLogic.Beam
         {
             return lifeTime switch
             {
-                (<= 50)  => 1.0,
-                (<= 75)  => LinearInterpolation(new(50, 1.0), new(75, 0.9), lifeTime),
+                (<= 50) => 1.0,
+                (<= 75) => LinearInterpolation(new(50, 1.0), new(75, 0.9), lifeTime),
                 (<= 100) => LinearInterpolation(new(75, 0.9), new(100, 0.8), lifeTime),
                 (_) => 0.8,
             };

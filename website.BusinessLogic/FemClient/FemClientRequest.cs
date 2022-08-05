@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using static HDS.BusinessLogic.Mathematics;
+﻿using static HDS.BusinessLogic.Mathematics;
 
 namespace HDS.BusinessLogic.FemClient
 {
