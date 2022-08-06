@@ -54,7 +54,7 @@ namespace HDS.Models
             {
                 builder.AddSupport(Int32.Parse(support) * 0.001);
             }
-            for (int i = 0; i <= LoadForFirstGroup?.Length; i++)
+            for (int i = 0; i < LoadForFirstGroup?.Length; i++)
             {
                 builder.AddNormativeEvenlyDistributedLoad(
                     Int32.Parse(LoadForFirstGroup[i]),
