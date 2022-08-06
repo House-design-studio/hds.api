@@ -26,14 +26,23 @@ namespace HDS.Models
         public string[] Supports { get; set; }
 
 
-        public string[] NormativeValue { get; set; }
-        public string[] NormativeValueumUM { get; set; }
-        public string[] LoadAreaWidth { get; set; }
-        public string[] ReliabilityCoefficient { get; set; }
-        public string[] ReducingFactor { get; set; }
+        public string[] DNormativeValue { get; set; }
+        public string[] DNormativeValueumUM { get; set; }
+        public string[] DLoadAreaWidth { get; set; }
+        public string[] DReliabilityCoefficient { get; set; }
+        public string[] DReducingFactor { get; set; }
 
-        public string[] LoadForFirstGroup { get; set; }
-        public string[] LoadForSecondGroup { get; set; }
+        public string[] DLoadForFirstGroup { get; set; }
+        public string[] DLoadForSecondGroup { get; set; }
+
+        public string[] CNormativeValue { get; set; }
+        public string[] CNormativeValueumUM { get; set; }
+        public string[] CLoadAreaWidth { get; set; }
+        public string[] CReliabilityCoefficient { get; set; }
+        public string[] CReducingFactor { get; set; }
+
+        public string[] CLoadForFirstGroup { get; set; }
+        public string[] CLoadForSecondGroup { get; set; }
 
 
 #pragma warning restore CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
@@ -54,32 +63,33 @@ namespace HDS.Models
             {
                 builder.AddSupport(Int32.Parse(support) * 0.001);
             }
-            for (int i = 0; i < LoadForFirstGroup?.Length; i++)
+
+            for (int i = 0; i < DLoadForFirstGroup?.Length; i++)
             {
                 builder.AddNormativeEvenlyDistributedLoad(
-                    Int32.Parse(LoadForFirstGroup[i]),
-                    Int32.Parse(LoadForSecondGroup[i]));
+                    Int32.Parse(DLoadForFirstGroup[i]),
+                    Int32.Parse(DLoadForSecondGroup[i]));
             }
 
             if (DryWood == "on") builder.SetDryWood(true);
             if (FlameRetardants == "on") builder.SetFlameRetardant(true);
 
-            if (NormativeValue != null)
+            if (DNormativeValue != null)
             {
                 int loadAreaIterator = 0;
 
-                for (int i = 0; i < NormativeValue.Length; i++)
+                for (int i = 0; i < DNormativeValue.Length; i++)
                 {
-                    var tmp1 = NormativeValue[i].Replace('.', ',');
+                    var tmp1 = DNormativeValue[i].Replace('.', ',');
                     var normativValue = Double.Parse(tmp1);
 
-                    var tmp2 = ReliabilityCoefficient[i].Replace('.', ',');
+                    var tmp2 = DReliabilityCoefficient[i].Replace('.', ',');
                     var reliabilityCoefficient = double.Parse(tmp2);
 
-                    var tmp3 = ReducingFactor[i].Replace('.', ',');
+                    var tmp3 = DReducingFactor[i].Replace('.', ',');
                     var reducingFactor = double.Parse(tmp3);
 
-                    if (NormativeValueumUM[i] == "kgm")
+                    if (DNormativeValueumUM[i] == "kgm")
                     {
                         builder.AddNormativeEvenlyDistributedLoad(normativValue, reliabilityCoefficient, reducingFactor);
                     }
@@ -87,7 +97,7 @@ namespace HDS.Models
                     {
                         builder.AddNormativeEvenlyDistributedLoad(
                             normativValue,
-                            Double.Parse(LoadAreaWidth[loadAreaIterator]) * 0.001,
+                            Double.Parse(DLoadAreaWidth[loadAreaIterator]) * 0.001,
                             reliabilityCoefficient,
                             reducingFactor);
 

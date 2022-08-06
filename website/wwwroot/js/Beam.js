@@ -1,6 +1,9 @@
 let $supports = document.getElementById('supports-list');
-let $UDLV1s = document.getElementById('UniformlyDistributedLoadsV1');
-let $UDLV2s = document.getElementById('UniformlyDistributedLoadsV2');
+let $DLV1s = document.getElementById('DistributedLoadsV1');
+let $DLV2s = document.getElementById('DistributedLoadsV2');
+
+let $CLV1s = document.getElementById('ConcentratedLoadsV1');
+let $CLV2s = document.getElementById('ConcentratedLoadsV2');
 
 function AddSupport() {
     let nextNum = GetNextNum('.support-container')
@@ -30,13 +33,13 @@ function AddSupport() {
 
 }
 
-function AddUniformlyDistributedLoadV1() {
-    let nextNum = GetNextNum('.UniformlyDistributedLoadV1');
+function AddDistributedLoadV1() {
+    let nextNum = GetNextNum('.DistributedLoadV1');
 
     let elem = document.createElement("div");
-    elem.className = 'UniformlyDistributedLoadV1 mb-4';
+    elem.className = 'DistributedLoadV1 mb-4';
     elem.setAttribute('name', nextNum);
-    elem.setAttribute('id', 'UniformlyDistributedLoadV1_' + nextNum)
+    elem.setAttribute('id', 'DistributedLoadV1_' + nextNum)
     elem.innerHTML = `
                 <div class="row mb-1">
 
@@ -44,7 +47,7 @@ function AddUniformlyDistributedLoadV1() {
                         <h5 class="mb-0">Нагрузка ${nextNum}</h5>
                     </div>
 
-                    <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" onclick="DeleteElementById('UniformlyDistributedLoadV1_${nextNum}')"> Удалить</button>
+                    <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" onclick="DeleteElementById('DistributedLoadV1_${nextNum}')"> Удалить</button>
                 </div>
                 <!--Нормативная величина кг/м2-->
                 <div class="row align-items-center mb-1">
@@ -53,9 +56,9 @@ function AddUniformlyDistributedLoadV1() {
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="NormativeValue" id="NormativeValue${nextNum}" name="NormativeValue" value="1">
+                            <input type="text" class="form-control" aria-label="NormativeValue" id="NormativeValue${nextNum}" name="DNormativeValue" value="1">
                             <div class="input-group-text p-0">
-                                <select class="form-select input-group-text pe-4 UMChoise" aria-label="NormativeValueumUM" name="NormativeValueumUM" id="NormativeValueumUM${nextNum}" onchange="UpdateUniformlyDistributedLoadV1('NormativeValueumUM${nextNum}', 'LoadAreaWidthContainer${nextNum}', 'ReliabilityCoefficientContainer${nextNum}')">
+                                <select class="form-select input-group-text pe-4 UMChoise" aria-label="NormativeValueumUM" name="DNormativeValueumUM" id="NormativeValueumUM${nextNum}" onchange="UpdateDistributedLoadV1('NormativeValueumUM${nextNum}', 'LoadAreaWidthContainer${nextNum}', 'ReliabilityCoefficientContainer${nextNum}')">
                                     <option value="kgm2" select>кг/м<sup>2</sup></option>
                                     <option value="kgm">кг/м</option>
                                 </select>
@@ -71,7 +74,7 @@ function AddUniformlyDistributedLoadV1() {
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="LoadAreaWidth" id="LoadAreaWidth${nextNum}" name="LoadAreaWidth" value="1">
+                            <input type="text" class="form-control" aria-label="LoadAreaWidth" id="LoadAreaWidth${nextNum}" name="DLoadAreaWidth" value="1">
                             <span class="input-group-text">мм</span>
                         </div>
                     </div>
@@ -84,7 +87,7 @@ function AddUniformlyDistributedLoadV1() {
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="ReliabilityCoefficient" id="ReliabilityCoefficient${nextNum}" name="ReliabilityCoefficient" value="1">
+                            <input type="text" class="form-control" aria-label="ReliabilityCoefficient" id="ReliabilityCoefficient${nextNum}" name="DReliabilityCoefficient" value="1">
                         </div>
                     </div>
                 </div>
@@ -96,14 +99,14 @@ function AddUniformlyDistributedLoadV1() {
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="ReducingFactor" id="ReducingFactor" name="ReducingFactor" value="1">
+                            <input type="text" class="form-control" aria-label="ReducingFactor" id="ReducingFactor" name="DReducingFactor" value="1">
                         </div>
                     </div>
                 </div>`;
-    $UDLV1s.append(elem);
+    $DLV1s.append(elem);
 }
 
-function UpdateUniformlyDistributedLoadV1(choise_id, update_id, insert_id) {
+function UpdateDistributedLoadV1(choise_id, update_id, insert_id) {
     let choiseElem = document.getElementById(choise_id);
     let choise = choiseElem.selectedIndex;
 
@@ -124,7 +127,7 @@ function UpdateUniformlyDistributedLoadV1(choise_id, update_id, insert_id) {
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="LoadAreaWidth" id="LoadAreaWidth${id_num}" name="LoadAreaWidth" value="1">
+                            <input type="text" class="form-control" aria-label="LoadAreaWidth" id="LoadAreaWidth${id_num}" name="DLoadAreaWidth" value="1">
                             <span class="input-group-text">мм</span>
                         </div>
                     </div>
@@ -132,8 +135,7 @@ function UpdateUniformlyDistributedLoadV1(choise_id, update_id, insert_id) {
 
             insertElem.parentNode.insertBefore(elem, insertElem);
         }
-    }
-    else if (choise === 1) { //kgm
+    } else if (choise === 1) { //kgm
         try {
             DeleteElementById(update_id)
         } catch (err) {
@@ -141,21 +143,22 @@ function UpdateUniformlyDistributedLoadV1(choise_id, update_id, insert_id) {
         }
     }
 }
-function AddUniformlyDistributedLoadsV2() {
-    let nextNum = GetNextNum('.UniformlyDistributedLoadV2');
+
+function AddDistributedLoadsV2() {
+    let nextNum = GetNextNum('.DistributedLoadV2');
 
     let elem = document.createElement("div");
-    elem.className = 'UniformlyDistributedLoadV2 mb-4';
+    elem.className = 'DistributedLoadV2 mb-4';
     elem.setAttribute('name', nextNum);
-    elem.setAttribute('id', 'UniformlyDistributedLoadV2_' + nextNum)
+    elem.setAttribute('id', 'DistributedLoadV2_' + nextNum)
     elem.innerHTML = `
-            <div id="UniformlyDistributedLoadV2_${nextNum}" class="UniformlyDistributedLoadV2 mb-4" >
+            <div id="DistributedLoadV2_${nextNum}" class="DistributedLoadV2 mb-4" >
                     
                 <div class="row mb-1">
                     <div class="col-6 col-md-5 mb-0 d-flex align-items-center">
                         <h5 class="mb-0">Нагрузка ${nextNum}</h5>
                     </div>
-                    <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" onclick="DeleteElementById('UniformlyDistributedLoadV2_${nextNum}')"> Удалить</button>
+                    <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" onclick="DeleteElementById('DistributedLoadV2_${nextNum}')"> Удалить</button>
                 </div>
                 <!--нагрузка для расчёта по первой группе предельных состояний-->
                 <div class="row align-items-center mb-1">
@@ -164,7 +167,7 @@ function AddUniformlyDistributedLoadsV2() {
                     </div>
                     <div class="col-12 col-lg-7">
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="LoadForFirstGroup" id="LoadForFirstGroup${nextNum}" name="LoadForFirstGroup" value="1">
+                            <input type="text" class="form-control" aria-label="LoadForFirstGroup" id="LoadForFirstGroup${nextNum}" name="DLoadForFirstGroup" value="1">
                             <span class="input-group-text">кг/м</span>
                         </div>
                     </div>
@@ -177,14 +180,114 @@ function AddUniformlyDistributedLoadsV2() {
                     </div>
                     <div class="col-12 col-lg-7">
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="LoadForSecondGroup" id="LoadForSecondGroup${nextNum}" name="LoadForSecondGroup" value="1">
+                            <input type="text" class="form-control" aria-label="LoadForSecondGroup" id="LoadForSecondGroup${nextNum}" name="DLoadForSecondGroup" value="1">
                             <span class="input-group-text">кг/м</span>
                         </div>
                     </div>
                 </div>
             </div>`;
 
-    $UDLV2s.append(elem);
+    $DLV2s.append(elem);
+}
+
+function AddConcentratedLoadsV1() {
+    let nextNum = GetNextNum('.ConcentratedLoadsV1');
+
+    let elem = document.createElement("div");
+    elem.className = 'ConcentratedLoadsV1 mb-4';
+    elem.setAttribute('name', nextNum);
+    elem.setAttribute('id', 'ConcentratedLoadsV1_' + nextNum)
+    elem.innerHTML = `
+                <div class="row mb-1">
+
+                    <div class="col-6 col-md-3 mb-0 d-flex align-items-center">
+                        <h5 class="mb-0">Нагрузка ${nextNum}</h5>
+                    </div>
+
+                    <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" onclick="DeleteElementById('ConcentratedLoadsV1_${nextNum}')"> Удалить</button>
+                </div>
+                <!--Нормативная величина кг/м2-->
+                <div class="row align-items-center mb-1">
+                    <div class="col-12 col-lg-3">
+                        <label class="form-label" for="NormativeValue${nextNum}" > Нормативная величина </label>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="NormativeValue" id="NormativeValue${nextNum}" name="CNormativeValue" value="1">
+                            <span class="input-group-text">кг</span>
+                        </div>
+                    </div>
+                </div>
+                <!--коэффициент надёжности-->
+                <div class="row align-items-center mb-1" id="ReliabilityCoefficientContainer${nextNum}">
+                    <div class="col-12 col-lg-3">
+                        <label class="form-label" for="ReliabilityCoefficient${nextNum}" > Коэффициент надёжности </label>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="ReliabilityCoefficient" id="ReliabilityCoefficient${nextNum}" name="CReliabilityCoefficient" value="1">
+                        </div>
+                    </div>
+                </div>
+
+                <!--коэффициент понижающий-->
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-3">
+                        <label class="form-label" for="ReducingFactor" > Понижающий коэффициент </label>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="ReducingFactor" id="ReducingFactor" name="CReducingFactor" value="1">
+                        </div>
+                    </div>
+                </div>`;
+    $CLV1s.append(elem);
+}
+
+function AddConcentratedLoadsV2() {
+    let nextNum = GetNextNum('.ConcentratedLoadV2');
+
+    let elem = document.createElement("div");
+    elem.className = 'ConcentratedLoadV2 mb-4';
+    elem.setAttribute('name', nextNum);
+    elem.setAttribute('id', 'ConcentratedLoadV2_' + nextNum)
+    elem.innerHTML = `
+            <div id="ConcentratedLoadV2_${nextNum}" class="ConcentratedLoadV2 mb-4" >
+                    
+                <div class="row mb-1">
+                    <div class="col-6 col-md-5 mb-0 d-flex align-items-center">
+                        <h5 class="mb-0">Нагрузка ${nextNum}</h5>
+                    </div>
+                    <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" onclick="DeleteElementById('ConcentratedLoadV2_${nextNum}')"> Удалить</button>
+                </div>
+                <!--нагрузка для расчёта по первой группе предельных состояний-->
+                <div class="row align-items-center mb-1">
+                    <div class="col-12 col-lg-5">
+                        <label class="form-label" for="СLoadForFirstGroup${nextNum}"> нагрузка для расчёта по первой группе </label>
+                    </div>
+                    <div class="col-12 col-lg-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="СLoadForFirstGroup" id="СLoadForFirstGroup${nextNum}" name="СLoadForFirstGroup" value="1">
+                            <span class="input-group-text">кг/м</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--нагрузка для расчёта по второй группе предельных состояний-->
+                <div class="row align-items-center mb-1">
+                    <div class="col-12 col-lg-5">
+                        <label class="form-label" for="СLoadForSecondGroup${nextNum}"> нагрузка для расчёта по второй группе </label>
+                    </div>
+                    <div class="col-12 col-lg-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="СLoadForSecondGroup" id="СLoadForSecondGroup${nextNum}" name="СLoadForSecondGroup" value="1">
+                            <span class="input-group-text">кг/м</span>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+    $CLV2s.append(elem);
 }
 
 function GetLastNum(selector) {
