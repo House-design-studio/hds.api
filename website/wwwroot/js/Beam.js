@@ -42,19 +42,41 @@ function AddDistributedLoadV1() {
     elem.setAttribute('id', 'DistributedLoadV1_' + nextNum)
     elem.innerHTML = `
                 <div class="row mb-1">
-
-                    <div class="col-6 col-md-3 mb-0 d-flex align-items-center">
+                    <div class="col-6 col-md-5 mb-0 d-flex align-items-center">
                         <h5 class="mb-0">Нагрузка ${nextNum}</h5>
                     </div>
-
                     <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" onclick="DeleteElementById('DistributedLoadV1_${nextNum}')"> Удалить</button>
+                </div>
+                <!--смещение начала-->
+                <div class="row align-items-center mb-1" id="DOffsetStart${nextNum}">
+                    <div class="col-12 col-lg-5">
+                        <label class="form-label" for="DOffsetStart${nextNum}" > смещение начала нагрузки </label>
+                    </div>
+                    <div class="col-12 col-lg-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="DOffsetStart" id="DOffsetStart${nextNum}" name="DOffsetStart" value="1">
+                            <span class="input-group-text">мм</span>
+                        </div>
+                    </div>
+                </div>        
+                <!--смещение конца-->
+                <div class="row align-items-center mb-1" id="DOffsetEnd${nextNum}">
+                    <div class="col-12 col-lg-5">
+                        <label class="form-label" for="DOffsetEnd${nextNum}" > смещение конца нагрузки </label>
+                    </div>
+                    <div class="col-12 col-lg-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="DOffsetEnd" id="DOffsetEnd${nextNum}" name="DOffsetEnd" value="1">
+                            <span class="input-group-text">мм</span>
+                        </div>
+                    </div>
                 </div>
                 <!--Нормативная величина кг/м2-->
                 <div class="row align-items-center mb-1">
-                    <div class="col-12 col-lg-3">
+                    <div class="col-12 col-lg-5">
                         <label class="form-label" for="NormativeValue${nextNum}" > Нормативная величина </label>
                     </div>
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-7">
                         <div class="input-group">
                             <input type="text" class="form-control" aria-label="NormativeValue" id="NormativeValue${nextNum}" name="DNormativeValue" value="1">
                             <div class="input-group-text p-0">
@@ -69,10 +91,10 @@ function AddDistributedLoadV1() {
 
                 <!--Ширина грузовой площади кг/м2-->
                 <div class="row align-items-center mb-1" id="LoadAreaWidthContainer${nextNum}">
-                    <div class="col-12 col-lg-3">
+                    <div class="col-12 col-lg-5">
                         <label class="form-label" for="LoadAreaWidth${nextNum}" > Ширина грузовой площади </label>
                     </div>
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-7">
                         <div class="input-group">
                             <input type="text" class="form-control" aria-label="LoadAreaWidth" id="LoadAreaWidth${nextNum}" name="DLoadAreaWidth" value="1">
                             <span class="input-group-text">мм</span>
@@ -82,10 +104,10 @@ function AddDistributedLoadV1() {
 
                 <!--коэффициент надёжности-->
                 <div class="row align-items-center mb-1" id="ReliabilityCoefficientContainer${nextNum}">
-                    <div class="col-12 col-lg-3">
+                    <div class="col-12 col-lg-5">
                         <label class="form-label" for="ReliabilityCoefficient${nextNum}" > Коэффициент надёжности </label>
                     </div>
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-7">
                         <div class="input-group">
                             <input type="text" class="form-control" aria-label="ReliabilityCoefficient" id="ReliabilityCoefficient${nextNum}" name="DReliabilityCoefficient" value="1">
                         </div>
@@ -94,10 +116,10 @@ function AddDistributedLoadV1() {
 
                 <!--коэффициент понижающий-->
                 <div class="row align-items-center">
-                    <div class="col-12 col-lg-3">
+                    <div class="col-12 col-lg-5">
                         <label class="form-label" for="ReducingFactor" > Понижающий коэффициент </label>
                     </div>
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-7">
                         <div class="input-group">
                             <input type="text" class="form-control" aria-label="ReducingFactor" id="ReducingFactor" name="DReducingFactor" value="1">
                         </div>
@@ -122,10 +144,10 @@ function UpdateDistributedLoadV1(choise_id, update_id, insert_id) {
             elem.className = 'row align-items-center mb-1';
             elem.setAttribute('id', 'LoadAreaWidthContainer' + id_num);
             elem.innerHTML = `
-                    <div class="col-12 col-lg-3">
+                    <div class="col-12 col-lg-5">
                         <label class="form-label" for="LoadAreaWidth${id_num}" > Ширина грузовой площади </label>
                     </div>
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-7">
                         <div class="input-group">
                             <input type="text" class="form-control" aria-label="LoadAreaWidth" id="LoadAreaWidth${id_num}" name="DLoadAreaWidth" value="1">
                             <span class="input-group-text">мм</span>
@@ -160,6 +182,31 @@ function AddDistributedLoadsV2() {
                     </div>
                     <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" onclick="DeleteElementById('DistributedLoadV2_${nextNum}')"> Удалить</button>
                 </div>
+                <!--смещение начала-->
+                <div class="row align-items-center mb-1" id="DOffsetStart${nextNum}">
+                    <div class="col-12 col-lg-5">
+                        <label class="form-label" for="DOffsetStart${nextNum}" > смещение начала нагрузки</label>
+                    </div>
+                    <div class="col-12 col-lg-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="DOffsetStart" id="DOffsetStart${nextNum}" name="DOffsetStart" value="1">
+                            <span class="input-group-text">мм</span>
+                        </div>
+                    </div>
+                </div>        
+                <!--смещение конца-->
+                <div class="row align-items-center mb-1" id="DOffsetEnd${nextNum}">
+                    <div class="col-12 col-lg-5">
+                        <label class="form-label" for="DOffsetEnd${nextNum}" > смещение конца нагрузки</label>
+                    </div>
+                    <div class="col-12 col-lg-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="DOffsetEnd" id="DOffsetEnd${nextNum}" name="DOffsetEnd" value="1">
+                            <span class="input-group-text">мм</span>
+                        </div>
+                    </div>
+                </div>
+                
                 <!--нагрузка для расчёта по первой группе предельных состояний-->
                 <div class="row align-items-center mb-1">
                     <div class="col-12 col-lg-5">
@@ -200,18 +247,32 @@ function AddConcentratedLoadsV1() {
     elem.innerHTML = `
                 <div class="row mb-1">
 
-                    <div class="col-6 col-md-3 mb-0 d-flex align-items-center">
+                    <div class="col-6 col-md-5 mb-0 d-flex align-items-center">
                         <h5 class="mb-0">Нагрузка ${nextNum}</h5>
                     </div>
 
                     <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" onclick="DeleteElementById('ConcentratedLoadsV1_${nextNum}')"> Удалить</button>
                 </div>
+
+                <!--смещение-->
+                <div class="row align-items-center mb-1" id="COffset${nextNum}">
+                    <div class="col-12 col-lg-5">
+                        <label class="form-label" for="COffset${nextNum}" > смещение нагрузки </label>
+                    </div>
+                    <div class="col-12 col-lg-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="COffset" id="COffset${nextNum}" name="COffset" value="1">
+                            <span class="input-group-text">мм</span>
+                        </div>
+                    </div>
+                </div>        
+
                 <!--Нормативная величина кг/м2-->
                 <div class="row align-items-center mb-1">
-                    <div class="col-12 col-lg-3">
+                    <div class="col-12 col-lg-5">
                         <label class="form-label" for="NormativeValue${nextNum}" > Нормативная величина </label>
                     </div>
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-7">
                         <div class="input-group">
                             <input type="text" class="form-control" aria-label="NormativeValue" id="NormativeValue${nextNum}" name="CNormativeValue" value="1">
                             <span class="input-group-text">кг</span>
@@ -220,10 +281,10 @@ function AddConcentratedLoadsV1() {
                 </div>
                 <!--коэффициент надёжности-->
                 <div class="row align-items-center mb-1" id="ReliabilityCoefficientContainer${nextNum}">
-                    <div class="col-12 col-lg-3">
+                    <div class="col-12 col-lg-5">
                         <label class="form-label" for="ReliabilityCoefficient${nextNum}" > Коэффициент надёжности </label>
                     </div>
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-7">
                         <div class="input-group">
                             <input type="text" class="form-control" aria-label="ReliabilityCoefficient" id="ReliabilityCoefficient${nextNum}" name="CReliabilityCoefficient" value="1">
                         </div>
@@ -232,10 +293,10 @@ function AddConcentratedLoadsV1() {
 
                 <!--коэффициент понижающий-->
                 <div class="row align-items-center">
-                    <div class="col-12 col-lg-3">
+                    <div class="col-12 col-lg-5">
                         <label class="form-label" for="ReducingFactor" > Понижающий коэффициент </label>
                     </div>
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-7">
                         <div class="input-group">
                             <input type="text" class="form-control" aria-label="ReducingFactor" id="ReducingFactor" name="CReducingFactor" value="1">
                         </div>
@@ -260,6 +321,18 @@ function AddConcentratedLoadsV2() {
                     </div>
                     <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" onclick="DeleteElementById('ConcentratedLoadV2_${nextNum}')"> Удалить</button>
                 </div>
+                <!--смещение-->
+                <div class="row align-items-center mb-1" id="COffset${nextNum}">
+                    <div class="col-12 col-lg-5">
+                        <label class="form-label" for="COffset${nextNum}" > смещение нагрузки </label>
+                    </div>
+                    <div class="col-12 col-lg-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="COffset" id="COffset${nextNum}" name="COffset" value="1">
+                            <span class="input-group-text">мм</span>
+                        </div>
+                    </div>
+                </div>    
                 <!--нагрузка для расчёта по первой группе предельных состояний-->
                 <div class="row align-items-center mb-1">
                     <div class="col-12 col-lg-5">

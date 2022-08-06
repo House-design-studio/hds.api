@@ -26,6 +26,8 @@ namespace HDS.Models
         public string[] Supports { get; set; }
 
 
+        public string[] DOffsetStart { get; set; }
+        public string[] DOffsetEnd { get; set; }
         public string[] DNormativeValue { get; set; }
         public string[] DNormativeValueumUM { get; set; }
         public string[] DLoadAreaWidth { get; set; }
@@ -35,9 +37,8 @@ namespace HDS.Models
         public string[] DLoadForFirstGroup { get; set; }
         public string[] DLoadForSecondGroup { get; set; }
 
+        public string[] COffset { get; set; }
         public string[] CNormativeValue { get; set; }
-        public string[] CNormativeValueumUM { get; set; }
-        public string[] CLoadAreaWidth { get; set; }
         public string[] CReliabilityCoefficient { get; set; }
         public string[] CReducingFactor { get; set; }
 
@@ -64,40 +65,35 @@ namespace HDS.Models
                 builder.AddSupport(Int32.Parse(support) * 0.001);
             }
 
-            for (int i = 0; i < DLoadForFirstGroup?.Length; i++)
-            {
-                builder.AddNormativeEvenlyDistributedLoad(
-                    Int32.Parse(DLoadForFirstGroup[i]),
-                    Int32.Parse(DLoadForSecondGroup[i]));
-            }
-
             if (DryWood == "on") builder.SetDryWood(true);
             if (FlameRetardants == "on") builder.SetFlameRetardant(true);
 
-            if (DNormativeValue != null)
+            if (DNormativeValue is not null)
             {
                 int loadAreaIterator = 0;
 
                 for (int i = 0; i < DNormativeValue.Length; i++)
                 {
-                    var tmp1 = DNormativeValue[i].Replace('.', ',');
-                    var normativValue = Double.Parse(tmp1);
-
-                    var tmp2 = DReliabilityCoefficient[i].Replace('.', ',');
-                    var reliabilityCoefficient = double.Parse(tmp2);
-
-                    var tmp3 = DReducingFactor[i].Replace('.', ',');
-                    var reducingFactor = double.Parse(tmp3);
+                    var normativValue = Double.Parse(DNormativeValue[i].Replace('.', ','));
+                    var reliabilityCoefficient = Double.Parse(DReliabilityCoefficient[i].Replace('.', ','));
+                    var reducingFactor = Double.Parse(DReducingFactor[i].Replace('.', ','));
 
                     if (DNormativeValueumUM[i] == "kgm")
                     {
-                        builder.AddNormativeEvenlyDistributedLoad(normativValue, reliabilityCoefficient, reducingFactor);
+                        builder.AddDistributedLoad(
+                            Int32.Parse(DOffsetStart[i]) * 0.001,
+                            Int32.Parse(DOffsetEnd[i]) * 0.001,
+                            normativValue,
+                            reliabilityCoefficient,
+                            reducingFactor);
                     }
                     else //kgm^2
                     {
-                        builder.AddNormativeEvenlyDistributedLoad(
+                        builder.AddDistributedLoad(
+                            Int32.Parse(DOffsetStart[i]) * 0.001,
+                            Int32.Parse(DOffsetEnd[i]) * 0.001,
                             normativValue,
-                            Double.Parse(DLoadAreaWidth[loadAreaIterator]) * 0.001,
+                            Int32.Parse(DLoadAreaWidth[loadAreaIterator]) * 0.001,
                             reliabilityCoefficient,
                             reducingFactor);
 
@@ -106,8 +102,47 @@ namespace HDS.Models
                 }
             }
 
-            return builder.Build();
+            int offsetsV2 = DNormativeValue?.Length ?? 0;
 
+            for (int i = 0; i < DLoadForFirstGroup?.Length; i++)
+            {
+                var loadForFirstGroup = Double.Parse(DLoadForFirstGroup[i].Replace('.', ','));
+                var loadForSecondGroup = Double.Parse(DLoadForSecondGroup[i].Replace('.', ','));
+
+                builder.AddDistributedLoad(
+                    Int32.Parse(DOffsetStart[i + offsetsV2]) * 0.001,
+                    Int32.Parse(DOffsetEnd[i + offsetsV2]) * 0.001,
+                    loadForFirstGroup,
+                    loadForSecondGroup);
+            }
+
+            if (CNormativeValue is not null){
+                for (int i = 0; i < CNormativeValue.Length; i++)
+                {
+                    var normativValue = Double.Parse(CNormativeValue[i].Replace('.', ','));
+                    var reliabilityCoefficient = Double.Parse(CReliabilityCoefficient[i].Replace('.', ','));
+                    var reducingFactor = Double.Parse(CReducingFactor[i].Replace('.', ','));
+
+                    builder.AddСoncentratedLoad(
+                        Int32.Parse(COffset[i]) * 0.001, 
+                        normativValue, 
+                        reliabilityCoefficient, 
+                        reducingFactor);
+                }
+            }
+            
+            offsetsV2 = CNormativeValue?.Length ?? 0;
+
+            for (int i = 0; i < CLoadForFirstGroup?.Length; i++)
+            {
+                var loadForFirstGroup = Double.Parse(CLoadForFirstGroup[i].Replace('.', ','));
+                var loadForSecondGroup = Double.Parse(CLoadForSecondGroup[i].Replace('.', ','));
+                builder.AddСoncentratedLoad(
+                    Int32.Parse(COffset[i + offsetsV2]) * 0.001,
+                    loadForFirstGroup,
+                    loadForSecondGroup);
+            }
+            return builder.Build();
         }
     }
 }

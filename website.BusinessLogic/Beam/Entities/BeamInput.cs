@@ -20,14 +20,15 @@
 
         public List<double> Supports { get; internal set; } = new List<double>();
 
-        public List<NormativeEvenlyDistributedLoad> NormativeEvenlyDistributedLoads { get; internal set; } = new List<NormativeEvenlyDistributedLoad>();
+        public List<DistributedLoad> DistributedLoads { get; internal set; } = new List<DistributedLoad>();
+        public List<ConcentratedLoad> ConcentratedLoads { get; internal set; } = new List<ConcentratedLoad>();
 
-        public class NormativeEvenlyDistributedLoad
+        public abstract class Load 
         {
             public double LoadForFirstGroup { get; internal set; }
             public double LoadForSecondGroup { get; internal set; }
 
-            public NormativeEvenlyDistributedLoad(
+            public Load(
                 double loadForFirstGroup,
                 double loadForSecondGroup)
             {
@@ -35,11 +36,34 @@
                 LoadForSecondGroup = loadForSecondGroup;
             }
         }
+        public class DistributedLoad : Load
+        {   
+            public double OffsetStart { get; internal set; }
+            public double OffsetEnd { get; internal set; }
+            public DistributedLoad(double offsetStart, double offsetEnd, double loadForFirstGroup, double loadForSecondGroup) 
+                : base(loadForFirstGroup, loadForSecondGroup)
+            {
+                OffsetStart = offsetStart;
+                OffsetEnd = offsetEnd;
+            }
+        }
+
+        public class ConcentratedLoad : Load
+        {
+            public double Offset { get; internal set; }
+            public ConcentratedLoad(double offset, double loadForFirstGroup, double loadForSecondGroup)
+                : base(loadForFirstGroup, loadForSecondGroup)
+            {
+                Offset = offset;
+            }
+        }
+
         public override string ToString()
         {
 
             string supports = "";
-            string loads = "";
+            string distributedLoad = "";
+            string concentratedLoad = "";
 
             foreach (var s in Supports)
             {
@@ -47,11 +71,17 @@
             }
             supports = supports.Remove(supports.Length - 2);
 
-            foreach (var s in NormativeEvenlyDistributedLoads)
+            foreach (var s in DistributedLoads)
             {
-                loads = $"{loads} {s.LoadForFirstGroup * 1000} {s.LoadForSecondGroup * 1000}, ";
+                distributedLoad = $"{distributedLoad} {s.OffsetStart * 1000} {s.OffsetEnd * 1000} {s.LoadForFirstGroup} {s.LoadForSecondGroup}, ";
             }
-            if (loads.Length > 0) loads = loads.Remove(loads.Length - 2);
+            if (distributedLoad.Length > 0) distributedLoad = distributedLoad.Remove(distributedLoad.Length - 2);
+
+            foreach (var s in ConcentratedLoads)
+            {
+                concentratedLoad = $"{concentratedLoad} {s.Offset * 1000} {s.LoadForFirstGroup} {s.LoadForSecondGroup}, ";
+            }
+            if (concentratedLoad.Length > 0) concentratedLoad = concentratedLoad.Remove(concentratedLoad.Length - 2);
 
             return
                 $" Material: {Material} \n " +
@@ -64,7 +94,8 @@
                 $" Exploitation: {Exploitation} \n " +
                 $" LoadingMode: {LoadingMode} \n " +
                 $" Supports: {supports} \n " +
-                $" loads: {loads}";
+                $" DistributedLoads: {distributedLoad} \n " +
+                $" ConcentratedLoads: {concentratedLoad}";
         }
     }
 }

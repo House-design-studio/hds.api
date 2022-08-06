@@ -10,6 +10,15 @@ namespace HDS.BusinessLogic.Beam.Entities
         {
             if (result.Supports.Count < 2) throw new Exception("num of supports < 2");
             if (result.Width == 0) throw new Exception("sizes not entered");
+
+            foreach(var load in result.DistributedLoads)
+            {
+                if (load.OffsetEnd > result.Length) throw new Exception("load out of beam");
+            }
+            foreach(var load in result.ConcentratedLoads)
+            {
+                if (load.Offset > result.Length) throw new Exception("load out of beam");
+            }
             return result;
         }
 
@@ -51,8 +60,10 @@ namespace HDS.BusinessLogic.Beam.Entities
         {
             result.LifeTime = lifeTime >= 0 ? lifeTime : throw new ArgumentException($"{nameof(lifeTime)} < 0", nameof(lifeTime));
         }
-        public void AddNormativeEvenlyDistributedLoad(double normativeValue, double loadAreaWidth, double reliabilityCoefficient, double reducingFactor)
+        public void AddDistributedLoad(double offsetStart, double offsetEnd, double normativeValue, double loadAreaWidth, double reliabilityCoefficient, double reducingFactor)
         {
+            if (offsetStart < 0) throw new ArgumentException($"{nameof(offsetStart)} < 0", nameof(offsetStart));
+            if (offsetEnd < 0) throw new ArgumentException($"{nameof(offsetEnd)} < 0", nameof(offsetEnd));
             if (normativeValue <= 0) throw new ArgumentException($"{nameof(normativeValue)} <= 0", nameof(normativeValue));
             if (loadAreaWidth <= 0) throw new ArgumentException($"{nameof(loadAreaWidth)} <= 0", nameof(loadAreaWidth));
             if (reliabilityCoefficient <= 0) throw new ArgumentException($"{nameof(reliabilityCoefficient)} <= 0", nameof(reliabilityCoefficient));
@@ -61,11 +72,13 @@ namespace HDS.BusinessLogic.Beam.Entities
             double firstLoad = reliabilityCoefficient * normativeValue * loadAreaWidth;
             double secondLoad = reducingFactor * normativeValue * loadAreaWidth;
 
-            var load = new BeamInput.NormativeEvenlyDistributedLoad(firstLoad, secondLoad);
-            result.NormativeEvenlyDistributedLoads.Add(load);
+            var load = new BeamInput.DistributedLoad(offsetStart, offsetEnd, firstLoad, secondLoad);
+            result.DistributedLoads.Add(load);
         }
-        public void AddNormativeEvenlyDistributedLoad(double normativeValue, double reliabilityCoefficient, double reducingFactor)
+        public void AddDistributedLoad(double offsetStart, double offsetEnd, double normativeValue, double reliabilityCoefficient, double reducingFactor)
         {
+            if (offsetStart < 0) throw new ArgumentException($"{nameof(offsetStart)} < 0", nameof(offsetStart));
+            if (offsetEnd < 0) throw new ArgumentException($"{nameof(offsetEnd)} < 0", nameof(offsetEnd));
             if (normativeValue <= 0) throw new ArgumentException($"{nameof(normativeValue)} <= 0", nameof(normativeValue));
             if (reliabilityCoefficient <= 0) throw new ArgumentException($"{nameof(reliabilityCoefficient)} <= 0", nameof(reliabilityCoefficient));
             if (reducingFactor <= 0) throw new ArgumentException($"{nameof(reducingFactor)} <= 0", nameof(reducingFactor));
@@ -73,16 +86,47 @@ namespace HDS.BusinessLogic.Beam.Entities
             double firstLoad = reliabilityCoefficient * normativeValue;
             double secondLoad = reducingFactor * normativeValue;
 
-            var load = new BeamInput.NormativeEvenlyDistributedLoad(firstLoad, secondLoad);
-            result.NormativeEvenlyDistributedLoads.Add(load);
+            var load = new BeamInput.DistributedLoad(offsetStart, offsetEnd, firstLoad, secondLoad);
+            result.DistributedLoads.Add(load);
         }
-        public void AddNormativeEvenlyDistributedLoad(double loadForFirstGroup, double loadForSecondGroup)
+        public void AddDistributedLoad(double offsetStart, double offsetEnd, double loadForFirstGroup, double loadForSecondGroup)
         {
-            var load = new BeamInput.NormativeEvenlyDistributedLoad(
+            if (offsetStart < 0) throw new ArgumentException($"{nameof(offsetStart)} < 0", nameof(offsetStart));
+            if (offsetEnd < 0) throw new ArgumentException($"{nameof(offsetEnd)} < 0", nameof(offsetEnd));
+
+            var load = new BeamInput.DistributedLoad(
+                offsetStart,
+                offsetEnd,
                 loadForFirstGroup > 0 ? loadForFirstGroup : throw new ArgumentException($"{nameof(loadForFirstGroup)} <= 0", nameof(loadForFirstGroup)),
                 loadForSecondGroup > 0 ? loadForSecondGroup : throw new ArgumentException($"{nameof(loadForSecondGroup)} <= 0", nameof(loadForSecondGroup)));
 
-            result.NormativeEvenlyDistributedLoads.Add(load);
+            result.DistributedLoads.Add(load);
+        }
+
+        public void AddСoncentratedLoad(double offset, double normativeValue, double reliabilityCoefficient, double reducingFactor)
+        {
+            if (offset < 0) throw new ArgumentException($"{nameof(offset)} < 0", nameof(offset));
+            if (normativeValue <= 0) throw new ArgumentException($"{nameof(normativeValue)} <= 0", nameof(normativeValue));
+            if (reliabilityCoefficient <= 0) throw new ArgumentException($"{nameof(reliabilityCoefficient)} <= 0", nameof(reliabilityCoefficient));
+            if (reducingFactor <= 0) throw new ArgumentException($"{nameof(reducingFactor)} <= 0", nameof(reducingFactor));
+
+            double firstLoad = reliabilityCoefficient * normativeValue;
+            double secondLoad = reducingFactor * normativeValue;
+
+            var load = new BeamInput.ConcentratedLoad(offset, firstLoad, secondLoad);
+            result.ConcentratedLoads.Add(load);
+        }
+
+        public void AddСoncentratedLoad(double offset, double loadForFirstGroup, double loadForSecondGroup)
+        {
+            if (offset < 0) throw new ArgumentException($"{nameof(offset)} < 0", nameof(offset));
+
+            var load = new BeamInput.ConcentratedLoad(
+                offset,
+                loadForFirstGroup > 0 ? loadForFirstGroup : throw new ArgumentException($"{nameof(loadForFirstGroup)} <= 0", nameof(loadForFirstGroup)),
+                loadForSecondGroup > 0 ? loadForSecondGroup : throw new ArgumentException($"{nameof(loadForSecondGroup)} <= 0", nameof(loadForSecondGroup)));
+
+            result.ConcentratedLoads.Add(load);
         }
     }
 }
