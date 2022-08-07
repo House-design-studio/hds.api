@@ -7,17 +7,17 @@
         /// </summary>
         public enum LoadingModes
         {
-            a,
-            b,
-            v,
-            g,
-            d,
-            e,
-            j,
-            z,
-            k,
-            l,
-            m
+            A,
+            B,
+            V,
+            G,
+            D,
+            E,
+            J,
+            Z,
+            K,
+            L,
+            M
         }
 
         /// <summary>
@@ -25,12 +25,12 @@
         /// </summary>
         public enum Exploitations
         {
-            class_1a,
-            class_1b,
-            class_2,
-            class_3,
-            class_4a,
-            class_4b
+            Class1A,
+            Class1B,
+            Class2,
+            Class3,
+            Class4A,
+            Class4B
         }
 
         /// <summary>
@@ -39,12 +39,12 @@
         public enum BeamMatireals
         {
 
-            plank_k16,
-            plank_k24,
-            plank_k26,
-            lvl_k35,
-            lvl_k40,
-            lvl_k45
+            PlankK16,
+            PlankK24,
+            PlankK26,
+            LvlK35,
+            LvlK40,
+            LvlK45
         }
 
         /// <summary>
@@ -53,12 +53,12 @@
         /// </summary>
         public static readonly Dictionary<BeamMatireals, BeamMaterialСharacteristic> BeamMaterialСharacteristics = new()
         {
-            {BeamMatireals.plank_k16, new BeamMaterialСharacteristic(5.4 * 1000000000, 8.0 * 1000000000, 0.50 * 1000000000, 13.0 * 1000000, 2.4 * 1000000)},
-            {BeamMatireals.plank_k24, new BeamMaterialСharacteristic(7.4 * 1000000000, 11.0 * 1000000000,0.69 * 1000000000, 19.5 * 1000000, 2.4 * 1000000)},
-            {BeamMatireals.plank_k26, new BeamMaterialСharacteristic(8.0 * 1000000000, 11.5 * 1000000000,0.72 * 1000000000, 21.0 * 1000000, 2.7 * 1000000)},
-            {BeamMatireals.lvl_k35, new BeamMaterialСharacteristic(10.0 * 1000000000, 10.0 * 1000000000, 0.50 * 1000000000, 30.0 * 1000000, 2.9 * 1000000)},
-            {BeamMatireals.lvl_k40, new BeamMaterialСharacteristic(10.0 * 1000000000, 10.0 * 1000000000, 0.60 * 1000000000, 34.0 * 1000000, 3.0 * 1000000)},
-            {BeamMatireals.lvl_k45, new BeamMaterialСharacteristic(10.0 * 1000000000, 10.0 * 1000000000, 0.70 * 1000000000, 39.0 * 1000000, 3.2 * 1000000)},
+            {BeamMatireals.PlankK16, new BeamMaterialСharacteristic(5.4 * 1000000000, 8.0 * 1000000000, 0.50 * 1000000000, 13.0 * 1000000, 2.4 * 1000000)},
+            {BeamMatireals.PlankK24, new BeamMaterialСharacteristic(7.4 * 1000000000, 11.0 * 1000000000,0.69 * 1000000000, 19.5 * 1000000, 2.4 * 1000000)},
+            {BeamMatireals.PlankK26, new BeamMaterialСharacteristic(8.0 * 1000000000, 11.5 * 1000000000,0.72 * 1000000000, 21.0 * 1000000, 2.7 * 1000000)},
+            {BeamMatireals.LvlK35, new BeamMaterialСharacteristic(10.0 * 1000000000, 10.0 * 1000000000, 0.50 * 1000000000, 30.0 * 1000000, 2.9 * 1000000)},
+            {BeamMatireals.LvlK40, new BeamMaterialСharacteristic(10.0 * 1000000000, 10.0 * 1000000000, 0.60 * 1000000000, 34.0 * 1000000, 3.0 * 1000000)},
+            {BeamMatireals.LvlK45, new BeamMaterialСharacteristic(10.0 * 1000000000, 10.0 * 1000000000, 0.70 * 1000000000, 39.0 * 1000000, 3.2 * 1000000)},
         };
         public class BeamMaterialСharacteristic
         {

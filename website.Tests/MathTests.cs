@@ -1,6 +1,6 @@
 using static HDS.BusinessLogic.Mathematics;
 
-namespace HDS.Tests
+namespace HDS.BuisnessLogic.Tests
 {
     public class MathTests
     {
@@ -9,9 +9,9 @@ namespace HDS.Tests
         {
             var point1 = new Point2D(0, 0);
             var point2 = new Point2D(3, 3);
-            var X = 1.5d;
+            var x = 1.5d;
 
-            var result = LinearInterpolation(point1, point2, X);
+            var result = LinearInterpolation(point1, point2, x);
 
             Assert.That(result, Is.EqualTo(1.5d));
         }
@@ -21,9 +21,9 @@ namespace HDS.Tests
         {
             var point1 = new Point2D(0, 0);
             var point2 = new Point2D(0, 0);
-            var X = 0;
+            var x = 0;
 
-            var result = LinearInterpolation(point1, point2, X);
+            var result = LinearInterpolation(point1, point2, x);
 
             Assert.That(result, Is.EqualTo(0));
         }
@@ -33,9 +33,9 @@ namespace HDS.Tests
         {
             var point1 = new Point2D(-3d, -3d);
             var point2 = new Point2D(1d, -1d);
-            var X = -1.5d;
+            var x = -1.5d;
 
-            var result = LinearInterpolation(point1, point2, X);
+            var result = LinearInterpolation(point1, point2, x);
 
             Assert.That(result, Is.EqualTo(-2.25d));
         }

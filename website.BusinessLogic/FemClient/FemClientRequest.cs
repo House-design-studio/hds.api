@@ -15,14 +15,14 @@ namespace HDS.BusinessLogic.FemClient
         public class Node
         {
             public Point3D Coordinate { get; set; }
-            public Support support { get; set; }
-            public Load load { get; set; }
+            public Support Support { get; set; }
+            public Load Load { get; set; }
 
             public Node(Point3D coordinate, Support support, Load load)
             {
                 Coordinate = coordinate;
-                this.support = support;
-                this.load = load;
+                this.Support = support;
+                this.Load = load;
             }
         }
 
@@ -30,29 +30,29 @@ namespace HDS.BusinessLogic.FemClient
         {
             public BeamInfo First { get; set; }
             public BeamInfo Second { get; set; }
-            public ZDirection Z_Direction { get; set; }
-            public double Stiffness_modulus { get; set; }
-            public double Shear_modulus { get; set; }
-            public double Cross_section_area { get; set; }
-            public double Shear_area_y { get; set; }
-            public double Shear_area_z { get; set; }
-            public double Moment_of_inertia_x { get; set; }
-            public double Moment_of_inertia_y { get; set; }
-            public double Moment_of_inertia_z { get; set; }
+            public ZDirection ZDirection { get; set; }
+            public double StiffnessModulus { get; set; }
+            public double ShearModulus { get; set; }
+            public double CrossSectionArea { get; set; }
+            public double ShearAreaY { get; set; }
+            public double ShearAreaZ { get; set; }
+            public double MomentOfInertiaX { get; set; }
+            public double MomentOfInertiaY { get; set; }
+            public double MomentOfInertiaZ { get; set; }
 
-            public Beam(BeamInfo first, BeamInfo second, ZDirection z_Direction, double stiffness_modulus, double shear_modulus, double cross_section_area, double shear_area_y, double shear_area_z, double moment_of_inertia_x, double moment_of_inertia_y, double moment_of_inertia_z)
+            public Beam(BeamInfo first, BeamInfo second, ZDirection zDirection, double stiffnessModulus, double shearModulus, double crossSectionArea, double shearAreaY, double shearAreaZ, double momentOfInertiaX, double momentOfInertiaY, double momentOfInertiaZ)
             {
                 First = first;
                 Second = second;
-                Z_Direction = z_Direction;
-                Stiffness_modulus = stiffness_modulus;
-                Shear_modulus = shear_modulus;
-                Cross_section_area = cross_section_area;
-                Shear_area_y = shear_area_y;
-                Shear_area_z = shear_area_z;
-                Moment_of_inertia_x = moment_of_inertia_x;
-                Moment_of_inertia_y = moment_of_inertia_y;
-                Moment_of_inertia_z = moment_of_inertia_z;
+                ZDirection = zDirection;
+                StiffnessModulus = stiffnessModulus;
+                ShearModulus = shearModulus;
+                CrossSectionArea = crossSectionArea;
+                ShearAreaY = shearAreaY;
+                ShearAreaZ = shearAreaZ;
+                MomentOfInertiaX = momentOfInertiaX;
+                MomentOfInertiaY = momentOfInertiaY;
+                MomentOfInertiaZ = momentOfInertiaZ;
             }
         }
         public class Support
@@ -92,14 +92,14 @@ namespace HDS.BusinessLogic.FemClient
         public class BeamInfo
         {
             public int Node { get; set; }
-            public Flexible Is_Flexible { get; set; }
-            public Fixed Is_Fixed { get; set; }
+            public Flexible IsFlexible { get; set; }
+            public Fixed IsFixed { get; set; }
 
-            public BeamInfo(int node, Flexible is_Flexible, Fixed is_Fixed)
+            public BeamInfo(int node, Flexible isFlexible, Fixed isFixed)
             {
                 Node = node;
-                Is_Flexible = is_Flexible;
-                Is_Fixed = is_Fixed;
+                IsFlexible = isFlexible;
+                IsFixed = isFixed;
             }
         }
         public class Flexible

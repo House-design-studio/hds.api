@@ -1,9 +1,9 @@
 ﻿using HDS.BusinessLogic.Beam.Entities;
 using HDS.BusinessLogic.Interfaces;
-using HDS.Models;
+using HDS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HDS.Controllers
+namespace HDS.Web.Controllers
 {
     [Route("/{controller}/pro/{action=Index}")]
     public class BeamController : Controller

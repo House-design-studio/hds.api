@@ -5,7 +5,7 @@ namespace HDS.BusinessLogic.Beam
 {
     public class BeamCalculator : IBeamCalculator
     {
-        private FullReport Report = new();
+        private readonly FullReport _report = new();
 
         public BeamInputBuilder GetBeamInputBuilder()
         {
@@ -14,42 +14,42 @@ namespace HDS.BusinessLogic.Beam
 
         public async Task<FullReport> GetFullReportAsync(BeamInput input)
         {
-            Report.Input = input;
+            _report.Input = input;
 
             SetStaticData();
-            return Report;
+            return _report;
         }
 
         private void SetStaticData()
         {
-            Report.ShrinkageInWidth = Analyze.GetShrinkage(Report.Input.Width);
-            Report.ShrinkageInHeight = Analyze.GetShrinkage(Report.Input.Height);
+            _report.ShrinkageInWidth = Analyze.Analyze.GetShrinkage(_report.Input.Width);
+            _report.ShrinkageInHeight = Analyze.Analyze.GetShrinkage(_report.Input.Height);
 
-            Report.EffectiveWidth = Report.Input.Width - Report.ShrinkageInWidth;
-            Report.EffectiveHeight = Report.Input.Height - Report.ShrinkageInHeight;
+            _report.EffectiveWidth = _report.Input.Width - _report.ShrinkageInWidth;
+            _report.EffectiveHeight = _report.Input.Height - _report.ShrinkageInHeight;
 
-            Report.CrossSectionArea = Analyze.GetCrossSectionArea(Report.EffectiveWidth, Report.EffectiveHeight);
+            _report.CrossSectionArea = Analyze.Analyze.GetCrossSectionArea(_report.EffectiveWidth, _report.EffectiveHeight);
 
-            Report.PolarMomentOfInertia = Analyze.GetPolarMomentOfInertia(Report.EffectiveWidth, Report.EffectiveHeight);
+            _report.PolarMomentOfInertia = Analyze.Analyze.GetPolarMomentOfInertia(_report.EffectiveWidth, _report.EffectiveHeight);
 
-            Report.MomentOfInertiaY = Analyze.GetMomentOfInertiaY(Report.EffectiveWidth, Report.EffectiveHeight);
-            Report.MomentOfInertiaZ = Analyze.GetMomentOfInertiaZ(Report.EffectiveWidth, Report.EffectiveHeight);
+            _report.MomentOfInertiaY = Analyze.Analyze.GetMomentOfInertiaY(_report.EffectiveWidth, _report.EffectiveHeight);
+            _report.MomentOfInertiaZ = Analyze.Analyze.GetMomentOfInertiaZ(_report.EffectiveWidth, _report.EffectiveHeight);
 
-            Report.MomentOfResistanceY = Analyze.GetMomentOfResistanceY(Report.EffectiveWidth, Report.EffectiveHeight);
-            Report.MomentOfResistanceZ = Analyze.GetMomentOfResistanceZ(Report.EffectiveWidth, Report.EffectiveHeight);
+            _report.MomentOfResistanceY = Analyze.Analyze.GetMomentOfResistanceY(_report.EffectiveWidth, _report.EffectiveHeight);
+            _report.MomentOfResistanceZ = Analyze.Analyze.GetMomentOfResistanceZ(_report.EffectiveWidth, _report.EffectiveHeight);
 
-            Report.StaticMomentOfShearSectionY = Analyze.GetStaticMomentOfShearSectionY(Report.EffectiveWidth, Report.EffectiveHeight);
-            Report.StaticMomentOfShearSectionZ = Analyze.GetStaticMomentOfShearSectionZ(Report.EffectiveWidth, Report.EffectiveHeight);
+            _report.StaticMomentOfShearSectionY = Analyze.Analyze.GetStaticMomentOfShearSectionY(_report.EffectiveWidth, _report.EffectiveHeight);
+            _report.StaticMomentOfShearSectionZ = Analyze.Analyze.GetStaticMomentOfShearSectionZ(_report.EffectiveWidth, _report.EffectiveHeight);
 
-            Report.StiffnessModulus = Data.BeamMaterialСharacteristics[Report.Input.Material].StiffnessModulus;
-            Report.StiffnessModulusAverage = Data.BeamMaterialСharacteristics[Report.Input.Material].StiffnessModulusAverage;
-            Report.ShearModulusAverage = Data.BeamMaterialСharacteristics[Report.Input.Material].ShearModulusAverage;
-            Report.BendingResistance = Data.BeamMaterialСharacteristics[Report.Input.Material].BendingResistance;
-            Report.BendingShearResistance = Data.BeamMaterialСharacteristics[Report.Input.Material].BendingShearResistance;
+            _report.StiffnessModulus = Data.BeamMaterialСharacteristics[_report.Input.Material].StiffnessModulus;
+            _report.StiffnessModulusAverage = Data.BeamMaterialСharacteristics[_report.Input.Material].StiffnessModulusAverage;
+            _report.ShearModulusAverage = Data.BeamMaterialСharacteristics[_report.Input.Material].ShearModulusAverage;
+            _report.BendingResistance = Data.BeamMaterialСharacteristics[_report.Input.Material].BendingResistance;
+            _report.BendingShearResistance = Data.BeamMaterialСharacteristics[_report.Input.Material].BendingShearResistance;
 
-            Report.MaCoefficient = Analyze.GetMaCoefficient(Report.Input.FlameRetardants);
-            Report.MBCoefficient = Analyze.GetMBCoefficient(Report.Input.Exploitation);
-            Report.mccCoefficient = Analyze.GetMccCoefficient(Report.Input.LifeTime);
+            _report.MaCoefficient = Analyze.Analyze.GetMaCoefficient(_report.Input.FlameRetardants);
+            _report.MbCoefficient = Analyze.Analyze.GetMbCoefficient(_report.Input.Exploitation);
+            _report.MccCoefficient = Analyze.Analyze.GetMccCoefficient(_report.Input.LifeTime);
         }
     }
 }

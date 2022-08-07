@@ -1,5 +1,5 @@
 using static HDS.BusinessLogic.Mathematics;
-namespace HDS.BusinessLogic.Beam
+namespace HDS.BusinessLogic.Beam.Analyze
 {
     /// <summary>
     /// Класс для расчётов физических характеристик балки 
@@ -89,28 +89,28 @@ namespace HDS.BusinessLogic.Beam
         /// <summary>
         /// расчёт коэффициента mB
         /// </summary>
-        /// <param name="flameRetardants">Класс условий эксплуатации материала</param>
+        /// <param name="exploitation">условия эксплуатации материала</param>
         /// <returns>коэффициэнт mB</returns>
-        public static double GetMBCoefficient(Data.Exploitations exploitation)
+        public static double GetMbCoefficient(Data.Exploitations exploitation)
         {
             return exploitation switch
             {
-                Data.Exploitations.class_1a or
-                Data.Exploitations.class_1b or
-                Data.Exploitations.class_2 => 1.0,
+                Data.Exploitations.Class1A or
+                Data.Exploitations.Class1B or
+                Data.Exploitations.Class2 => 1.0,
 
-                Data.Exploitations.class_3 => 0.9,
-                Data.Exploitations.class_4a => 0.85,
-                Data.Exploitations.class_4b => 0.75,
+                Data.Exploitations.Class3 => 0.9,
+                Data.Exploitations.Class4A => 0.85,
+                Data.Exploitations.Class4B => 0.75,
                 _ => throw new NotImplementedException("Коэффициент mb для данного типа нагрузки не реализован"),
             };
         }
 
         /// <summary>
-        /// расчёт коэффициента mB
+        /// расчёт коэффициента Mcc
         /// </summary>
-        /// <param name="flameRetardants">Класс условий эксплуатации материала</param>
-        /// <returns>коэффициэнт mB</returns>
+        /// <param name="lifeTime">Срок службы</param>
+        /// <returns>коэффициэнт mcc</returns>
         public static double GetMccCoefficient(int lifeTime)
         {
             return lifeTime switch

@@ -1,4 +1,4 @@
-﻿namespace HDS.Models.Database
+﻿namespace HDS.Web.Models.Database
 {
     public partial class Sp131133302012WindDirection
     {

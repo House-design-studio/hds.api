@@ -1,7 +1,7 @@
 ﻿using HDS.BusinessLogic;
 using HDS.BusinessLogic.Beam.Entities;
 
-namespace HDS.Models
+namespace HDS.Web.Models
 {
     public class BeamInputStringModel
     {
@@ -29,7 +29,7 @@ namespace HDS.Models
         public string[] DOffsetStart { get; set; }
         public string[] DOffsetEnd { get; set; }
         public string[] DNormativeValue { get; set; }
-        public string[] DNormativeValueumUM { get; set; }
+        public string[] DNormativeValueumUm { get; set; }
         public string[] DLoadAreaWidth { get; set; }
         public string[] DReliabilityCoefficient { get; set; }
         public string[] DReducingFactor { get; set; }
@@ -78,7 +78,7 @@ namespace HDS.Models
                     var reliabilityCoefficient = Double.Parse(DReliabilityCoefficient[i].Replace('.', ','));
                     var reducingFactor = Double.Parse(DReducingFactor[i].Replace('.', ','));
 
-                    if (DNormativeValueumUM[i] == "kgm")
+                    if (DNormativeValueumUm[i] == "kgm")
                     {
                         builder.AddDistributedLoad(
                             Int32.Parse(DOffsetStart[i]) * 0.001,

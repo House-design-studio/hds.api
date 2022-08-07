@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HDS.Controllers
+namespace HDS.Web.Controllers
 {
     [AllowAnonymous]
     public class HomeController : Controller

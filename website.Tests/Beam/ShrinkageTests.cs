@@ -1,6 +1,6 @@
-﻿using static HDS.BusinessLogic.Beam.Analyze;
+﻿using static HDS.BusinessLogic.Beam.Analyze.Analyze;
 
-namespace HDS.Tests.Beam
+namespace HDS.BuisnessLogic.Tests.Beam
 {
     public class ShrinkageTests
     {

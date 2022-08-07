@@ -1,12 +1,12 @@
-﻿using HDS.Models.Database;
+﻿using System.Security.Claims;
+using HDS.Web.Models.Database;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
-namespace HDS.Controllers
+namespace HDS.Web.Controllers
 {
     public class AccountController : Controller
     {

@@ -28,7 +28,7 @@
             public double LoadForFirstGroup { get; internal set; }
             public double LoadForSecondGroup { get; internal set; }
 
-            public Load(
+            protected Load(
                 double loadForFirstGroup,
                 double loadForSecondGroup)
             {
@@ -60,27 +60,13 @@
 
         public override string ToString()
         {
-
-            string supports = "";
-            string distributedLoad = "";
-            string concentratedLoad = "";
-
-            foreach (var s in Supports)
-            {
-                supports = $"{supports}{s * 1000}, ";
-            }
+            var supports = Supports.Aggregate("", (current, s) => $"{current}{s * 1000}, ");
             supports = supports.Remove(supports.Length - 2);
 
-            foreach (var s in DistributedLoads)
-            {
-                distributedLoad = $"{distributedLoad} {s.OffsetStart * 1000} {s.OffsetEnd * 1000} {s.LoadForFirstGroup} {s.LoadForSecondGroup}, ";
-            }
+            var distributedLoad = DistributedLoads.Aggregate("", (current, s) => $"{current} {s.OffsetStart * 1000} {s.OffsetEnd * 1000} {s.LoadForFirstGroup} {s.LoadForSecondGroup}, ");
             if (distributedLoad.Length > 0) distributedLoad = distributedLoad.Remove(distributedLoad.Length - 2);
 
-            foreach (var s in ConcentratedLoads)
-            {
-                concentratedLoad = $"{concentratedLoad} {s.Offset * 1000} {s.LoadForFirstGroup} {s.LoadForSecondGroup}, ";
-            }
+            var concentratedLoad = ConcentratedLoads.Aggregate("", (current, s) => $"{current} {s.Offset * 1000} {s.LoadForFirstGroup} {s.LoadForSecondGroup}, ");
             if (concentratedLoad.Length > 0) concentratedLoad = concentratedLoad.Remove(concentratedLoad.Length - 2);
 
             return

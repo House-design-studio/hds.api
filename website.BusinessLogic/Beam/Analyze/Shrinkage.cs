@@ -1,5 +1,5 @@
 ﻿using static HDS.BusinessLogic.Mathematics;
-namespace HDS.BusinessLogic.Beam
+namespace HDS.BusinessLogic.Beam.Analyze
 {
     public static partial class Analyze
     {
@@ -63,26 +63,26 @@ namespace HDS.BusinessLogic.Beam
         /// <returns>величина усушки</returns>
         public static double GetShrinkage(double thickness)
         {
-            var point1_index = Array.FindIndex(ShrinkageValues, (v) => thickness <= v.Size);
-            var point2_index = point1_index + 1;
+            var point1Index = Array.FindIndex(ShrinkageValues, (v) => thickness <= v.Size);
+            var point2Index = point1Index + 1;
 
             Point2D point1;
             Point2D point2;
 
-            if (point1_index == 0)
+            if (point1Index == 0)
             {
                 point1 = new Point2D(ShrinkageValues[0].Size, ShrinkageValues[0].Value);
                 point2 = new Point2D(ShrinkageValues[1].Size, ShrinkageValues[1].Value);
             }
-            else if (point1_index == -1)
+            else if (point1Index == -1)
             {
                 point1 = new Point2D(ShrinkageValues[^2].Size, ShrinkageValues[^2].Value);
                 point2 = new Point2D(ShrinkageValues[^1].Size, ShrinkageValues[^1].Value);
             }
             else
             {
-                point1 = new Point2D(ShrinkageValues[point1_index].Size, ShrinkageValues[point1_index].Value);
-                point2 = new Point2D(ShrinkageValues[point2_index].Size, ShrinkageValues[point2_index].Value);
+                point1 = new Point2D(ShrinkageValues[point1Index].Size, ShrinkageValues[point1Index].Value);
+                point2 = new Point2D(ShrinkageValues[point2Index].Size, ShrinkageValues[point2Index].Value);
             }
             return LinearInterpolation(point1, point2, thickness);
         }

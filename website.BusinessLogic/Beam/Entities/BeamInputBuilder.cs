@@ -4,61 +4,61 @@ namespace HDS.BusinessLogic.Beam.Entities
 {
     public class BeamInputBuilder
     {
-        private BeamInput result = new();
+        private readonly BeamInput _result = new();
 
         public BeamInput Build()
         {
-            if (result.Supports.Count < 2) throw new Exception("num of supports < 2");
-            if (result.Width == 0) throw new Exception("sizes not entered");
+            if (_result.Supports.Count < 2) throw new Exception("num of supports < 2");
+            if (_result.Width == 0) throw new Exception("sizes not entered");
 
-            foreach(var load in result.DistributedLoads)
+            if (_result.DistributedLoads.Any(load => load.OffsetEnd > _result.Length))
             {
-                if (load.OffsetEnd > result.Length) throw new Exception("load out of beam");
+                throw new Exception("load out of beam");
             }
-            foreach(var load in result.ConcentratedLoads)
+            if (_result.ConcentratedLoads.Any(load => load.Offset > _result.Length))
             {
-                if (load.Offset > result.Length) throw new Exception("load out of beam");
+                throw new Exception("load out of beam");
             }
-            return result;
+            return _result;
         }
 
         public void SetMaterial(BeamMatireals material)
         {
-            result.Material = material;
+            _result.Material = material;
         }
         public void SetDryWood(bool dryWood)
         {
-            result.DryWood = dryWood;
+            _result.DryWood = dryWood;
         }
         public void SetFlameRetardant(bool flameRetardant)
         {
-            result.FlameRetardants = flameRetardant;
+            _result.FlameRetardants = flameRetardant;
         }
         public void SetSizes(double width, double height, double length)
         {
-            result.Width = width > 0 ? width : throw new ArgumentException($"{nameof(width)} <= 0", nameof(width));
-            result.Height = height > 0 ? height : throw new ArgumentException($"{nameof(height)} <= 0", nameof(height));
-            result.Length = length > 0 ? length : throw new ArgumentException($"{nameof(length)} <= 0", nameof(length));
+            _result.Width = width > 0 ? width : throw new ArgumentException($"{nameof(width)} <= 0", nameof(width));
+            _result.Height = height > 0 ? height : throw new ArgumentException($"{nameof(height)} <= 0", nameof(height));
+            _result.Length = length > 0 ? length : throw new ArgumentException($"{nameof(length)} <= 0", nameof(length));
         }
         public void SetAmount(int amount)
         {
-            result.Amount = amount > 0 ? amount : throw new ArgumentException($"{nameof(amount)} <= 0", nameof(amount));
+            _result.Amount = amount > 0 ? amount : throw new ArgumentException($"{nameof(amount)} <= 0", nameof(amount));
         }
         public void SetExploitation(Exploitations exploitation)
         {
-            result.Exploitation = exploitation;
+            _result.Exploitation = exploitation;
         }
         public void SetLoadingMode(LoadingModes loadingMode)
         {
-            result.LoadingMode = loadingMode;
+            _result.LoadingMode = loadingMode;
         }
         public void AddSupport(double offset)
         {
-            result.Supports.Add(offset >= 0 ? offset : throw new ArgumentException($"{nameof(offset)} <= 0", nameof(offset)));
+            _result.Supports.Add(offset >= 0 ? offset : throw new ArgumentException($"{nameof(offset)} <= 0", nameof(offset)));
         }
         public void SetLifetime(int lifeTime)
         {
-            result.LifeTime = lifeTime >= 0 ? lifeTime : throw new ArgumentException($"{nameof(lifeTime)} < 0", nameof(lifeTime));
+            _result.LifeTime = lifeTime >= 0 ? lifeTime : throw new ArgumentException($"{nameof(lifeTime)} < 0", nameof(lifeTime));
         }
         public void AddDistributedLoad(double offsetStart, double offsetEnd, double normativeValue, double loadAreaWidth, double reliabilityCoefficient, double reducingFactor)
         {
@@ -69,11 +69,11 @@ namespace HDS.BusinessLogic.Beam.Entities
             if (reliabilityCoefficient <= 0) throw new ArgumentException($"{nameof(reliabilityCoefficient)} <= 0", nameof(reliabilityCoefficient));
             if (reducingFactor <= 0) throw new ArgumentException($"{nameof(reducingFactor)} <= 0", nameof(reducingFactor));
 
-            double firstLoad = reliabilityCoefficient * normativeValue * loadAreaWidth;
-            double secondLoad = reducingFactor * normativeValue * loadAreaWidth;
+            var firstLoad = reliabilityCoefficient * normativeValue * loadAreaWidth;
+            var secondLoad = reducingFactor * normativeValue * loadAreaWidth;
 
             var load = new BeamInput.DistributedLoad(offsetStart, offsetEnd, firstLoad, secondLoad);
-            result.DistributedLoads.Add(load);
+            _result.DistributedLoads.Add(load);
         }
         public void AddDistributedLoad(double offsetStart, double offsetEnd, double normativeValue, double reliabilityCoefficient, double reducingFactor)
         {
@@ -83,11 +83,11 @@ namespace HDS.BusinessLogic.Beam.Entities
             if (reliabilityCoefficient <= 0) throw new ArgumentException($"{nameof(reliabilityCoefficient)} <= 0", nameof(reliabilityCoefficient));
             if (reducingFactor <= 0) throw new ArgumentException($"{nameof(reducingFactor)} <= 0", nameof(reducingFactor));
 
-            double firstLoad = reliabilityCoefficient * normativeValue;
-            double secondLoad = reducingFactor * normativeValue;
+            var firstLoad = reliabilityCoefficient * normativeValue;
+            var secondLoad = reducingFactor * normativeValue;
 
             var load = new BeamInput.DistributedLoad(offsetStart, offsetEnd, firstLoad, secondLoad);
-            result.DistributedLoads.Add(load);
+            _result.DistributedLoads.Add(load);
         }
         public void AddDistributedLoad(double offsetStart, double offsetEnd, double loadForFirstGroup, double loadForSecondGroup)
         {
@@ -100,7 +100,7 @@ namespace HDS.BusinessLogic.Beam.Entities
                 loadForFirstGroup > 0 ? loadForFirstGroup : throw new ArgumentException($"{nameof(loadForFirstGroup)} <= 0", nameof(loadForFirstGroup)),
                 loadForSecondGroup > 0 ? loadForSecondGroup : throw new ArgumentException($"{nameof(loadForSecondGroup)} <= 0", nameof(loadForSecondGroup)));
 
-            result.DistributedLoads.Add(load);
+            _result.DistributedLoads.Add(load);
         }
 
         public void AddСoncentratedLoad(double offset, double normativeValue, double reliabilityCoefficient, double reducingFactor)
@@ -114,7 +114,7 @@ namespace HDS.BusinessLogic.Beam.Entities
             double secondLoad = reducingFactor * normativeValue;
 
             var load = new BeamInput.ConcentratedLoad(offset, firstLoad, secondLoad);
-            result.ConcentratedLoads.Add(load);
+            _result.ConcentratedLoads.Add(load);
         }
 
         public void AddСoncentratedLoad(double offset, double loadForFirstGroup, double loadForSecondGroup)
@@ -126,7 +126,7 @@ namespace HDS.BusinessLogic.Beam.Entities
                 loadForFirstGroup > 0 ? loadForFirstGroup : throw new ArgumentException($"{nameof(loadForFirstGroup)} <= 0", nameof(loadForFirstGroup)),
                 loadForSecondGroup > 0 ? loadForSecondGroup : throw new ArgumentException($"{nameof(loadForSecondGroup)} <= 0", nameof(loadForSecondGroup)));
 
-            result.ConcentratedLoads.Add(load);
+            _result.ConcentratedLoads.Add(load);
         }
     }
 }

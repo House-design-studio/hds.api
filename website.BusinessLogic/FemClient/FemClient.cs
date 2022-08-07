@@ -4,8 +4,8 @@ namespace HDS.BusinessLogic.FemClient
 {
     public class FemClient : IFemClient
     {
-        private FemClientRequest request = new();
-        private FemClientResponse response = new();
+        private FemClientRequest _request = new();
+        private FemClientResponse _response = new();
 
         private readonly HttpClient _httpClient;
 

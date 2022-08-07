@@ -17,27 +17,27 @@
                     @{
                         switch (Model.Input.Material)
                         {
-                            case Data.BeamMatireals.plank_k16:
+                            case Data.BeamMatireals.PlankK16:
                                     @: Доска сосна, ель класс K16/сорт 3
                                 break;
 
-                            case Data.BeamMatireals.plank_k24:
+                            case Data.BeamMatireals.PlankK24:
                                     @: Доска сосна, ель класс K24/сорт 2
                                 break;
 
-                            case Data.BeamMatireals.plank_k26:
+                            case Data.BeamMatireals.PlankK26:
                                     @: Доска сосна, ель класс K26/сорт 1
                                 break;
 
-                            case Data.BeamMatireals.lvl_k35:
+                            case Data.BeamMatireals.LvlK35:
                                     @: Брус LVL класс K35/сорт 3
                                 break;
 
-                            case Data.BeamMatireals.lvl_k40:
+                            case Data.BeamMatireals.LvlK40:
                                     @: Брус LVL класс K40/сорт 2
                                 break;
 
-                            case Data.BeamMatireals.lvl_k45:
+                            case Data.BeamMatireals.LvlK45:
                                     @: Брус LVL класс K45/сорт 1
                                 break;
                         }
@@ -218,18 +218,14 @@
                 <tr>
                     <td>Класс условий эксплуатации</td>
                     <td><math><msub><mi>m</mi><mi>В</mi></msub></math></td>
-                    <td>@Model.MBCoefficient</td>
+                    <td>@Model.MbCoefficient</td>
                 </tr>
                 <tr>
                     <td>Срок службы</td>
                     <td><math><msub><mi>m</mi><mi>с.с</mi></msub></math></td>
-                    <td>@Model.mccCoefficient</td>
+                    <td>@Model.MccCoefficient</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
-
-@section Stylesheets{
-    <link rel="stylesheet" href="./css/BeamProPost.css" />
-}

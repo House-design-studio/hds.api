@@ -8,9 +8,6 @@
         /// <summary>
         /// Точка в трёхмерном пространстве
         /// </summary>
-        /// <param name="X">координата X</param>
-        /// <param name="Y">координата Y</param>
-        /// <param name="Z">координата Z</param>
         public class Point3D : Point2D
         {
             public double Z { get; set; }
@@ -24,8 +21,6 @@
         /// <summary>
         /// Точка в двухмерном пространстве
         /// </summary>
-        /// <param name="X">координата X</param>
-        /// <param name="Y">координата Y</param>
         public class Point2D
         {
             public double X { get; set; }
@@ -43,15 +38,15 @@
         /// </summary>
         /// <param name="first">Первая точка</param>
         /// <param name="second">Вторая точка</param>
-        /// <param name="X"></param>
+        /// <param name="x"></param>
         /// <returns>Значение функции в точке X</returns>
-        public static double LinearInterpolation(Point2D first, Point2D second, double X)
+        public static double LinearInterpolation(Point2D first, Point2D second, double x)
         {
             if (first.X == 0 && second.X == 0)
             {
                 return 0;
             }
-            return (first.Y - second.Y) * (X - first.X) / (first.X - second.X) + first.Y;
+            return (first.Y - second.Y) * (x - first.X) / (first.X - second.X) + first.Y;
         }
     }
 }

@@ -99,10 +99,10 @@
         /// <summary>
         /// коэффициент mb
         /// </summary>
-        public double MBCoefficient { get; set; }
+        public double MbCoefficient { get; set; }
         /// <summary>
         /// коэффициент mc c
         /// </summary>
-        public double mccCoefficient { get; set; }
+        public double MccCoefficient { get; set; }
     }
 }

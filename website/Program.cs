@@ -1,7 +1,7 @@
 using HDS.BusinessLogic.Beam;
 using HDS.BusinessLogic.FemClient;
 using HDS.BusinessLogic.Interfaces;
-using HDS.Models.Database;
+using HDS.Web.Models.Database;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
