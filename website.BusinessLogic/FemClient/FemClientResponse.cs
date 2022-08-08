@@ -1,6 +1,6 @@
 ﻿namespace HDS.BusinessLogic.FemClient
 {
-    internal class FemClientResponse
+    public class FemClientResponse
     {
     }
 }

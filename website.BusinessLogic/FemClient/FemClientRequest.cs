@@ -1,17 +1,22 @@
-﻿using static HDS.BusinessLogic.Mathematics;
+﻿using Newtonsoft.Json;
+using static HDS.BusinessLogic.Mathematics;
 
 namespace HDS.BusinessLogic.FemClient
 {
     /// <summary>
     /// модель данных для api
     /// </summary>
-    internal class FemClientRequest
+    public class FemClientRequest
     {
         public int Nc => Nodes.Length;
         public int Bc => Beams.Length;
         public Node[] Nodes { get; set; }
         public Beam[] Beams { get; set; }
 
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(new { Nc, Bc, Nodes, Beams }).ToLower();
+        }
         public class Node
         {
             public Point3D Coordinate { get; set; }

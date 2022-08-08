@@ -1,19 +1,29 @@
-﻿using HDS.BusinessLogic.Interfaces;
+﻿using System.Text;
+using HDS.BusinessLogic.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace HDS.BusinessLogic.FemClient
 {
     public class FemClient : IFemClient
     {
-        private FemClientRequest _request = new();
-        private FemClientResponse _response = new();
-
         private readonly HttpClient _httpClient;
-
-        public FemClient(HttpClient httpClient)
+        private readonly string _femServerIp;
+        public FemClient(HttpClient httpClient, IConfiguration configuration)
         {
-            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            _httpClient = httpClient;
+            _femServerIp = configuration["Api:FemServer"];
+            
         }
-
-
+        
+        public async Task<FemClientResponse?> DoRequest(FemClientRequest request)
+        {
+            var json = request.ToJson();
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var httpResponse = await _httpClient.PostAsync($"{_femServerIp}fem", httpContent);
+            var responseContent = await httpResponse.Content.ReadAsStringAsync();
+            FemClientResponse? response = JsonConvert.DeserializeObject<FemClientResponse?>(responseContent);
+            return response;
+        }
     }
 }
