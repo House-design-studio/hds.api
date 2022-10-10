@@ -34,6 +34,12 @@ namespace HDS.BusinessLogic.FemClient
                 this.Support = support;
                 this.Load = load;
             }
+            public Node()
+            {
+                Coordinate = new Point3D();
+                this.Support = new Support();
+                this.Load = new Load();
+            }
         }
 
         public class Beam
@@ -64,6 +70,7 @@ namespace HDS.BusinessLogic.FemClient
                 MomentOfInertiaY = momentOfInertiaY;
                 MomentOfInertiaZ = momentOfInertiaZ;
             }
+            //todo: no args class init
         }
         public class Support
         {
@@ -83,6 +90,15 @@ namespace HDS.BusinessLogic.FemClient
                 V = v;
                 W = w;
             }
+            public Support()
+            {
+                X = false;
+                Y = false;
+                Z = false;
+                U = false;
+                V = false;
+                W = false;
+            }
         }
         public class Load : Point3D
         {
@@ -94,6 +110,12 @@ namespace HDS.BusinessLogic.FemClient
                 U = u;
                 V = v;
                 W = w;
+            }
+            public Load() : base()
+            {
+                U = 0;
+                V = 0;
+                W = 0;
             }
         }
 

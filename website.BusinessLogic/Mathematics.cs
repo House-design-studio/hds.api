@@ -16,6 +16,11 @@
             {
                 Z = z;
             }
+
+            public Point3D() : base ()
+            {
+                Z = 0;
+            }
         }
 
         /// <summary>
@@ -30,6 +35,12 @@
             {
                 X = x;
                 Y = y;
+            }
+
+            public Point2D()
+            {
+                X = 0;
+                Y = 0;
             }
         }
 
