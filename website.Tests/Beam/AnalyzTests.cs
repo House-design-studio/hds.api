@@ -1,4 +1,4 @@
-﻿using static HDS.BusinessLogic.Beam.Analyze.Analyze;
+﻿using static HDS.BusinessLogic.Beam.Analyze;
 
 namespace HDS.BuisnessLogic.Tests.Beam
 {

@@ -1,5 +1,5 @@
 ﻿using static HDS.BusinessLogic.Mathematics;
-namespace HDS.BusinessLogic.Beam.Analyze
+namespace HDS.BusinessLogic.Beam
 {
     public static partial class Analyze
     {

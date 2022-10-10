@@ -116,7 +116,8 @@ namespace HDS.Web.Models
                     loadForSecondGroup);
             }
 
-            if (CNormativeValue is not null){
+            if (CNormativeValue is not null)
+            {
                 for (int i = 0; i < CNormativeValue.Length; i++)
                 {
                     var normativValue = Double.Parse(CNormativeValue[i].Replace('.', ','));
@@ -124,13 +125,13 @@ namespace HDS.Web.Models
                     var reducingFactor = Double.Parse(CReducingFactor[i].Replace('.', ','));
 
                     builder.AddСoncentratedLoad(
-                        Int32.Parse(COffset[i]) * 0.001, 
-                        normativValue, 
-                        reliabilityCoefficient, 
+                        Int32.Parse(COffset[i]) * 0.001,
+                        normativValue,
+                        reliabilityCoefficient,
                         reducingFactor);
                 }
             }
-            
+
             offsetsV2 = CNormativeValue?.Length ?? 0;
 
             for (int i = 0; i < CLoadForFirstGroup?.Length; i++)

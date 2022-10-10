@@ -44,7 +44,7 @@ namespace HDS.BusinessLogic.FemClient
             {
                 Coordinate = coordinate;
                 this.Support = new Support();
-                this.Load = new Load(); 
+                this.Load = new Load();
             }
         }
 

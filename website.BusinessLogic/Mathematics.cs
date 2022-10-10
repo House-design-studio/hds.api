@@ -17,7 +17,7 @@
                 Z = z;
             }
 
-            public Point3D() : base ()
+            public Point3D() : base()
             {
                 Z = 0;
             }

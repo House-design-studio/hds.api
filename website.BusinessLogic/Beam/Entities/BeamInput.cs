@@ -23,7 +23,7 @@
         public List<DistributedLoad> DistributedLoads { get; internal set; } = new List<DistributedLoad>();
         public List<ConcentratedLoad> ConcentratedLoads { get; internal set; } = new List<ConcentratedLoad>();
 
-        public abstract class Load 
+        public abstract class Load
         {
             public double LoadForFirstGroup { get; internal set; }
             public double LoadForSecondGroup { get; internal set; }
@@ -37,10 +37,10 @@
             }
         }
         public class DistributedLoad : Load
-        {   
+        {
             public double OffsetStart { get; internal set; }
             public double OffsetEnd { get; internal set; }
-            public DistributedLoad(double offsetStart, double offsetEnd, double loadForFirstGroup, double loadForSecondGroup) 
+            public DistributedLoad(double offsetStart, double offsetEnd, double loadForFirstGroup, double loadForSecondGroup)
                 : base(loadForFirstGroup, loadForSecondGroup)
             {
                 OffsetStart = offsetStart;

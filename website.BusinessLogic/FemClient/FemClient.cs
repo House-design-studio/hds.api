@@ -1,7 +1,7 @@
-﻿using System.Text;
-using HDS.BusinessLogic.Interfaces;
+﻿using HDS.BusinessLogic.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace HDS.BusinessLogic.FemClient
 {
@@ -13,9 +13,9 @@ namespace HDS.BusinessLogic.FemClient
         {
             _httpClient = httpClient;
             _femServerIp = configuration["Api:FemServer"];
-            
+
         }
-        
+
         public async Task<FemClientResponse?> DoRequest(FemClientRequest request)
         {
             var json = request.ToJson();
