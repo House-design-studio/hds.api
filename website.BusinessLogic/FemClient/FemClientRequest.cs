@@ -40,6 +40,12 @@ namespace HDS.BusinessLogic.FemClient
                 this.Support = new Support();
                 this.Load = new Load();
             }
+            public Node(Point3D coordinate)
+            {
+                Coordinate = coordinate;
+                this.Support = new Support();
+                this.Load = new Load(); 
+            }
         }
 
         public class Beam

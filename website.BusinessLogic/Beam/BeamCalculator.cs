@@ -63,50 +63,37 @@ namespace HDS.BusinessLogic.Beam
         private async Task SetApiData()
         {
             var nodes = new List<FemClientRequest.Node>();
-            
+            FemClientRequest.Node tmp;
             // начальная точка
-            nodes.Add(new FemClientRequest.Node(
-                new Mathematics.Point3D(0,0,0),
-                new FemClientRequest.Support(false,false,false,false,false,false),
-                new FemClientRequest.Load(0,0,0,0,0,0)));
+            nodes.Add(new FemClientRequest.Node());
             // конечная точка
             nodes.Add(new FemClientRequest.Node(
-                new Mathematics.Point3D(_report.Input.Length, 0,0),
-                new FemClientRequest.Support(false,false,false,false,false,false),
-                new FemClientRequest.Load(0,0,0,0,0,0)));
+                new Mathematics.Point3D(_report.Input.Length, 0, 0 )));
             
             // опоры
             var supports = _report.Input.Supports.ToArray();
             Array.Sort(supports);
             for (int i = 0; i < supports.Length; i++)
             {
-                nodes.Add(new FemClientRequest.Node(
-                    new Mathematics.Point3D(supports[i], 0, 0),
-                    new FemClientRequest.Support(i == 0, true, true, false, false, false), 
-                                                // i == 0 только певый элемент имеет x: true  
-                    new FemClientRequest.Load(0, 0, 0, 0, 0, 0)));
+                tmp = new FemClientRequest.Node(
+                    new Mathematics.Point3D(supports[i], 0, 0));
+                tmp.Support.X = (i == 0);
+                tmp.Support.Y = true;
+                tmp.Support.Z = true;
+                nodes.Add(tmp);
             }
 
             // распределённые нагрузки
             foreach (var load in _report.Input.DistributedLoads)
             {
-                nodes.Add(new FemClientRequest.Node(
-                    new Mathematics.Point3D(load.OffsetStart, 0, 0),
-                    new FemClientRequest.Support(false,false,false,false,false,false),
-                    new FemClientRequest.Load(0,0,0,0,0,0)));
-                nodes.Add(new FemClientRequest.Node(
-                    new Mathematics.Point3D(load.OffsetEnd, 0, 0),
-                    new FemClientRequest.Support(false,false,false,false,false,false),
-                    new FemClientRequest.Load(0,0,0,0,0,0)));
+                nodes.Add(new FemClientRequest.Node(new Mathematics.Point3D(load.OffsetStart, 0, 0)));
+                nodes.Add(new FemClientRequest.Node(new Mathematics.Point3D(load.OffsetEnd, 0, 0)));
             }
             
             // сосредоточенные нагрузки
             foreach (var load in _report.Input.ConcentratedLoads)
             {
-                nodes.Add(new FemClientRequest.Node(
-                    new Mathematics.Point3D(load.Offset, 0, 0),
-                    new FemClientRequest.Support(false,false,false,false,false,false),
-                    new FemClientRequest.Load(0,0,0,0,0,0)));
+                nodes.Add(new FemClientRequest.Node(new Mathematics.Point3D(load.Offset, 0, 0)));
             }
 
             nodes = nodes.OrderBy(n => n.Coordinate.X).ToList();
@@ -123,20 +110,13 @@ namespace HDS.BusinessLogic.Beam
                 if (distance > 0.01 && distance <= 0.2)
                 {
                     newNodes.Add(new FemClientRequest.Node(
-                        new Mathematics.Point3D(nodesArray[i].Coordinate.X + (distance / 4), 0, 0),
-                        new FemClientRequest.Support(false,false,false,false,false,false),
-                        new FemClientRequest.Load(0,0,0,0,0,0)));
+                        new Mathematics.Point3D(nodesArray[i].Coordinate.X + (distance / 4), 0, 0)));
 
                     newNodes.Add(new FemClientRequest.Node(
-                        new Mathematics.Point3D(nodesArray[i].Coordinate.X + (distance / 2), 0, 0),
-                        new FemClientRequest.Support(false,false,false,false,false,false),
-                        new FemClientRequest.Load(0,0,0,0,0,0)));
+                        new Mathematics.Point3D(nodesArray[i].Coordinate.X + (distance / 4 * 2), 0, 0)));
 
                     newNodes.Add(new FemClientRequest.Node(
-                        new Mathematics.Point3D(nodesArray[i].Coordinate.X + (distance / 4 * 3), 0, 0),
-                        new FemClientRequest.Support(false,false,false,false,false,false),
-                        new FemClientRequest.Load(0,0,0,0,0,0)));
-
+                        new Mathematics.Point3D(nodesArray[i].Coordinate.X + (distance / 4 * 3), 0, 0)));
                 }
                 else if(distance > 0.2)
                 {
@@ -146,9 +126,7 @@ namespace HDS.BusinessLogic.Beam
                     for (int j = 0; j < numOfPoints; j++)
                     {
                         newNodes.Add(new FemClientRequest.Node(
-                        new Mathematics.Point3D(nodesArray[i].Coordinate.X + distanceBetween * j, 0, 0),
-                        new FemClientRequest.Support(false,false,false,false,false,false),
-                        new FemClientRequest.Load(0,0,0,0,0,0)));
+                        new Mathematics.Point3D(nodesArray[i].Coordinate.X + distanceBetween * j, 0, 0)));
                     }
                 }
                 
