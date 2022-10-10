@@ -1,12 +1,18 @@
 ﻿using HDS.BusinessLogic.Beam.Entities;
+using HDS.BusinessLogic.FemClient;
 using HDS.BusinessLogic.Interfaces;
 
 namespace HDS.BusinessLogic.Beam
 {
     public class BeamCalculator : IBeamCalculator
     {
+        private readonly IFemClient _femClient;
         private readonly FullReport _report = new();
-
+        
+        public BeamCalculator(IFemClient femClient)
+        {
+            _femClient = femClient;
+        }
         public BeamInputBuilder GetBeamInputBuilder()
         {
             return new BeamInputBuilder();
@@ -17,6 +23,8 @@ namespace HDS.BusinessLogic.Beam
             _report.Input = input;
 
             SetStaticData();
+            await SetApiData();
+            
             return _report;
         }
 
@@ -50,6 +58,106 @@ namespace HDS.BusinessLogic.Beam
             _report.MaCoefficient = Analyze.Analyze.GetMaCoefficient(_report.Input.FlameRetardants);
             _report.MbCoefficient = Analyze.Analyze.GetMbCoefficient(_report.Input.Exploitation);
             _report.MccCoefficient = Analyze.Analyze.GetMccCoefficient(_report.Input.LifeTime);
+        }
+
+        private async Task SetApiData()
+        {
+            var nodes = new List<FemClientRequest.Node>();
+            
+            // начальная точка
+            nodes.Add(new FemClientRequest.Node(
+                new Mathematics.Point3D(0,0,0),
+                new FemClientRequest.Support(false,false,false,false,false,false),
+                new FemClientRequest.Load(0,0,0,0,0,0)));
+            // конечная точка
+            nodes.Add(new FemClientRequest.Node(
+                new Mathematics.Point3D(_report.Input.Length, 0,0),
+                new FemClientRequest.Support(false,false,false,false,false,false),
+                new FemClientRequest.Load(0,0,0,0,0,0)));
+            
+            // опоры
+            var supports = _report.Input.Supports.ToArray();
+            Array.Sort(supports);
+            for (int i = 0; i < supports.Length; i++)
+            {
+                nodes.Add(new FemClientRequest.Node(
+                    new Mathematics.Point3D(supports[i], 0, 0),
+                    new FemClientRequest.Support(i == 0, true, true, false, false, false), 
+                                                // i == 0 только певый элемент имеет x: true  
+                    new FemClientRequest.Load(0, 0, 0, 0, 0, 0)));
+            }
+
+            // распределённые нагрузки
+            foreach (var load in _report.Input.DistributedLoads)
+            {
+                nodes.Add(new FemClientRequest.Node(
+                    new Mathematics.Point3D(load.OffsetStart, 0, 0),
+                    new FemClientRequest.Support(false,false,false,false,false,false),
+                    new FemClientRequest.Load(0,0,0,0,0,0)));
+                nodes.Add(new FemClientRequest.Node(
+                    new Mathematics.Point3D(load.OffsetEnd, 0, 0),
+                    new FemClientRequest.Support(false,false,false,false,false,false),
+                    new FemClientRequest.Load(0,0,0,0,0,0)));
+            }
+            
+            // сосредоточенные нагрузки
+            foreach (var load in _report.Input.ConcentratedLoads)
+            {
+                nodes.Add(new FemClientRequest.Node(
+                    new Mathematics.Point3D(load.Offset, 0, 0),
+                    new FemClientRequest.Support(false,false,false,false,false,false),
+                    new FemClientRequest.Load(0,0,0,0,0,0)));
+            }
+
+            nodes = nodes.OrderBy(n => n.Coordinate.X).ToList();
+            var nodesArray = nodes.ToArray();
+            // вставка доп точек
+            // не менее 3х между важными с шагом не более 0.05 метра (5см)
+            for (int i = 0; i < nodesArray.Length - 1; i++)
+            {
+                var distance = nodesArray[i+1].Coordinate.X - nodesArray[i].Coordinate.X; 
+                if (distance <= 0.01) continue;
+
+                var newNodes = new List<FemClientRequest.Node>();
+
+                if (distance > 0.01 && distance <= 0.2)
+                {
+                    newNodes.Add(new FemClientRequest.Node(
+                        new Mathematics.Point3D(nodesArray[i].Coordinate.X + (distance / 4), 0, 0),
+                        new FemClientRequest.Support(false,false,false,false,false,false),
+                        new FemClientRequest.Load(0,0,0,0,0,0)));
+
+                    newNodes.Add(new FemClientRequest.Node(
+                        new Mathematics.Point3D(nodesArray[i].Coordinate.X + (distance / 2), 0, 0),
+                        new FemClientRequest.Support(false,false,false,false,false,false),
+                        new FemClientRequest.Load(0,0,0,0,0,0)));
+
+                    newNodes.Add(new FemClientRequest.Node(
+                        new Mathematics.Point3D(nodesArray[i].Coordinate.X + (distance / 4 * 3), 0, 0),
+                        new FemClientRequest.Support(false,false,false,false,false,false),
+                        new FemClientRequest.Load(0,0,0,0,0,0)));
+
+                }
+                else if(distance > 0.2)
+                {
+                    int numOfPoints = (int) Math.Ceiling(distance / 0.05) - 1;
+                    var distanceBetween = distance / numOfPoints;
+
+                    for (int j = 0; j < numOfPoints; j++)
+                    {
+                        newNodes.Add(new FemClientRequest.Node(
+                        new Mathematics.Point3D(nodesArray[i].Coordinate.X + distanceBetween * j, 0, 0),
+                        new FemClientRequest.Support(false,false,false,false,false,false),
+                        new FemClientRequest.Load(0,0,0,0,0,0)));
+                    }
+                }
+                
+                nodes.InsertRange(i + 1, newNodes);
+            }
+
+            //var request = new FemClientRequest();
+            //var response = await _femClient.DoRequest(req);
+            
         }
     }
 }

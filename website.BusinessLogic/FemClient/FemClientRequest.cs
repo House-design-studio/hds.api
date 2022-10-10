@@ -13,6 +13,11 @@ namespace HDS.BusinessLogic.FemClient
         public Node[] Nodes { get; set; }
         public Beam[] Beams { get; set; }
 
+        public FemClientRequest(Node[] nodes, Beam[] beams)
+        {
+            Nodes = nodes;
+            Beams = beams;
+        }
         public string ToJson()
         {
             return JsonConvert.SerializeObject(new { Nc, Bc, Nodes, Beams }).ToLower();
