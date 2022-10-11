@@ -66,11 +66,13 @@ namespace HDS.BusinessLogic.Beam
             var nodes = new List<FemClientRequest.Node>();
 
             AddBaseDots();
+            nodes = nodes.DistinctBy(n => n.Coordinate.X).OrderBy(n => n.Coordinate.X).ToList();
+
             AddAdditionsDots();
-            nodes = nodes.DistinctBy(n => n.Coordinate.X).ToList();
+            nodes = nodes.DistinctBy(n => n.Coordinate.X).OrderBy(n => n.Coordinate.X).ToList();
 
             SetValues();
-            nodes = nodes.OrderBy(n => n.Coordinate.X).ToList();
+            nodes = nodes.DistinctBy(n => n.Coordinate.X).OrderBy(n => n.Coordinate.X).ToList();
 
             Console.WriteLine("asdasda");
 
@@ -131,7 +133,7 @@ namespace HDS.BusinessLogic.Beam
                         int numOfPoints = (int)Math.Ceiling(distance / 0.05) + 1;
                         var distanceBetween = distance / (numOfPoints - 1);
 
-                        for (int j = 0; j < numOfPoints; j++)
+                        for (int j = 1; j <= numOfPoints - 1; j++)
                         {
                             newNodes.Add(new FemClientRequest.Node(
                             new Mathematics.Point3D(nodesArray[i].Coordinate.X + distanceBetween * j, 0, 0)));
@@ -173,15 +175,15 @@ namespace HDS.BusinessLogic.Beam
                     {
                         var leftNode = nodesBetweenLoad[i];
                         var rightNode = nodesBetweenLoad[i + 1];
-                        var l = leftNode.Coordinate.X - rightNode.Coordinate.X;
+                        var l = rightNode.Coordinate.X - leftNode.Coordinate.X;
                         var F = load.LoadForFirstGroup * l / 2;
                         var M = load.LoadForFirstGroup * l * l / 12;
 
                         leftNode.Load.Z += -F;
                         rightNode.Load.Z += -F;
 
-                        leftNode.Load.V += M;
-                        rightNode.Load.V += -M;
+                        leftNode.Load.V += -M;
+                        rightNode.Load.V += M;
                     }
                 }
             }
