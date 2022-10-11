@@ -52,31 +52,30 @@ namespace HDS.BusinessLogic.FemClient
         {
             public BeamInfo First { get; set; }
             public BeamInfo Second { get; set; }
-            public ZDirection ZDirection { get; set; }
-            public double StiffnessModulus { get; set; }
-            public double ShearModulus { get; set; }
-            public double CrossSectionArea { get; set; }
-            public double ShearAreaY { get; set; }
-            public double ShearAreaZ { get; set; }
-            public double MomentOfInertiaX { get; set; }
-            public double MomentOfInertiaY { get; set; }
-            public double MomentOfInertiaZ { get; set; }
+            public Point3D Z_Direction { get; set; }
+            public double Stiffness_Modulus { get; set; }
+            public double Shear_Modulus { get; set; }
+            public double Cross_Sectional_Area { get; set; }
+            public double Shear_Area_Y { get; set; }
+            public double Shear_Area_Z { get; set; }
+            public double Moment_Of_Inertia_X { get; set; }
+            public double Moment_Of_Inertia_Y { get; set; }
+            public double Moment_Of_Inertia_Z { get; set; }
 
-            public Beam(BeamInfo first, BeamInfo second, ZDirection zDirection, double stiffnessModulus, double shearModulus, double crossSectionArea, double shearAreaY, double shearAreaZ, double momentOfInertiaX, double momentOfInertiaY, double momentOfInertiaZ)
+            public Beam(BeamInfo first, BeamInfo second, Point3D z_Direction, double stiffness_Modulus, double shear_Modulus, double cross_Sectional_Area, double shear_Area_Y, double shear_Area_Z, double moment_Of_Inertia_X, double moment_Of_Inertia_Y, double moment_Of_Inertia_Z)
             {
                 First = first;
                 Second = second;
-                ZDirection = zDirection;
-                StiffnessModulus = stiffnessModulus;
-                ShearModulus = shearModulus;
-                CrossSectionArea = crossSectionArea;
-                ShearAreaY = shearAreaY;
-                ShearAreaZ = shearAreaZ;
-                MomentOfInertiaX = momentOfInertiaX;
-                MomentOfInertiaY = momentOfInertiaY;
-                MomentOfInertiaZ = momentOfInertiaZ;
+                Z_Direction = z_Direction;
+                Stiffness_Modulus = stiffness_Modulus;
+                Shear_Modulus = shear_Modulus;
+                Cross_Sectional_Area = cross_Sectional_Area;
+                Shear_Area_Y = shear_Area_Y;
+                Shear_Area_Z = shear_Area_Z;
+                Moment_Of_Inertia_X = moment_Of_Inertia_X;
+                Moment_Of_Inertia_Y = moment_Of_Inertia_Y;
+                Moment_Of_Inertia_Z = moment_Of_Inertia_Z;
             }
-            //todo: no args class init
         }
         public class Support
         {
@@ -130,14 +129,14 @@ namespace HDS.BusinessLogic.FemClient
         public class BeamInfo
         {
             public int Node { get; set; }
-            public Flexible IsFlexible { get; set; }
-            public Fixed IsFixed { get; set; }
+            public Flexible Is_Flexible { get; set; }
+            public Fixed Is_Fixed { get; set; }
 
             public BeamInfo(int node, Flexible isFlexible, Fixed isFixed)
             {
                 Node = node;
-                IsFlexible = isFlexible;
-                IsFixed = isFixed;
+                Is_Flexible = isFlexible;
+                Is_Fixed = isFixed;
             }
         }
         public class Flexible
@@ -174,15 +173,6 @@ namespace HDS.BusinessLogic.FemClient
                 U = u;
                 V = v;
                 W = w;
-            }
-        }
-        public class ZDirection : Point3D
-        {
-            public ZDirection(double x, double y, double z) : base(x, y, z)
-            {
-                X = x;
-                Y = y;
-                Z = z;
             }
         }
     }

@@ -2,6 +2,7 @@
 using HDS.BusinessLogic.FemClient;
 using HDS.BusinessLogic.Interfaces;
 using static HDS.BusinessLogic.Beam.Analyze;
+using static HDS.BusinessLogic.Mathematics;
 
 namespace HDS.BusinessLogic.Beam
 {
@@ -67,15 +68,36 @@ namespace HDS.BusinessLogic.Beam
 
             AddBaseDots();
             nodes = nodes.DistinctBy(n => n.Coordinate.X).OrderBy(n => n.Coordinate.X).ToList();
-
             AddAdditionsDots();
             nodes = nodes.DistinctBy(n => n.Coordinate.X).OrderBy(n => n.Coordinate.X).ToList();
-
             SetValues();
             nodes = nodes.DistinctBy(n => n.Coordinate.X).OrderBy(n => n.Coordinate.X).ToList();
 
-            Console.WriteLine("asdasda");
+            // beams
+            var beams = new FemClientRequest.Beam[nodes.Count - 1];
 
+            for (int i = 0; i < beams.Length; i++)
+            {
+                beams[i] = new FemClientRequest.Beam(
+
+                    new FemClientRequest.BeamInfo(i + 1,
+                        new FemClientRequest.Flexible(false, false, false, false, false, false),
+                        new FemClientRequest.Fixed(false, false, false, true, false, false)),
+
+                    new FemClientRequest.BeamInfo(i + 2,
+                        new FemClientRequest.Flexible(false, false, false, false, false, false),
+                        new FemClientRequest.Fixed(false, false, false, true, false, false)),
+
+                    new Point3D(0, 0, 1),
+                    _report.StiffnessModulus,
+                    _report.ShearModulusAverage,
+                    _report.CrossSectionArea,
+                    _report.CrossSectionArea * 5 / 6,
+                    _report.CrossSectionArea * 5 / 6,
+                    _report.PolarMomentOfInertia,
+                    _report.MomentOfInertiaY,
+                    _report.MomentOfInertiaZ);
+            }
 
             void AddBaseDots()
             {
@@ -188,8 +210,8 @@ namespace HDS.BusinessLogic.Beam
                 }
             }
 
-            //var request = new FemClientRequest();
-            //var response = await _femClient.DoRequest(req);
+            var request = new FemClientRequest(nodes.ToArray(), beams);
+            var response = await _femClient.DoRequest(request);
         }
     }
 }

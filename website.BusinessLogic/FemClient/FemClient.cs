@@ -22,8 +22,8 @@ namespace HDS.BusinessLogic.FemClient
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
             var httpResponse = await _httpClient.PostAsync($"{_femServerIp}fem", httpContent);
             var responseContent = await httpResponse.Content.ReadAsStringAsync();
-            FemClientResponse? response = JsonConvert.DeserializeObject<FemClientResponse?>(responseContent);
-            return response;
+            var response = JsonConvert.DeserializeObject(responseContent);
+            return null;
         }
     }
 }
