@@ -1,0 +1,48 @@
+﻿<div class="row align-items-center mb-2">
+
+    <div class="col-12 col-lg-3">
+        <label class="form-label" for="@InputID"> @BodyText </label>
+    </div>
+
+    <div class="col-12 col-lg-6">
+        <div class="input-group">
+
+            <input type="number" class="form-control" min="@Minimum" max="@Maximum" id="@InputID" name="@(Name == null ? InputID : Name)" value="@Value">
+
+            @if(Units != null){
+                <span class="input-group-text">@Units</span>
+            }
+
+        </div>
+    </div>
+
+    @ChildContent
+
+</div>
+
+@code {
+    [Parameter]
+    public string? InputID { get; set; }
+
+    [Parameter]
+    public string? Name { get; set; }
+
+    [Parameter]
+    public string? BodyText { get; set; }
+
+    [Parameter]
+    public string? Units { get; set; }
+
+    [Parameter]
+    public int? Minimum { get; set; }
+
+    [Parameter]
+    public int? Maximum { get; set; }
+
+    [Parameter]
+    public int? Value { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+}

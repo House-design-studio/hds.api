@@ -1,6 +1,7 @@
 @import "Header.css";
 @import "Footer.css";
-
+@import "BeamProIndex.css";
+@import "BeamProPost.css";
 * {
     margin: 0;
     padding: 0;

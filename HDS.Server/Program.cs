@@ -77,10 +77,10 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.UseBlazorFrameworkFiles();
 app.UseHttpsRedirection();
-app.UseStaticFiles();
 
+app.UseBlazorFrameworkFiles();
+app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
@@ -89,8 +89,8 @@ app.UseCookiePolicy();
 
 app.MapFallbackToFile("index.html");
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}");
 
 app.Run();
