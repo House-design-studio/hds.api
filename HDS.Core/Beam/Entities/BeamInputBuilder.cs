@@ -72,7 +72,7 @@ namespace HDS.Core.Beam.Entities
             var firstLoad = reliabilityCoefficient * normativeValue * loadAreaWidth;
             var secondLoad = reducingFactor * normativeValue * loadAreaWidth;
 
-            var load = new BeamInput.DistributedLoad(offsetStart, offsetEnd, firstLoad, secondLoad);
+            var load = new DistributedLoad(offsetStart, offsetEnd, firstLoad, secondLoad);
             _result.DistributedLoads.Add(load);
         }
         public void AddDistributedLoad(double offsetStart, double offsetEnd, double normativeValue, double reliabilityCoefficient, double reducingFactor)
@@ -86,7 +86,7 @@ namespace HDS.Core.Beam.Entities
             var firstLoad = reliabilityCoefficient * normativeValue;
             var secondLoad = reducingFactor * normativeValue;
 
-            var load = new BeamInput.DistributedLoad(offsetStart, offsetEnd, firstLoad, secondLoad);
+            var load = new DistributedLoad(offsetStart, offsetEnd, firstLoad, secondLoad);
             _result.DistributedLoads.Add(load);
         }
         public void AddDistributedLoad(double offsetStart, double offsetEnd, double loadForFirstGroup, double loadForSecondGroup)
@@ -94,7 +94,7 @@ namespace HDS.Core.Beam.Entities
             if (offsetStart < 0) throw new ArgumentException($"{nameof(offsetStart)} < 0", nameof(offsetStart));
             if (offsetEnd < 0) throw new ArgumentException($"{nameof(offsetEnd)} < 0", nameof(offsetEnd));
 
-            var load = new BeamInput.DistributedLoad(
+            var load = new DistributedLoad(
                 offsetStart,
                 offsetEnd,
                 loadForFirstGroup > 0 ? loadForFirstGroup : throw new ArgumentException($"{nameof(loadForFirstGroup)} <= 0", nameof(loadForFirstGroup)),
@@ -113,7 +113,7 @@ namespace HDS.Core.Beam.Entities
             double firstLoad = reliabilityCoefficient * normativeValue;
             double secondLoad = reducingFactor * normativeValue;
 
-            var load = new BeamInput.ConcentratedLoad(offset, firstLoad, secondLoad);
+            var load = new ConcentratedLoad(offset, firstLoad, secondLoad);
             _result.ConcentratedLoads.Add(load);
         }
 
@@ -121,7 +121,7 @@ namespace HDS.Core.Beam.Entities
         {
             if (offset < 0) throw new ArgumentException($"{nameof(offset)} < 0", nameof(offset));
 
-            var load = new BeamInput.ConcentratedLoad(
+            var load = new ConcentratedLoad(
                 offset,
                 loadForFirstGroup > 0 ? loadForFirstGroup : throw new ArgumentException($"{nameof(loadForFirstGroup)} <= 0", nameof(loadForFirstGroup)),
                 loadForSecondGroup > 0 ? loadForSecondGroup : throw new ArgumentException($"{nameof(loadForSecondGroup)} <= 0", nameof(loadForSecondGroup)));

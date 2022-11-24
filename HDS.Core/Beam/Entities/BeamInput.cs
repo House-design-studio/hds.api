@@ -2,62 +2,28 @@
 {
     public class BeamInput
     {
-        public Data.BeamMatireals Material { get; internal set; }
+        public Data.BeamMatireals Material { get; set; }
 
-        public bool DryWood { get; internal set; } = false;
-        public bool FlameRetardants { get; internal set; } = false;
+        public bool DryWood { get; set; } = false;
+        public bool FlameRetardants { get; set; } = false;
 
-        public double Width { get; internal set; }
-        public double Height { get; internal set; }
-        public double Length { get; internal set; }
-        public int Amount { get; internal set; } = 1;
+        public double Width { get; set; }
+        public double Height { get; set; }
+        public double Length { get; set; }
+        public int Amount { get; set; } = 1;
 
-        public Data.Exploitations Exploitation { get; internal set; }
+        public Data.Exploitations Exploitation { get; set; }
 
-        public int LifeTime { get; internal set; }
+        public int LifeTime { get; set; }
 
-        public Data.LoadingModes LoadingMode { get; internal set; }
+        public int SteadyTemperature { get; set; }
 
-        public List<double> Supports { get; internal set; } = new List<double>();
+        public Data.LoadingModes LoadingMode { get; set; }
 
-        public List<DistributedLoad> DistributedLoads { get; internal set; } = new List<DistributedLoad>();
-        public List<ConcentratedLoad> ConcentratedLoads { get; internal set; } = new List<ConcentratedLoad>();
+        public List<double> Supports { get; set; } = new List<double>();
 
-        public abstract class Load
-        {
-            public double LoadForFirstGroup { get; internal set; }
-            public double LoadForSecondGroup { get; internal set; }
-
-            protected Load(
-                double loadForFirstGroup,
-                double loadForSecondGroup)
-            {
-                LoadForFirstGroup = loadForFirstGroup;
-                LoadForSecondGroup = loadForSecondGroup;
-            }
-        }
-        public class DistributedLoad : Load
-        {
-            public double OffsetStart { get; internal set; }
-            public double OffsetEnd { get; internal set; }
-            public DistributedLoad(double offsetStart, double offsetEnd, double loadForFirstGroup, double loadForSecondGroup)
-                : base(loadForFirstGroup, loadForSecondGroup)
-            {
-                OffsetStart = offsetStart;
-                OffsetEnd = offsetEnd;
-            }
-        }
-
-        public class ConcentratedLoad : Load
-        {
-            public double Offset { get; internal set; }
-            public ConcentratedLoad(double offset, double loadForFirstGroup, double loadForSecondGroup)
-                : base(loadForFirstGroup, loadForSecondGroup)
-            {
-                Offset = offset;
-            }
-        }
-
+        public List<DistributedLoad> DistributedLoads { get; set; } = new List<DistributedLoad>();
+        public List<ConcentratedLoad> ConcentratedLoads { get; set; } = new List<ConcentratedLoad>();
         public override string ToString()
         {
             var supports = Supports.Aggregate("", (current, s) => $"{current}{s * 1000}, ");

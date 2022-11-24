@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1139368F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDS.Client", "HDS.Client\HDS.Client.csproj", "{4907186E-0FEE-47DF-A862-387ADF4303BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HDS.Shared", "HDS.Shared\HDS.Shared.csproj", "{A4540591-428A-41D3-A168-797BA6A5A557}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDS.Shared", "HDS.Shared\HDS.Shared.csproj", "{A4540591-428A-41D3-A168-797BA6A5A557}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

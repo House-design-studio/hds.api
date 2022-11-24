@@ -1,0 +1,22 @@
+﻿<div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="@InputID" name="@Name" @onchange="Binder" />
+        <label class="form-check-label" for="@InputID">
+            @BodyText
+        </label>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string? InputID { get; set; }
+
+    [Parameter]
+    public string? Name { get; set; }
+
+    [Parameter]
+    public string? BodyText { get; set; }
+
+    [Parameter]
+    public EventCallback<ChangeEventArgs> Binder { get; set; }
+}

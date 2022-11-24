@@ -2,6 +2,11 @@
 {
     public static class Data
     {
+        public enum Units
+        {
+            kgm2,
+            kgm
+        }
         /// <summary>
         /// Режимы нагружения
         /// </summary>
@@ -14,7 +19,7 @@
             D,
             E,
             J,
-            Z,
+            I,
             K,
             L,
             M

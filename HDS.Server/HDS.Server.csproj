@@ -38,6 +38,7 @@
   <ItemGroup>
     <ProjectReference Include="..\HDS.Client\HDS.Client.csproj" />
     <ProjectReference Include="..\HDS.Core\HDS.Core.csproj" />
+    <ProjectReference Include="..\HDS.Shared\HDS.Shared.csproj" />
   </ItemGroup>
 
 </Project>

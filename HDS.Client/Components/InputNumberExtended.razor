@@ -1,13 +1,13 @@
 ﻿<div class="row align-items-center mb-2">
 
-    <div class="col-12 col-lg-3">
+    <div class="col-12 col-lg-4">
         <label class="form-label" for="@InputID"> @BodyText </label>
     </div>
 
-    <div class="col-12 col-lg-6">
+    <div class="col-12 col-lg-5">
         <div class="input-group">
 
-            <input type="number" class="form-control" min="@Minimum" max="@Maximum" id="@InputID" name="@(Name == null ? InputID : Name)" value="@Value">
+            <input @onchange="Binder" type="number" class="form-control" step="@Step" min="@Minimum" max="@Maximum" id="@InputID" name="@(Name == null ? InputID : Name)" value="@InputValue">
 
             @if(Units != null){
                 <span class="input-group-text">@Units</span>
@@ -34,13 +34,19 @@
     public string? Units { get; set; }
 
     [Parameter]
+    public string? Step { get; set; }
+
+    [Parameter]
     public int? Minimum { get; set; }
 
     [Parameter]
     public int? Maximum { get; set; }
 
     [Parameter]
-    public int? Value { get; set; }
+    public double? InputValue { get; set; }
+
+    [Parameter]
+    public EventCallback<ChangeEventArgs> Binder { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

@@ -27,5 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HDS.Core\HDS.Core.csproj" />
+    <ProjectReference Include="..\HDS.Shared\HDS.Shared.csproj" />
   </ItemGroup>
 </Project>

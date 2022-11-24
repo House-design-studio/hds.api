@@ -1,4 +1,5 @@
 ﻿@page "/Beam/pro/"
+@using HDS.Shared;
 @inject HttpClient _httpClient
 
 <PageTitle> Расчёт балки </PageTitle>
@@ -9,82 +10,38 @@
     <form class="container mt-3 row ps-1 pe-1" action="/Beam/pro/" method="post">
         <h4 class="col-12">Характеристики балки</h4>
 
-        <!--материал-->
-        <div class="row align-items-center mb-2 ">
-            <div class="col-12 col-lg-2">
-                <label class="form-label" for="Material"> Материал </label>
-            </div>
+        <InputSelectExtended InputID="Material" Name="Material" Selected="2" Values="MaterialsView" TKey="BeamMatireals" BodyText="Материал"
+                             Binder="(ChangeEventArgs __e) => _input.Material = Enum.Parse<BeamMatireals>((string)__e.Value!) "></InputSelectExtended>
 
-            <div class="col-12 col-lg-6">
-                <div class="input-group">
-                    <select class="form-select" aria-label="Material" name="Material" id="Material">
-                        <option value="PlankK16">Доска сосна, ель класс K16/сорт 3</option>
-                        <option value="PlankK24" selected>Доска сосна, ель класс K24/сорт 2</option>
-                        <option value="PlankK26">Доска сосна, ель класс K26/сорт 1</option>
-                        <option value="LvlK35">Брус LVL класс K35/сорт 3</option>
-                        <option value="LvlK40">Брус LVL класс K40/сорт 2</option>
-                        <option value="LvlK45">Брус LVL класс K45/сорт 1</option>
-                    </select>
-                </div>
-            </div>
+        <InputCheckboxExtended InputID="DryWood" BodyText="Доска камерной сушки" 
+                               Binder="(ChangeEventArgs __e) => _input.DryWood = Convert.ToBoolean(__e.Value)"></InputCheckboxExtended>
 
-        </div>
+        <InputCheckboxExtended InputID="FlameRetardants" BodyText="Глубокая пропитка антипиренами"
+                               Binder="(ChangeEventArgs __e) => _input.FlameRetardants = Convert.ToBoolean(__e.Value)"></InputCheckboxExtended>
 
-        <!--Доска камерной сушки?-->
-        <div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Dry_wood" name="DryWood">
-                <label class="form-check-label" for="flexCheckDefault">
-                    Доска камерной сушки
-                </label>
-            </div>
-        </div>
-        <!--Глубокая пропитка антипиренами?-->
-        <div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="FlameRetardants" name="FlameRetardants">
-                <label class="form-check-label" for="flexCheckDefault">
-                    Глубокая пропитка антипиренами
-                </label>
-            </div>
-        </div>
-
-        <!--линия-->
         <hr class="my-4">
 
-        <InputNumberExtended BodyText="Длинна" InputID="Length" Minimum="400" Maximum="15000" Units="мм" Value="3000"></InputNumberExtended>
-        <InputNumberExtended BodyText="Ширина" InputID="Width" Minimum="12" Maximum="400" Units="мм" Value="50"></InputNumberExtended> 
-        <InputNumberExtended BodyText="Высота" InputID="Height" Minimum="19" Maximum="300" Units="мм" Value="150"></InputNumberExtended>
-        <InputNumberExtended BodyText="Количество" InputID="Amount" Minimum="1" Maximum="5" Units="шт" Value="1"></InputNumberExtended>
+        <InputNumberExtended BodyText="Длинна" InputID="Length" Minimum="400" Maximum="15000" Units="мм" InputValue="@(_input.Length * 1000)"
+                             Binder="((ChangeEventArgs __e) => _input.Length = Convert.ToDouble(__e.Value) / 1000)"></InputNumberExtended>
 
-        <!--линия-->
+        <InputNumberExtended BodyText="Ширина" InputID="Width" Minimum="12" Maximum="400" Units="мм" InputValue="@(_input.Width * 1000)"
+                             Binder="((ChangeEventArgs __e) => _input.Width = Convert.ToDouble(__e.Value) / 1000)"></InputNumberExtended>
+
+        <InputNumberExtended BodyText="Высота" InputID="Height" Minimum="19" Maximum="300" Units="мм" InputValue="@(_input.Height * 1000)"
+                             Binder="((ChangeEventArgs __e) => _input.Height = Convert.ToDouble(__e.Value) / 1000)"></InputNumberExtended>
+
+        <InputNumberExtended BodyText="Количество" InputID="Amount" Minimum="1" Maximum="5" Units="шт" InputValue="@(_input.Amount * 1000)"
+                             Binder="((ChangeEventArgs __e) => _input.Amount = Convert.ToInt32(__e.Value))"></InputNumberExtended>
+
         <hr class="my-4">
 
-        <!--Класс условий эксплуатации-->
-        <div class="row align-items-center mb-2">
-            <div class="col-12 col-lg-3">
-                <label class="form-label" for="Exploitation_select">
-                    <a class="link-no-style" data-bs-toggle="collapse" href="#exploitation_table" aria-expanded="false" aria-controls="exploitation_table">
-                        Класс условий эксплуатации <img class="ms-1 bi" rel="icon" src="/icons/info.ico" type="image/x-icon" width="16" height="16" />
-                    </a>
-                </label>
-            </div>
-            <div class="col-12 col-lg-6">
-                <div class="input-group">
-                    <select class="form-select" aria-label="Exploitation_select" name="Exploitation" id="Exploitation_select">
-                        <option value="Class1A">1а (сухой)</option>
-                        <option value="Class1B">1б (сухой)</option>
-                        <option value="Class2" selected> 2 (нормальный)</option>
-                        <option value="Class3">3 (влажный)</option>
-                        <option value="Class4A">4а (мокрый)</option>
-                        <option value="Class4B">4б (мокрый)</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <!--таблица типов эксплуатаций-->
-        <div class="collapse" id="exploitation_table">
+        <InputSelectExtended TKey="Exploitations" Values="ExploitationView" InputID="ExploitationSelect" Name="Exploitation" Selected="3"
+                             Binder="(ChangeEventArgs __e) => _input.Exploitation = Enum.Parse<Exploitations>((string)__e.Value!)">
+            <label class="form-label" for="ExploitationSelect" @onclick="CollapseExploitationTable">
+                Класс условий эксплуатации <img class="ms-1 bi" rel="icon" src="/icons/info.ico" type="image/x-icon" width="16" height="16" />
+            </label>
+        </InputSelectExtended>
+        <div class="@exploitationTableClass" id="exploitationTable">
             <table class="table table-bordered border-secondary table-text">
                 <thead>
                     <tr>
@@ -158,38 +115,16 @@
             </table>
         </div>
 
-        <InputNumberExtended BodyText="Срок службы" InputID="LifeTime" Minimum="50" Maximum="150" Units="лет" Value="50"></InputNumberExtended>
+        <InputNumberExtended BodyText="Срок службы" InputID="LifeTime" Minimum="50" Maximum="150" Units="лет" InputValue="50"
+                             Binder="((ChangeEventArgs __e) => _input.LifeTime = Convert.ToInt32(__e.Value))"></InputNumberExtended>
 
-        <!--Режим нагружения-->
-        <div class="row align-items-center mb-2">
-            <div class="col-12 col-lg-3">
-                <label class="form-label" for="Eoading_mode_select">
-                    <a class="link-no-style" data-bs-toggle="collapse" href="#loading_mode" aria-expanded="false" aria-controls="loading_mode">
-                        Режим нагружения <img class="ms-1 bi" rel="icon" src="/icons/info.ico" type="image/x-icon" width="16" height="16" />
-                    </a>
-                </label>
-            </div>
-            <div class="col-12 col-lg-6">
-                <div class="input-group">
-                    <select class="form-select" aria-label="Loading_mode_select" name="LoadingMode" id="Loading_mode_select">
-                        <option value="A">А</option>
-                        <option value="B">Б</option>
-                        <option value="V">В</option>
-                        <option value="G" selected>Г</option>
-                        <option value="D">Д</option>
-                        <option value="E">Е</option>
-                        <option value="J">Ж</option>
-                        <option value="I">И</option>
-                        <option value="K">К</option>
-                        <option value="L">Л</option>
-                        <option value="M">М</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <!--таблица режимов нагружений-->
-        <div class="collapse" id="loading_mode">
+        <InputSelectExtended TKey="LoadingModes" Values="LoadingModesView" InputID="LoadingMode" Name="LoadingMode" Selected="4"
+                             Binder="(ChangeEventArgs __e) => _input.LoadingMode = Enum.Parse<LoadingModes>((string)__e.Value!)">
+            <label class="form-label" for="LoadingMode" @onclick="CollapseLoadingModesTable">
+                    Режим нагружения <img class="ms-1 bi" rel="icon" src="/icons/info.ico" type="image/x-icon" width="16" height="16" />
+            </label>
+        </InputSelectExtended>
+        <div class="@loadingModesTableClass" id="LoadingModesTable">
             <table class="table table-bordered border-secondary table-text">
                 <thead>
                     <tr>
@@ -248,50 +183,29 @@
             </table>
         </div>
 
-        <InputNumberExtended BodyText="Установившаяся температура воздуха" InputID="SteadyTemperature" Minimum="20" Maximum="50" Units="°C" Value="20"></InputNumberExtended>
-        <InputNumberExtended BodyText="Срок службы" InputID="LifeTime" Minimum="50" Maximum="150" Units="лет" Value="50"></InputNumberExtended>
+        <InputNumberExtended BodyText="Установившаяся температура воздуха" InputID="SteadyTemperature" Minimum="20" Maximum="50" Units="°C" InputValue="@(_input.SteadyTemperature)"
+                             Binder="(ChangeEventArgs __e) => _input.SteadyTemperature = Convert.ToInt32(__e.Value)"></InputNumberExtended>
 
-        <!--линия-->
         <hr class="my-4">
 
         <h4>Опоры</h4>
 
-        <!--кнопка опоры-->
-
         <button @onclick="AddSupport" type="button" class="btn btn-secondary col-12 col-md-3 mb-4 buttons-margin" id="addSupport">Добавить</button>
-
-
-        <!--Список опор-->
-        @for(int i = 0; i < supports.Count(); i++)
+        @for (int i = 0; i < _input.Supports.Count(); i++)
         {
             int currentIndex = i;
 
-            <div class="row align-items-center mb-2">
-
-                <div class="col-12 col-lg-3">
-                    <label class="form-label" for="@("support" + (i + 1).ToString())"> @("Смещение опоры " + (i + 1).ToString()) </label>
-                </div>
-
-                <div class="col-12 col-lg-6">
-                    <div class="input-group">
-
-                        <input type="number" class="form-control" min="400" max="1500" 
-                                id="@("support" + (i + 1).ToString())" 
-                                name="Supports" 
-                                value="@(supports[i])"
-                                @onchange="@((ChangeEventArgs __e) => supports[currentIndex] = Convert.ToInt32(__e?.Value?.ToString()))">
-                            <span class="input-group-text">мм</span>
-                    </div>
-                </div>
-
+            <InputNumberExtended InputID="@("support" + (i + 1).ToString())" 
+                             BodyText="@("Смещение опоры " + (i + 1).ToString())"
+                             Minimum="400" Maximum="15000" Units="мм"
+                             InputValue="@(_input.Supports[currentIndex] * 1000)"
+                             Binder="((ChangeEventArgs __e) => _input.Supports[currentIndex]= Convert.ToDouble(__e?.Value) / 1000)">
                 <button type="button" class="btn btn-outline-danger col-4 col-lg-3" @onclick="@(e => DeleteSupport(currentIndex))">
                     Удалить
                 </button>
-
-            </div>
+            </InputNumberExtended>
         }
 
-        <!--линия-->
         <hr class="my-4">
 
         <h4>Нормативные равномерно распределённые нагрузки</h4>
@@ -302,13 +216,83 @@
         <button @onclick="AddDistributedLoadV2" type="button" class="btn btn-secondary col-12 col-md-4 col-lg-3 mb-2 mb-md-4 buttons-margin" id="AddDistributedV2">Добавить Вариант 2</button>
 
         <!--Нормативные равномерно распределённые нагрузки в1-->
-        <div id="DistributedLoadsV1">
-        </div>
+        @for(int i = 0; i < DistributedLoadsV1.Count; i++)
+        {
+            int currentIndex = i;
+
+            <div class="row mb-1">
+                <div class="col-6 col-lg-4 mb-0 d-flex align-items-center">
+                    <h5 class="mb-0">Нагрузка @(currentIndex + 1)</h5>
+                </div>
+                <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" @onclick="@(e => DeleteDistributedLoadV1(currentIndex))"> Удалить</button>
+            </div>
+
+
+            <InputNumberExtended InputID="@("OffsetStart" + i.ToString())" BodyText="смещение начала нагрузки" Minimum="0" Maximum="15000" Units="мм"
+                             Binder="(ChangeEventArgs __e) => DistributedLoadsV1[currentIndex].OffsetStart = Convert.ToDouble(__e?.Value) / 1000"></InputNumberExtended>
+            <InputNumberExtended InputID="@("OffsetEnd" + i.ToString())" BodyText="смещение конца нагрузки" Minimum="0" Maximum="15000" Units="мм"
+                             Binder="(ChangeEventArgs __e) => DistributedLoadsV1[currentIndex].OffsetEnd = Convert.ToDouble(__e?.Value) / 1000"></InputNumberExtended>
+
+            <InputNumberExtended InputID="@("LoadForFirstGroup" + i.ToString())" BodyText="Нагрузка для расчёта по первой группе" Units="кг/м"
+                             Binder="(ChangeEventArgs __e) => DistributedLoadsV1[currentIndex].LoadForFirstGroup = Convert.ToDouble(__e?.Value)"></InputNumberExtended>
+            <InputNumberExtended InputID="@("LoadForFirstGroup" + i.ToString())" BodyText="Нагрузка для расчёта по первой группе" Units="кг/м"
+                             Binder="(ChangeEventArgs __e) => DistributedLoadsV1[currentIndex].LoadForSecondGroup = Convert.ToDouble(__e?.Value)"></InputNumberExtended>
+        }
+
 
         <!--Нормативные равномерно распределённые нагрузки в2-->
-        <div id="DistributedLoadsV2">
-        </div>
+        @for (int i = 0; i < DistributedLoadsV2.Count; i++)
+        {
+            int currentIndex = i;
 
+            <div class="row mb-1">
+                <div class="col-6 col-lg-4  mb-0 d-flex align-items-center">
+                    <h5 class="mb-0">Нагрузка @(DistributedLoadsV1.Count + currentIndex + 1)</h5>
+                </div>
+                <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" @onclick="@(e => DeleteDistributedLoadV2(currentIndex))"> Удалить</button>
+            </div>
+
+            <InputNumberExtended InputID="@("OffsetStart" + i.ToString())" BodyText="смещение начала нагрузки" Minimum="0" Maximum="15000" Units="мм"
+                             Binder="(ChangeEventArgs __e) => DistributedLoadsV2[currentIndex].OffsetStart = Convert.ToDouble(__e?.Value) / 1000"></InputNumberExtended>
+            <InputNumberExtended InputID="@("OffsetEnd" + i.ToString())" BodyText="смещение конца нагрузки" Minimum="0" Maximum="15000" Units="мм"
+                             Binder="(ChangeEventArgs __e) => DistributedLoadsV2[currentIndex].OffsetEnd = Convert.ToDouble(__e?.Value) / 1000"></InputNumberExtended>
+
+            <div class="row align-items-center mb-2">
+                <div class="col-12 col-lg-4">
+                    <label class="form-label" for="@("NormativeValue" + i.ToString())" > Нормативная величина </label>
+                </div>
+                <div class="col-12 col-lg-5">
+                    <div class="input-group">
+                        <input type="number" step="0.1" class="form-control" id="@("NormativeValue" + i.ToString())" name="DNormativeValue" value="1"
+                           @onchange="(ChangeEventArgs __e) => DistributedLoadsV2[currentIndex].NormativeValue = Convert.ToDouble(__e?.Value)">
+                        <div class="input-group-text p-0">
+                            <select class="form-select input-group-text pe-4 UMChoise" id="@("NormativeValueUM" + i.ToString())"
+                                @onchange="(ChangeEventArgs __e) => DistributedLoadsV2[currentIndex].NormativeValueUM = Enum.Parse<Units>((string)__e?.Value!)">
+                                <option value="kgm2">кг/м<sup>2</sup></option>
+                                <option value="kgm" selected>кг/м</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            
+            if (DistributedLoadsV2[i].NormativeValueUM == Units.kgm2)
+            {
+                <InputNumberExtended InputID="@("LoadAreaWidth" + i.ToString())" BodyText="Ширина грузовой площади" Minimum="0" Units="мм"
+                             Binder="(ChangeEventArgs __e) => DistributedLoadsV2[currentIndex].LoadAreaWidth = Convert.ToDouble(__e?.Value) / 1000"></InputNumberExtended>
+            }
+            else
+            {
+                DistributedLoadsV2[i].LoadAreaWidth = null;
+            }
+
+            <InputNumberExtended InputID="@("ReliabilityCoefficient" + i.ToString())" BodyText="Коэффициент надёжности" Step="0.1"
+                             Binder="(ChangeEventArgs __e) => DistributedLoadsV2[currentIndex].ReliabilityCoefficient = Convert.ToDouble(__e?.Value)"></InputNumberExtended>
+            <InputNumberExtended InputID="@("ReducingFactor" + i.ToString())" BodyText="Понижающий коэффициент" Step="0.1"
+                             Binder="(ChangeEventArgs __e) => DistributedLoadsV2[currentIndex].ReducingFactor = Convert.ToDouble(__e?.Value)"></InputNumberExtended>
+        }
         <!--линия-->
         <hr class="my-4">
         <h4>Нормативные сосредоточенные нагрузки</h4>
@@ -319,15 +303,49 @@
         <button @onclick="AddConcentratedLoadV2" type="button" class="btn btn-secondary col-12 col-md-4 col-lg-3 mb-2 mb-md-4 me-4 buttons-margin">Добавить Вариант 2</button>
 
         <!--Нормативные сосредоточенные нагрузки в1-->
-        <div id="ConcentratedLoadsV1">
-        </div>
+        @for (int i = 0; i < ConcentratedLoadsV1.Count(); i++)
+        {
+            int currentIndex = i;
+
+            <div class="row mb-1">
+                <div class="col-6 col-lg-4  mb-0 d-flex align-items-center">
+                    <h5 class="mb-0">Нагрузка @(currentIndex + 1)</h5>
+                </div>
+                <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" @onclick="@(e => DeleteConcentratedLoadV1(currentIndex))"> Удалить</button>
+            </div>
+
+            <InputNumberExtended InputID="@("Offset" + i.ToString())" BodyText="смещение нагрузки" Minimum="0" Maximum="15000" Units="мм"
+                             Binder="(ChangeEventArgs __e) => ConcentratedLoadsV1[currentIndex].Offset = Convert.ToDouble(__e?.Value) / 1000"></InputNumberExtended>
+
+            <InputNumberExtended InputID="@("LoadForFirstGroup" + i.ToString())" BodyText="Нагрузка для расчёта по первой группе" Units="кг/м"
+                             Binder="(ChangeEventArgs __e) => ConcentratedLoadsV1[currentIndex].LoadForFirstGroup = Convert.ToDouble(__e?.Value)"></InputNumberExtended>
+            <InputNumberExtended InputID="@("LoadForFirstGroup" + i.ToString())" BodyText="Нагрузка для расчёта по первой группе" Units="кг/м"
+                             Binder="(ChangeEventArgs __e) => ConcentratedLoadsV1[currentIndex].LoadForSecondGroup = Convert.ToDouble(__e?.Value)"></InputNumberExtended>
+        }
         <!--Нормативные сосредоточенные нагрузки в2-->
-        <div id="ConcentratedLoadsV2">
-        </div>
+        @for (int i = 0; i < ConcentratedLoadsV2.Count(); i++)
+        {
+            int currentIndex = i;
+
+            <div class="row mb-1">
+                <div class="col-6 col-lg-4  mb-0 d-flex align-items-center">
+                    <h5 class="mb-0">Нагрузка @(ConcentratedLoadsV1.Count() + currentIndex + 1)</h5>
+                </div>
+                <button type="button" class="btn btn-outline-danger col-6 col-md-3 but-ms-md" @onclick="@(e => DeleteConcentratedLoadV2(currentIndex))"> Удалить</button>
+            </div>
+
+            <InputNumberExtended InputID="@("Offset" + i.ToString())" BodyText="смещение нагрузки" Minimum="0" Maximum="15000" Units="мм"
+                             Binder="(ChangeEventArgs __e) => ConcentratedLoadsV2[currentIndex].Offset = Convert.ToDouble(__e?.Value) / 1000"></InputNumberExtended>
+            <InputNumberExtended InputID="@("NormativeValue" + i.ToString())" BodyText="Нормативная величина" Units="кг/м2"
+                             Binder="(ChangeEventArgs __e) => ConcentratedLoadsV2[currentIndex].NormativeValue = Convert.ToDouble(__e?.Value) / 1000"></InputNumberExtended>
+
+            <InputNumberExtended InputID="@("ReliabilityCoefficient" + i.ToString())" BodyText="Коэффициент надёжности" Step="0.1"
+                             Binder="(ChangeEventArgs __e) => ConcentratedLoadsV2[currentIndex].ReliabilityCoefficient = Convert.ToDouble(__e?.Value)"></InputNumberExtended>
+            <InputNumberExtended InputID="@("ReducingFactor" + i.ToString())" BodyText="Понижающий коэффициент" Step="0.1"
+                             Binder="(ChangeEventArgs __e) => ConcentratedLoadsV2[currentIndex].ReducingFactor = Convert.ToDouble(__e?.Value)"></InputNumberExtended>
+        }
         <!--линия-->
         <hr class="my-4">
-
-
 
         <button @onclick="CalculateFull" type="button" class="btn btn-primary buttons-margin">Расчёт на сервере</button>
     </form>
@@ -563,19 +581,96 @@
 }
 
 @code{
+    private BeamInput _input = new();
     private FullReport? _result;
-    private List<int> supports = new List<int>() {0, 3000};
+
+    private bool exploitationTable = false;
+    private string exploitationTableClass => exploitationTable ? "" : "collapse";
+
+    private bool loadingModesTable = false;
+    private string loadingModesTableClass => loadingModesTable ? "" : "collapse";
+
+    private List<DistributedLoad> DistributedLoadsV1 = new List<DistributedLoad>();
+    private List<DistributedLoadV2> DistributedLoadsV2 = new List<DistributedLoadV2>();
+
+    private List<ConcentratedLoad> ConcentratedLoadsV1 = new List<ConcentratedLoad>();
+    private List<ConcentratedLoadV2> ConcentratedLoadsV2 = new List<ConcentratedLoadV2>();
+
+    private Dictionary<BeamMatireals, string> MaterialsView = new Dictionary<BeamMatireals, string>()
+    {
+        {BeamMatireals.PlankK16, "Доска сосна, ель класс K16/сорт 3"},
+        {BeamMatireals.PlankK24, "Доска сосна, ель класс K24/сорт 2"},
+        {BeamMatireals.PlankK26, "Доска сосна, ель класс K26/сорт 1"},
+        {BeamMatireals.LvlK35, "Брус LVL класс K35/сорт 3"},
+        {BeamMatireals.LvlK40, "Брус LVL класс K40/сорт 2"},
+        {BeamMatireals.LvlK45, "Брус LVL класс K45/сорт 1"},
+    };
+    private Dictionary<Exploitations, string> ExploitationView = new Dictionary<Exploitations, string>()
+        {
+        {Exploitations.Class1A, "1а (сухой)"},
+        {Exploitations.Class1B, "1б (сухой)"},
+        {Exploitations.Class2, "2 (нормальный)"},
+        {Exploitations.Class3, "3 (влажный)"},
+        {Exploitations.Class4A, "4а (мокрый)"},
+        {Exploitations.Class4B, "4б (мокрый)"}
+        };
+    private Dictionary<LoadingModes, string> LoadingModesView = new Dictionary<LoadingModes, string>()
+    {
+        {LoadingModes.A, "А"},
+        {LoadingModes.B, "Б"},
+        {LoadingModes.V, "В"},
+        {LoadingModes.G, "Г"},
+        {LoadingModes.D, "Д"},
+        {LoadingModes.E, "Е"},
+        {LoadingModes.J, "Ж"},
+        {LoadingModes.I, "И"},
+        {LoadingModes.K, "К"},
+        {LoadingModes.L, "Л"},
+        {LoadingModes.M, "М"}
+    };
+
+    protected override void OnInitialized()
+    {
+        _input.Length = 3;
+        _input.Supports.Add(0);
+        _input.Supports.Add(3);
+    }
 
     private void CalculateFull()
     {
+        _input.DistributedLoads.AddRange(DistributedLoadsV1);
+        foreach (DistributedLoad load in DistributedLoadsV2)
+        {
+            _input.DistributedLoads.Add(load);
+        }
+
+        _input.ConcentratedLoads.AddRange(ConcentratedLoadsV1);
+        foreach (ConcentratedLoad load in ConcentratedLoadsV2)
+        {
+            _input.ConcentratedLoads.Add(load);
+        }
+
+        Console.WriteLine(_input);
         // http request
         //_result = http response
     }
 
-    private void AddSupport() => supports.Add(0);
-    private void DeleteSupport(int index) => supports.RemoveAt(index);
-    private void AddDistributedLoadV1() { }
-    private void AddDistributedLoadV2() { }
-    private void AddConcentratedLoadV1()  { }
-    private void AddConcentratedLoadV2()  { }
+    private void CollapseExploitationTable() => exploitationTable = !exploitationTable;
+    private void CollapseLoadingModesTable() => loadingModesTable = !loadingModesTable;
+
+    private void AddSupport() => _input.Supports.Add(0);
+    private void DeleteSupport(int index) => _input.Supports.RemoveAt(index);
+
+
+    private void AddDistributedLoadV1() => DistributedLoadsV1.Add(new DistributedLoad());
+    private void DeleteDistributedLoadV1(int index) => DistributedLoadsV1.RemoveAt(index);
+
+    private void AddDistributedLoadV2() => DistributedLoadsV2.Add(new DistributedLoadV2());
+    private void DeleteDistributedLoadV2(int index) => DistributedLoadsV2.RemoveAt(index);
+
+    private void AddConcentratedLoadV1() => ConcentratedLoadsV1.Add(new ConcentratedLoad());
+    private void DeleteConcentratedLoadV1(int index) => ConcentratedLoadsV1.RemoveAt(index);
+
+    private void AddConcentratedLoadV2() => ConcentratedLoadsV2.Add(new ConcentratedLoadV2());
+    private void DeleteConcentratedLoadV2(int index) => ConcentratedLoadsV2.RemoveAt(index);
 }

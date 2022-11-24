@@ -1,0 +1,56 @@
+﻿@typeparam TKey
+
+<div class="row align-items-center mb-2 ">
+    <div class="col-12 col-lg-4">
+        @if (ChildContent == null)
+        {
+            <label class="form-label" for="@InputID"> @BodyText </label>
+        }
+        else
+        {
+            @ChildContent
+        }
+    </div>
+
+    <div class="col-12 col-lg-5">
+        <div class="input-group">
+            <select class="form-select" name="@Name" id="@InputID" @onchange="Binder">
+                @for(int i = 0; i < Values.Count(); i++)
+                {
+                    var element = Values.ElementAt(i);
+                    if (Selected == i + 1)
+                    {
+                        <option value="@(element.Key)" selected> @element.Value </option>
+                    }
+                    else
+                    {
+                        <option value="@(element.Key)"> @element.Value </option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string? InputID { get; set; }
+
+    [Parameter]
+    public string? Name { get; set; }
+
+    [Parameter]
+    public Dictionary<TKey, string>? Values { get; set; }
+
+    [Parameter]
+    public int? Selected { get; set; }
+
+    [Parameter]
+    public string? BodyText { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback<ChangeEventArgs> Binder { get; set; }
+}
