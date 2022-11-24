@@ -638,12 +638,14 @@
 
     private void CalculateFull()
     {
+        _input.DistributedLoads = new List<DistributedLoad>();
         _input.DistributedLoads.AddRange(DistributedLoadsV1);
         foreach (DistributedLoad load in DistributedLoadsV2)
         {
             _input.DistributedLoads.Add(load);
         }
 
+        _input.ConcentratedLoads = new List<ConcentratedLoad>();
         _input.ConcentratedLoads.AddRange(ConcentratedLoadsV1);
         foreach (ConcentratedLoad load in ConcentratedLoadsV2)
         {
