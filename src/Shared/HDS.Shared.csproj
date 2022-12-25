@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HDS.Core\HDS.Core.csproj" />
+    <ProjectReference Include="..\Core\HDS.Core.csproj" />
   </ItemGroup>
 
 </Project>

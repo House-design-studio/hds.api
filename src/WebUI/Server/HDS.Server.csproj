@@ -7,6 +7,7 @@
     <UserSecretsId>894bc05d-5658-4c8e-9fff-201214ef25ce</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,9 +40,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HDS.Client\HDS.Client.csproj" />
-    <ProjectReference Include="..\HDS.Core\HDS.Core.csproj" />
-    <ProjectReference Include="..\HDS.Shared\HDS.Shared.csproj" />
+    <ProjectReference Include="..\..\Core\HDS.Core.csproj" />
+    <ProjectReference Include="..\..\Shared\HDS.Shared.csproj" />
+    <ProjectReference Include="..\Client\HDS.Client.csproj" />
   </ItemGroup>
 
 </Project>

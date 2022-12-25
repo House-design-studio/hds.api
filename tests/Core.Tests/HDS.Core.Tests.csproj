@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HDS.Core\HDS.Core.csproj" />
+    <ProjectReference Include="..\..\src\Core\HDS.Core.csproj" />
   </ItemGroup>
 
 </Project>
