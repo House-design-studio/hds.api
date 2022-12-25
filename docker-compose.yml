@@ -1,8 +1,23 @@
 version: '3.4'
 
 services:
+
   hds.server:
-    image: ${DOCKER_REGISTRY-}hdsserver
+    image: ${DOCKER_REGISTRY-}hds.server
+    container_name: hds.server
     build:
       context: .
       dockerfile: src/WebUI/Server/Dockerfile
+    depends_on:
+      - hds.db
+
+  hds.db:
+    image: postgres
+    container_name: hds.db
+    networks:
+      - HDS.Network
+
+
+networks: 
+  HDS.Network:
+    driver: bridge
