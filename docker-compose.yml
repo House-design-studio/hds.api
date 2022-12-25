@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  hds.server:
+    image: ${DOCKER_REGISTRY-}hdsserver
+    build:
+      context: .
+      dockerfile: HDS.Server/Dockerfile
