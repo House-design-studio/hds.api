@@ -40,8 +40,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\HDS.Core.csproj" />
-    <ProjectReference Include="..\..\Shared\HDS.Shared.csproj" />
+    <ProjectReference Include="..\..\Core\Core.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.csproj" />
     <ProjectReference Include="..\Client\HDS.Client.csproj" />
   </ItemGroup>
 
