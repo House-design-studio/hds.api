@@ -15,4 +15,9 @@
     <ProjectReference Include="..\MathCore\MathCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Exceptions\" />
+    <Folder Include="Common\Interfaces\" />
+  </ItemGroup>
+
 </Project>

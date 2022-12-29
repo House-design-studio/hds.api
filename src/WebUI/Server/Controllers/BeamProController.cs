@@ -39,7 +39,7 @@ namespace HDS.Server.Controllers
 
             var output = await _beamCalculator.GetFullReportAsync(beamModel);
             _logger.LogTrace($"New calculation : {output}, \n {beamModel.ToString()}");
-
+            
             return View("Calculate", output);
         }
     }
