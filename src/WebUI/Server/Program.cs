@@ -6,7 +6,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
+
+try
+{
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,6 +75,7 @@ builder.Services.AddAuthorization(options =>
 });
 builder.Services.AddMvc();
 
+    builder.Host.UseSerilog();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline. 
@@ -94,3 +102,12 @@ app.MapFallbackToFile("index.html");
 //    pattern: "{controller=Home}/{action=Index}");
 
 app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
