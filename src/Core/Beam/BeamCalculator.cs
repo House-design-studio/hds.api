@@ -1,8 +1,5 @@
 ﻿using HDS.Core.Beam.Entities;
-using HDS.Core.FemClient;
 using HDS.Core.Interfaces;
-using static HDS.Core.Beam.Analyze;
-using static HDS.Core.Mathematics;
 
 namespace HDS.Core.Beam
 {

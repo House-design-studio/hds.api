@@ -2,11 +2,6 @@
 using AutoMapper;
 using Core.Entities;
 using HDS.Core.Beam.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Common.Mappings
 {
@@ -16,6 +11,6 @@ namespace Application.Common.Mappings
         {
             CreateMap<GetBeamFullQuery, Beam>();
             CreateMap<Beam, FullReport>();
-        }   
+        }
     }
 }

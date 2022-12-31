@@ -5,10 +5,10 @@ using HDS.Core.Beam.Entities;
 using MediatR;
 
 namespace Application.WoodenConstruction.Queries.GetBeamFull
-{ 
+{
     public class GetBeamFullQuery : IRequest<FullReport>
     {
-        public Data.BeamMatireals Material { get; set; }
+        public Materials Material { get; set; }
         public bool DryWood { get; set; }
         public bool FlameRetardants { get; set; }
         public double Width { get; set; }
@@ -27,6 +27,7 @@ namespace Application.WoodenConstruction.Queries.GetBeamFull
     public class GetBeamFullQueryHandeler : IRequestHandler<GetBeamFullQuery, FullReport>
     {
         private readonly IMapper _mapper;
+        private readonly ILoa
         public GetBeamFullQueryHandeler(IMapper mapper)
         {
             _mapper = mapper;
@@ -34,7 +35,6 @@ namespace Application.WoodenConstruction.Queries.GetBeamFull
         public async Task<FullReport> Handle(GetBeamFullQuery request, CancellationToken cancellationToken)
         {
             Beam beam = _mapper.Map<Beam>(request);
-            await beam.CalculateLoadsAsync();
             return _mapper.Map<FullReport>(beam);
         }
     }

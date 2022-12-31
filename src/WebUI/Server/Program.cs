@@ -1,6 +1,6 @@
 using HDS.Core.Beam;
-using HDS.Core.FemClient;
 using HDS.Core.Interfaces;
+using HDS.Core.Services;
 using HDS.Server.Models.Database;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -25,6 +25,7 @@ try
 
     builder.Services.AddScoped<IBeamCalculator, BeamCalculator>();
     builder.Services.AddScoped<IFemClient, FemClient>();
+    builder.Services.AddScoped(typeof(LoadsCalculator<>));
 
     builder.Services.AddAuthentication(options =>
         {

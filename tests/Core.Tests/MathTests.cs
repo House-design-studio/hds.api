@@ -1,5 +1,3 @@
-using static HDS.Core.Mathematics;
-
 namespace HDS.Core.Tests
 {
     public class MathTests

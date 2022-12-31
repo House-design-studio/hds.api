@@ -1,6 +1,4 @@
-﻿using HDS.Core.FemClient;
-
-namespace HDS.Core.Interfaces
+﻿namespace HDS.Core.Interfaces
 {
     public interface IFemClient
     {

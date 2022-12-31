@@ -1,6 +1,4 @@
-﻿using static HDS.Core.Beam.Analyze;
-
-namespace HDS.Core.Tests.Beam
+﻿namespace HDS.Core.Tests.Beam
 {
     public class ShrinkageTests
     {
