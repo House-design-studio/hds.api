@@ -12,10 +12,20 @@ namespace HDS.Core.Services
         {
             _femCalculator = femCalculator;
         }
-        public async Task<string> GetFullReportAsync(TObj model)
+        public async Task<string> GetFirstGroupOfLimitStates(TObj model)
         {
             FemModel data = new FemModel();
-            var res = await _femCalculator.CalculateAsync(data);
+            var res = _femCalculator.CalculateAsync(data);
+            // parse 
+            // try to add Cache by hash 
+            // unparse
+
+            return "";
+        }
+        public async Task<string> GetSecondGroupOfLimitStates(TObj model)
+        {
+            FemModel data = new FemModel();
+            var res = _femCalculator.CalculateAsync(data);
             // parse 
             // try to add Cache by hash 
             // unparse

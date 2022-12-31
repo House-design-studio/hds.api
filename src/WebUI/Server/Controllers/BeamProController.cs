@@ -1,46 +1,23 @@
-﻿using HDS.Core.Beam.Entities;
-using HDS.Core.Interfaces;
+﻿using Application.WoodenConstruction.Queries.GetBeamFull;
 using HDS.Server.Models;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HDS.Server.Controllers
 {
-    [Route("/{controller}/pro/{action=Index}")]
+    [ApiController]
+    [Route("api/beam")]
     public class BeamController : Controller
     {
-        private readonly ILogger<BeamController> _logger;
-        private readonly IBeamCalculator _beamCalculator;
-
-        public BeamController(ILogger<BeamController> logger, IBeamCalculator beamCalculator)
+        private readonly IMediator _mediator;
+        public BeamController(IMediator mediator)
         {
-            _logger = logger;
-            _beamCalculator = beamCalculator;
+            _mediator = mediator;
         }
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            // try to load 
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> IndexAsync(BeamInputStringModel input)
-        {
-            BeamInput beamModel;
-            try
-            {
-                beamModel = input.Parse(_beamCalculator.GetBeamInputBuilder());
-            }
-            catch
-            {
-                return Redirect("/Beam/pro/Index"); //TODO: добавить параметр строки ?alert=message и скрипт на js который при загрузке его обработает
-            }
-
-            var output = await _beamCalculator.GetFullReportAsync(beamModel);
-            _logger.LogTrace($"New calculation : {output}, \n {beamModel.ToString()}");
-
-            return View("Calculate", output);
-        }
+        [HttpGet("full_report")]
+        public async Task<string> IndexAsync(
+            [FromBody] GetBeamFullQuery query)
+            => await _mediator.Send(query);
     }
 }

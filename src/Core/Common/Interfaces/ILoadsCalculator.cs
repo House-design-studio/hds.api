@@ -3,6 +3,7 @@
     public interface ILoadsCalculator<TObj>
         where TObj : ILoadable, IPhysicMechanicalCharacteristicable, IGeometricCharacteristicable
     {
-        Task<string> GetFullReportAsync(TObj model);
+        Task<string> GetFirstGroupOfLimitStates(TObj model);
+        Task<string> GetSecondGroupOfLimitStates(TObj model);
     }
 }

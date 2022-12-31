@@ -2,18 +2,26 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="MathCore.FemCalculator.Model.Beam">
     <Position X="11.5" Y="3" Width="1.75" />
-    <AssociationLine Name="Force" Type="MathCore.Common.Base.Vector6D&lt;TValue&gt;" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="ZDirection" Type="MathCore.Common.Base.Point3D" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="12.375" Y="5.901" />
-        <Point X="12.375" Y="9.812" />
-        <Point X="8.5" Y="9.812" />
+        <Point X="11.5" Y="4.451" />
+        <Point X="11.125" Y="4.451" />
+        <Point X="11.125" Y="5.938" />
+        <Point X="8.75" Y="5.938" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="Displacement" Type="MathCore.Common.Base.Vector6D&lt;TValue&gt;" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="12.688" Y="5.901" />
         <Point X="12.688" Y="10.125" />
-        <Point X="8.5" Y="10.125" />
+        <Point X="8.75" Y="10.125" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Force" Type="MathCore.Common.Base.Vector6D&lt;TValue&gt;" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.375" Y="5.901" />
+        <Point X="12.375" Y="9.812" />
+        <Point X="8.75" Y="9.812" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -24,8 +32,8 @@
       <Property Name="First" />
       <Property Name="Second" />
       <Property Name="ZDirection" />
-      <Property Name="Force" />
       <Property Name="Displacement" />
+      <Property Name="Force" />
     </ShowAsAssociation>
   </Class>
   <Class Name="MathCore.FemCalculator.Model.BeamEnd">
@@ -51,18 +59,18 @@
         <Point X="6.75" Y="5.938" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="Load" Type="MathCore.Common.Base.Vector6D&lt;TValue&gt;" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="4.5" Y="4.233" />
-        <Point X="4.5" Y="9.75" />
-        <Point X="7" Y="9.75" />
-      </Path>
-    </AssociationLine>
     <AssociationLine Name="Support" Type="MathCore.Common.Base.Vector6D&lt;TValue&gt;" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="4.688" Y="4.233" />
         <Point X="4.688" Y="9.485" />
         <Point X="7" Y="9.485" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Load" Type="MathCore.Common.Base.Vector6D&lt;TValue&gt;" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.5" Y="4.233" />
+        <Point X="4.5" Y="9.75" />
+        <Point X="7" Y="9.75" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -71,8 +79,8 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Coordinate" />
-      <Property Name="Load" />
       <Property Name="Support" />
+      <Property Name="Load" />
     </ShowAsAssociation>
   </Class>
   <Class Name="MathCore.FemCalculator.FemModel">
@@ -109,7 +117,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="MathCore.Common.Base.Vector6D&lt;TValue&gt;">
-    <Position X="7" Y="9" Width="1.5" />
+    <Position X="7" Y="9" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaYAE=</HashCode>
       <FileName>Common\Base\Vector6D.cs</FileName>
