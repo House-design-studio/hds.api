@@ -1,7 +1,3 @@
-using HDS.Core.Beam;
-using HDS.Core.Interfaces;
-using HDS.Core.Services;
-using HDS.Server.Models.Database;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
@@ -21,11 +17,11 @@ try
     builder.Services.AddHttpClient();
 
     string connection = builder.Configuration.GetConnectionString("DefaultConnection");
-    builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connection));
 
-    builder.Services.AddScoped<IBeamCalculator, BeamCalculator>();
-    builder.Services.AddScoped<IFemClient, FemClient>();
-    builder.Services.AddScoped(typeof(LoadsCalculator<>));
+
+    builder.Services.AddApplicationServices();
+    builder.Services.AddInfrastructureServices(builder.Configuration);
+    builder.Services.AddCoreServices();
 
     builder.Services.AddAuthentication(options =>
         {
@@ -39,7 +35,6 @@ try
             options.ClientSecret = builder.Configuration["Oauth:Google:ClientSecret"];
             options.SaveTokens = true;
         });
-
     builder.Services.AddAuthorization(options =>
     {
         options.AddPolicy("Subscriber 1", builder =>
@@ -74,7 +69,8 @@ try
             return (DateOnly.Parse(userTime.Value) > currentTime);
         }
     });
-    builder.Services.AddMvc();
+
+    builder.Services.AddControllers();
 
     builder.Host.UseSerilog();
     var app = builder.Build();

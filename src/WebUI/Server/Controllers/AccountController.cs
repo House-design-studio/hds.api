@@ -1,22 +1,13 @@
-﻿using HDS.Server.Models.Database;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace HDS.Server.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        private readonly ILogger<AccountController> _logger;
-
-        public AccountController(ApplicationDbContext dbContext, ILogger<AccountController> logger)
+        public AccountController()
         {
-            _db = dbContext;
-            _logger = logger;
         }
 
         [AllowAnonymous]
@@ -28,7 +19,7 @@ namespace HDS.Server.Controllers
 
         [Authorize]
         public async Task<IActionResult> SignInCallback()
-        {
+        {/*
             //переписываем signin гугла на signin куков
             var newClaims = new List<Claim>();
 
@@ -99,6 +90,8 @@ namespace HDS.Server.Controllers
         public IActionResult Index()
         {
             return View();
+        }*/
+            return Json(null);
         }
     }
 }

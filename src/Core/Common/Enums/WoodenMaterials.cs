@@ -1,4 +1,4 @@
-﻿namespace Core.Common.Enums
+﻿namespace HDS.Core.Common.Enums
 {
     public enum WoodenMaterials
     {

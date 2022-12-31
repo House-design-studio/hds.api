@@ -28,5 +28,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Application.csproj" />
     <ProjectReference Include="..\..\Core\Core.csproj" />
+    <ProjectReference Include="..\..\MathCore\MathCore.csproj" />
   </ItemGroup>
 </Project>

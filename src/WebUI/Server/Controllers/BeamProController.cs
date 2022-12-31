@@ -1,5 +1,4 @@
-﻿using Application.WoodenConstruction.Queries.GetBeamFull;
-using HDS.Server.Models;
+﻿using HDS.Application.WoodenConstruction.Queries.GetBeamFull;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

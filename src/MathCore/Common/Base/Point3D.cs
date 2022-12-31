@@ -1,4 +1,4 @@
-﻿namespace MathCore.Common.Base
+﻿namespace HDS.MathCore.Common.Base
 {
     public class Point3D : Point2D, IEquatable<Point3D>
     {

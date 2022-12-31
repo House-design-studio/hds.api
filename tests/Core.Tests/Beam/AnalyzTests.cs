@@ -1,5 +1,5 @@
 ﻿namespace HDS.Core.Tests.Beam
-{
+{/*
     internal class AnalyzTests
     {
         [Test]
@@ -78,5 +78,5 @@
 
             Assert.That(result * 1000 * 1000 * 1000, Is.EqualTo(41155).Within(1));
         }
-    }
+    }*/
 }

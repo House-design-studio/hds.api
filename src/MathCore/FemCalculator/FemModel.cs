@@ -1,6 +1,6 @@
-﻿using MathCore.FemCalculator.Model;
+﻿using HDS.MathCore.FemCalculator.Model;
 
-namespace MathCore.FemCalculator
+namespace HDS.MathCore.FemCalculator
 {
     public class FemModel
     {

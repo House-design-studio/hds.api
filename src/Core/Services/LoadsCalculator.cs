@@ -1,6 +1,6 @@
-﻿using Core.Common.Interfaces;
-using MathCore.Common.Interfaces;
-using MathCore.FemCalculator;
+﻿using HDS.Core.Common.Interfaces;
+using HDS.MathCore.Common.Interfaces;
+using HDS.MathCore.FemCalculator;
 
 namespace HDS.Core.Services
 {

@@ -1,4 +1,4 @@
-﻿namespace Core.Entities.Loads
+﻿namespace HDS.Core.Entities.Loads
 {
     public class ConcentratedLoad : Load
     {

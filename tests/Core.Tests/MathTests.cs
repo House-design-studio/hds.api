@@ -1,5 +1,5 @@
 namespace HDS.Core.Tests
-{
+{/*
     public class MathTests
     {
         [Test]
@@ -37,5 +37,5 @@ namespace HDS.Core.Tests
 
             Assert.That(result, Is.EqualTo(-2.25d));
         }
-    }
+    }*/
 }

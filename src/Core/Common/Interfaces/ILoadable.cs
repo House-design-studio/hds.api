@@ -1,8 +1,7 @@
-﻿using Core.Common.Enums;
-using Core.Entities.Loads;
-using static HDS.Core.Data;
+﻿using HDS.Core.Common.Enums;
+using HDS.Core.Entities.Loads;
 
-namespace Core.Common.Interfaces
+namespace HDS.Core.Common.Interfaces
 {
     public interface ILoadable
     {

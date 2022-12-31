@@ -1,4 +1,4 @@
-﻿namespace HDS.Server.Models.Database
+﻿namespace HDS.Infrastructure.Database
 {
     public partial class Sp20133302016SnowArea
     {

@@ -1,8 +1,8 @@
-﻿using Core.Common.Enums;
-using Core.Common.Interfaces;
-using Core.Entities.Loads;
+﻿using HDS.Core.Common.Enums;
+using HDS.Core.Common.Interfaces;
+using HDS.Core.Entities.Loads;
 
-namespace Core.Entities
+namespace HDS.Core.Entities
 {
     public class Beam : WoodenConstruction, ILoadable
     {

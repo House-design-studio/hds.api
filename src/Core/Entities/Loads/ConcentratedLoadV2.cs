@@ -1,6 +1,4 @@
-﻿using Core.Entities.Loads;
-
-namespace HDS.Shared
+﻿namespace HDS.Core.Entities.Loads
 {
     public class ConcentratedLoadV2 : ConcentratedLoad
     {

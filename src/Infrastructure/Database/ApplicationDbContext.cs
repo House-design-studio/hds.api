@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace HDS.Server.Models.Database
+namespace HDS.Infrastructure.Database
 {
     public partial class ApplicationDbContext : DbContext
     {

@@ -1,5 +1,5 @@
 ﻿namespace HDS.Core.Tests.Beam
-{
+{/*
     public class ShrinkageTests
     {
         [Test]
@@ -33,5 +33,5 @@
 
             Assert.That(result, Is.EqualTo(11.1 * 0.001).Within(0.001));
         }
-    }
+    }*/
 }

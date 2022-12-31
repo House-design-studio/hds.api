@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Application.WoodenConstruction.Queries.GetBeamFull
+namespace HDS.Application.WoodenConstruction.Queries.GetBeamFull
 {
     public class GetBeamFullQueryValidator : AbstractValidator<GetBeamFullQuery>
     {

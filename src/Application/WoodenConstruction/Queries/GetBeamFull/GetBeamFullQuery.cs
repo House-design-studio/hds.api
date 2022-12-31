@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using Core.Common.Enums;
-using Core.Common.Interfaces;
-using Core.Entities;
-using Core.Entities.Loads;
-using HDS.Core;
-using HDS.Core.Beam.Entities;
+using HDS.Core.Common.Enums;
+using HDS.Core.Common.Interfaces;
+using HDS.Core.Entities;
+using HDS.Core.Entities.Loads;
 using MediatR;
 
-namespace Application.WoodenConstruction.Queries.GetBeamFull
+namespace HDS.Application.WoodenConstruction.Queries.GetBeamFull
 {
     public class GetBeamFullQuery : IRequest<string>
     {

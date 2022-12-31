@@ -1,4 +1,4 @@
-﻿using MathCore.Common.Base;
+﻿using HDS.MathCore.Common.Base;
 
 namespace HDS.MathCore
 {

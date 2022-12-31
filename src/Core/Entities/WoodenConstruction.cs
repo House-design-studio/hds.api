@@ -1,9 +1,9 @@
-﻿using Core.Common.Enums;
-using Core.Common.Interfaces;
+﻿using HDS.Core.Common.Enums;
+using HDS.Core.Common.Interfaces;
 using static HDS.Core.Data;
 using static HDS.MathCore.Mathematics;
 
-namespace Core.Entities
+namespace HDS.Core.Entities
 {
     public class WoodenConstruction : Construction, IPhysicMechanicalCharacteristicable
     {

@@ -1,4 +1,4 @@
-﻿namespace MathCore.Common.Base
+﻿namespace HDS.MathCore.Common.Base
 {
     public class Vector6D<TValue>
         where TValue : struct

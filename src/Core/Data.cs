@@ -1,5 +1,4 @@
-﻿using Core.Common.Enums;
-using Core.Entities;
+﻿using HDS.Core.Common.Enums;
 
 namespace HDS.Core
 {

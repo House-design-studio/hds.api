@@ -1,6 +1,6 @@
-﻿using MathCore.Common.Base;
+﻿using HDS.MathCore.Common.Base;
 
-namespace MathCore.FemCalculator.Model
+namespace HDS.MathCore.FemCalculator.Model
 {
     public class BeamEnd
     {

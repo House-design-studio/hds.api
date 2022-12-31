@@ -1,8 +1,5 @@
-﻿using HDS.Core.Beam.Entities;
-using HDS.Core.Interfaces;
-
-namespace HDS.Core.Beam
-{
+﻿namespace HDS.Core.Beam
+{/*
     public class BeamCalculator : IBeamCalculator
     {
         private readonly IFemClient _femClient;
@@ -210,5 +207,5 @@ namespace HDS.Core.Beam
             var request = new FemClientRequest(nodes.ToArray(), beams);
             var response = await _femClient.DoRequest(request);
         }
-    }
+    }*/
 }

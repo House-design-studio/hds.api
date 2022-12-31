@@ -1,7 +1,6 @@
-﻿using Core.Entities.Loads;
-using static HDS.Core.Data;
+﻿using static HDS.Core.Data;
 
-namespace HDS.Shared
+namespace HDS.Core.Entities.Loads
 {
     public class DistributedLoadV2 : DistributedLoad
     {

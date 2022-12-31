@@ -1,8 +1,8 @@
-﻿using Core.Common.Interfaces;
+﻿using HDS.Core.Common.Interfaces;
 using static HDS.Core.Data;
 using static HDS.MathCore.Mathematics;
 
-namespace Core.Entities
+namespace HDS.Core.Entities
 {
     public class Construction : IGeometricCharacteristicable
     {

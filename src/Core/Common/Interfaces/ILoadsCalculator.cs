@@ -1,4 +1,4 @@
-﻿namespace Core.Common.Interfaces
+﻿namespace HDS.Core.Common.Interfaces
 {
     public interface ILoadsCalculator<TObj>
         where TObj : ILoadable, IPhysicMechanicalCharacteristicable, IGeometricCharacteristicable
