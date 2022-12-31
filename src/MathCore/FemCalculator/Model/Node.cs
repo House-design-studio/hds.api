@@ -1,6 +1,6 @@
 ﻿using MathCore.Common.Base;
 
-namespace MathCore.FemCalculator
+namespace MathCore.FemCalculator.Model
 {
     public class Node : Vector6D<double>
     {

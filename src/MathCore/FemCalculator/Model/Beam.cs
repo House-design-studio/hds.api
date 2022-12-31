@@ -1,6 +1,6 @@
 ﻿using MathCore.Common.Base;
 
-namespace MathCore.FemCalculator
+namespace MathCore.FemCalculator.Model
 {
     public class Beam
     {
@@ -15,6 +15,9 @@ namespace MathCore.FemCalculator
         public double MomentOfInertiaX { get; set; }
         public double MomentOfInertiaY { get; set; }
         public double MomentOfInertiaZ { get; set; }
+
+        public Vector6D<double>? Displacement { get; set; }
+        public Vector6D<double>? Force { get; set; }
 
         public Beam()
         {

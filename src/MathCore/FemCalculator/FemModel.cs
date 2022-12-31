@@ -1,4 +1,6 @@
-﻿namespace MathCore.FemCalculator
+﻿using MathCore.FemCalculator.Model;
+
+namespace MathCore.FemCalculator
 {
     public class FemModel
     {
@@ -9,6 +11,11 @@
         {
             Beams = beams;
             Nodes = nodes;
+        }
+        public FemModel()
+        {
+            Beams = new List<Beam>();
+            Nodes = new List<Node>();
         }
     }
 }

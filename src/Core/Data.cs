@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using Core.Common.Enums;
+using Core.Entities;
 
 namespace HDS.Core
 {
@@ -10,62 +11,17 @@ namespace HDS.Core
             kgm
         }
         /// <summary>
-        /// Режимы нагружения
-        /// </summary>
-        public enum LoadingModes
-        {
-            A,
-            B,
-            V,
-            G,
-            D,
-            E,
-            J,
-            I,
-            K,
-            L,
-            M
-        }
-
-        /// <summary>
-        /// Класс условий эксплуатации
-        /// </summary>
-        public enum Exploitations
-        {
-            Class1A,
-            Class1B,
-            Class2,
-            Class3,
-            Class4A,
-            Class4B
-        }
-
-        /// <summary>
-        /// Материалы балки
-        /// </summary>
-        public enum BeamMatireals
-        {
-
-            PlankK16,
-            PlankK24,
-            PlankK26,
-            LvlK35,
-            LvlK40,
-            LvlK45
-        }
-
-        /// <summary>
         /// информация по материалам тбалица B.3
         /// https://docs.cntd.ru/document/456082589
         /// </summary>
-        public static readonly Dictionary<Materials, (double StiffnessModulus, double StiffnessModulusAverage, double ShearModulusAverage, double BendingResistance, double BendingShearResistance)> MaterialCharacteristics = new()
+        public static readonly Dictionary<WoodenMaterials, (double StiffnessModulus, double StiffnessModulusAverage, double ShearModulusAverage, double BendingResistance, double BendingShearResistance)> MaterialCharacteristics = new()
         {
-            {Materials.PlankK16, new (5.4 * 1000000000, 8.0 * 1000000000, 0.50 * 1000000000, 13.0 * 1000000, 2.4 * 1000000)},
-            {Materials.PlankK24, new(7.4 * 1000000000, 11.0 * 1000000000, 0.69 * 1000000000, 19.5 * 1000000, 2.4 * 1000000)},
-            {Materials.PlankK26, new(8.0 * 1000000000, 11.5 * 1000000000, 0.72 * 1000000000, 21.0 * 1000000, 2.7 * 1000000)},
-            {Materials.LvlK35, new(10.0 * 1000000000, 10.0 * 1000000000, 0.50 * 1000000000, 30.0 * 1000000, 2.9 * 1000000)},
-            {Materials.LvlK40, new(10.0 * 1000000000, 10.0 * 1000000000, 0.60 * 1000000000, 34.0 * 1000000, 3.0 * 1000000)},
-            {Materials.LvlK45, new(10.0 * 1000000000, 10.0 * 1000000000, 0.70 * 1000000000, 39.0 * 1000000, 3.2 * 1000000)},
+            {WoodenMaterials.PlankK16, new (5.4 * 1000000000, 8.0 * 1000000000, 0.50 * 1000000000, 13.0 * 1000000, 2.4 * 1000000)},
+            {WoodenMaterials.PlankK24, new(7.4 * 1000000000, 11.0 * 1000000000, 0.69 * 1000000000, 19.5 * 1000000, 2.4 * 1000000)},
+            {WoodenMaterials.PlankK26, new(8.0 * 1000000000, 11.5 * 1000000000, 0.72 * 1000000000, 21.0 * 1000000, 2.7 * 1000000)},
+            {WoodenMaterials.LvlK35, new(10.0 * 1000000000, 10.0 * 1000000000, 0.50 * 1000000000, 30.0 * 1000000, 2.9 * 1000000)},
+            {WoodenMaterials.LvlK40, new(10.0 * 1000000000, 10.0 * 1000000000, 0.60 * 1000000000, 34.0 * 1000000, 3.0 * 1000000)},
+            {WoodenMaterials.LvlK45, new(10.0 * 1000000000, 10.0 * 1000000000, 0.70 * 1000000000, 39.0 * 1000000, 3.2 * 1000000)},
         };
         public static readonly KeyValuePair<double, double>[] ShrinkageValues = new KeyValuePair<double, double>[]
         {

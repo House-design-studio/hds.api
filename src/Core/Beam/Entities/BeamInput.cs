@@ -1,4 +1,6 @@
-﻿namespace HDS.Core.Beam.Entities
+﻿using Core.Entities.Loads;
+
+namespace HDS.Core.Beam.Entities
 {
     public class BeamInput
     {
@@ -12,7 +14,7 @@
         public double Length { get; set; }
         public int Amount { get; set; } = 1;
 
-        public Data.Exploitations Exploitation { get; set; }
+        public Data.ExploitationsType Exploitation { get; set; }
 
         public int LifeTime { get; set; }
 

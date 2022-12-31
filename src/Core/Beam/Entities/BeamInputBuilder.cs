@@ -44,7 +44,7 @@ namespace HDS.Core.Beam.Entities
         {
             _result.Amount = amount > 0 ? amount : throw new ArgumentException($"{nameof(amount)} <= 0", nameof(amount));
         }
-        public void SetExploitation(Exploitations exploitation)
+        public void SetExploitation(ExploitationsType exploitation)
         {
             _result.Exploitation = exploitation;
         }

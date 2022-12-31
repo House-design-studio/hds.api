@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Entities;
+using Core.Entities.Loads;
 using HDS.Core;
 using HDS.Core.Beam.Entities;
 using MediatR;
@@ -8,14 +9,14 @@ namespace Application.WoodenConstruction.Queries.GetBeamFull
 {
     public class GetBeamFullQuery : IRequest<FullReport>
     {
-        public Materials Material { get; set; }
+        public WoodMaterials Material { get; set; }
         public bool DryWood { get; set; }
         public bool FlameRetardants { get; set; }
         public double Width { get; set; }
         public double Height { get; set; }
         public double Length { get; set; }
         public int Amount { get; set; }
-        public Data.Exploitations Exploitation { get; set; }
+        public Data.ExploitationsType Exploitation { get; set; }
         public int LifeTime { get; set; }
         public int SteadyTemperature { get; set; }
         public Data.LoadingModes LoadingMode { get; set; }

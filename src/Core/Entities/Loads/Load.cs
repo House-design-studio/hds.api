@@ -1,4 +1,4 @@
-﻿namespace HDS.Core.Beam.Entities
+﻿namespace Core.Entities.Loads
 {
     public abstract class Load
     {

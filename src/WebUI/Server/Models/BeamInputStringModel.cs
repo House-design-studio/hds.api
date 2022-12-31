@@ -55,7 +55,7 @@ namespace HDS.Server.Models
                              Int32.Parse(Length) * 0.001);
 
             builder.SetAmount(Int32.Parse(Amount));
-            builder.SetExploitation(Enum.Parse<Data.Exploitations>(Exploitation));
+            builder.SetExploitation(Enum.Parse<Data.ExploitationsType>(Exploitation));
 
             builder.SetLifetime(Int32.Parse(LifeTime));
             builder.SetLoadingMode(Enum.Parse<Data.LoadingModes>(LoadingMode));

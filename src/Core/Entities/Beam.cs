@@ -1,6 +1,6 @@
-﻿using Core.Common.Interfaces;
-using HDS.Core.Beam.Entities;
-using static HDS.Core.Data;
+﻿using Core.Common.Enums;
+using Core.Common.Interfaces;
+using Core.Entities.Loads;
 
 namespace Core.Entities
 {

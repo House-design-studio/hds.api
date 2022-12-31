@@ -4,7 +4,7 @@ namespace MathCore.FemCalculator
 {
     public class FemCalculator : IFemCalculator
     {
-        public void Calc(FemModel model)
+        public void CalculateAsync(FemModel model)
         {
             throw new NotImplementedException();
         }

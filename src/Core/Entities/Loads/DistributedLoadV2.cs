@@ -1,4 +1,4 @@
-﻿using HDS.Core.Beam.Entities;
+﻿using Core.Entities.Loads;
 using static HDS.Core.Data;
 
 namespace HDS.Shared

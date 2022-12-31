@@ -1,5 +1,6 @@
 ﻿@page "/Beam/pro/"
-@using HDS.Shared;
+@    using HDS.Shared;
+    using Core.Entities.Loads;
 @inject HttpClient _httpClient
 
 <PageTitle> Расчёт балки </PageTitle>
@@ -35,8 +36,8 @@
 
         <hr class="my-4">
 
-        <InputSelectExtended TKey="Exploitations" Values="ExploitationView" InputID="ExploitationSelect" Name="Exploitation" Selected="3"
-                             Binder="(ChangeEventArgs __e) => _input.Exploitation = Enum.Parse<Exploitations>((string)__e.Value!)">
+        <InputSelectExtended TKey="ExploitationsType" Values="ExploitationView" InputID="ExploitationSelect" Name="Exploitation" Selected="3"
+                             Binder="(ChangeEventArgs __e) => _input.Exploitation = Enum.Parse<ExploitationsType>((string)__e.Value!)">
             <label class="form-label" for="ExploitationSelect" @onclick="CollapseExploitationTable">
                 Класс условий эксплуатации <img class="ms-1 bi" rel="icon" src="/icons/info.ico" type="image/x-icon" width="16" height="16" />
             </label>
@@ -605,14 +606,14 @@
         {BeamMatireals.LvlK40, "Брус LVL класс K40/сорт 2"},
         {BeamMatireals.LvlK45, "Брус LVL класс K45/сорт 1"},
     };
-    private Dictionary<Exploitations, string> ExploitationView = new Dictionary<Exploitations, string>()
+    private Dictionary<ExploitationsType, string> ExploitationView = new Dictionary<ExploitationsType, string>()
         {
-        {Exploitations.Class1A, "1а (сухой)"},
-        {Exploitations.Class1B, "1б (сухой)"},
-        {Exploitations.Class2, "2 (нормальный)"},
-        {Exploitations.Class3, "3 (влажный)"},
-        {Exploitations.Class4A, "4а (мокрый)"},
-        {Exploitations.Class4B, "4б (мокрый)"}
+        {ExploitationsType.Class1A, "1а (сухой)"},
+        {ExploitationsType.Class1B, "1б (сухой)"},
+        {ExploitationsType.Class2, "2 (нормальный)"},
+        {ExploitationsType.Class3, "3 (влажный)"},
+        {ExploitationsType.Class4A, "4а (мокрый)"},
+        {ExploitationsType.Class4B, "4б (мокрый)"}
         };
     private Dictionary<LoadingModes, string> LoadingModesView = new Dictionary<LoadingModes, string>()
     {

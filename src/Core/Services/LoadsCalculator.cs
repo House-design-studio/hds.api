@@ -1,5 +1,6 @@
 ﻿using Core.Common.Interfaces;
 using MathCore.Common.Interfaces;
+using MathCore.FemCalculator;
 
 namespace HDS.Core.Services
 {
@@ -11,9 +12,15 @@ namespace HDS.Core.Services
         {
             _femCalculator = femCalculator;
         }
-        public Task<TObj> GetFullReportAsync()
+        public async Task<string> GetFullReportAsync(TObj model)
         {
-            throw new NotImplementedException();
+            FemModel data = new FemModel();
+            var res = await _femCalculator.CalculateAsync(data);
+            // parse 
+            // try to add Cache by hash 
+            // unparse
+
+            return "";
         }
     }
 }

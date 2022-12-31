@@ -1,6 +1,6 @@
-﻿namespace Core.Entities
+﻿namespace Core.Common.Enums
 {
-    public enum Materials
+    public enum WoodenMaterials
     {
         PlankK16,
         PlankK24,
@@ -9,5 +9,4 @@
         LvlK40,
         LvlK45
     }
-
 }

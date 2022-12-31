@@ -1,12 +1,14 @@
-﻿using Core.Common.Interfaces;
+﻿using Core.Common.Enums;
+using Core.Common.Interfaces;
 using static HDS.Core.Data;
+using static HDS.MathCore.Mathematics;
 
 namespace Core.Entities
 {
     public class WoodenConstruction : Construction, IPhysicMechanicalCharacteristicable
     {
-        public Exploitations Exploitation { get; set; }
-        public Materials Material { get; set; }
+        public ExploitationsType Exploitation { get; set; }
+        public WoodenMaterials Material { get; set; }
         public bool DryWood { get; set; }
         public bool FlameRetardants { get; set; }
         public int Amount { get; set; }
@@ -21,12 +23,12 @@ namespace Core.Entities
         public double MaCoefficient => FlameRetardants ? 0.9 : 1.0;
         public double MbCoefficient => Exploitation switch
         {
-            Exploitations.Class1A or
-            Exploitations.Class1B or
-            Exploitations.Class2 => 1.0,
-            Exploitations.Class3 => 0.9,
-            Exploitations.Class4A => 0.85,
-            Exploitations.Class4B => 0.75,
+            ExploitationsType.Class1A or
+            ExploitationsType.Class1B or
+            ExploitationsType.Class2 => 1.0,
+            ExploitationsType.Class3 => 0.9,
+            ExploitationsType.Class4A => 0.85,
+            ExploitationsType.Class4B => 0.75,
             _ => throw new NotImplementedException("Коэффициент mb для данного типа нагрузки не реализован"),
         };
         public double MccCoefficient => LifeTime switch
