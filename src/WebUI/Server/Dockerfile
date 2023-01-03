@@ -7,19 +7,21 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["src/WebUI/Server/HDS.Server.csproj", "src/WebUI/Server/"]
-COPY ["src/Core/HDS.Core.csproj", "src/Core/"]
-COPY ["src/Shared/HDS.Shared.csproj", "src/Shared/"]
-COPY ["src/WebUI/Client/HDS.Client.csproj", "src/WebUI/Client/"]
-RUN dotnet restore "src/WebUI/Server/HDS.Server.csproj"
+COPY ["src/WebUI/Server/Server.csproj", "src/WebUI/Server/"]
+COPY ["src/Application/Application.csproj", "src/Application/"]
+COPY ["src/Core/Core.csproj", "src/Core/"]
+COPY ["src/MathCore/MathCore.csproj", "src/MathCore/"]
+COPY ["src/Infrastructure/Infrastructure.csproj", "src/Infrastructure/"]
+COPY ["src/WebUI/Client/Client.csproj", "src/WebUI/Client/"]
+RUN dotnet restore "src/WebUI/Server/Server.csproj"
 COPY . .
 WORKDIR "/src/src/WebUI/Server"
-RUN dotnet build "HDS.Server.csproj" -c Release -o /app/build
+RUN dotnet build "Server.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "HDS.Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "HDS.Server.dll"]
+ENTRYPOINT ["dotnet", "Server.dll"]
