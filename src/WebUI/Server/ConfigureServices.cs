@@ -1,0 +1,108 @@
+﻿using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Reflection.Metadata.Ecma335;
+using System.Security.Claims;
+using System.Text;
+
+namespace Microsoft.Extensions.DependencyInjection
+{
+    public static class ConfigureServices
+    {
+        public static IServiceCollection AddServerServices(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter a valid token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "Bearer"
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type=ReferenceType.SecurityScheme,
+                                Id="Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
+            });
+            services.AddAuthentication()
+                .AddJwtBearer(options =>
+                {
+                    var jwtOptions = new AuthOptions(configuration.GetRequiredSection("Auth:Jwt"));
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = jwtOptions.Issuer,
+                        ValidateAudience = true,
+                        ValidAudience = jwtOptions.Audience,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = jwtOptions.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true,
+                    };
+                })
+                .AddGoogle();
+
+            services.AddAuthorizationBuilder()
+                .AddPolicy("subscriber_1", policy => policy
+                    .RequireAssertion(context =>
+                        context.User.IsInRole("admin") ||
+                        context.User.HaveValidSubscription(1) ||
+                        context.User.HaveValidSubscription(2)))
+                .AddPolicy("subscriber_2", policy => policy
+                    .RequireAssertion(context =>
+                        context.User.IsInRole("admin") ||
+                        context.User.HaveValidSubscription(2)))
+                .AddPolicy("admin", policy => policy
+                    .RequireRole("admin"));
+
+            return services;
+        }
+        private static bool HaveValidSubscription(this ClaimsPrincipal user, int level)
+        {
+            var userTimeClaim = user.FindFirst(CustomClaimTypes.SubscriptionTime);
+            if (userTimeClaim == null) return false;
+            var userCurrentTime = DateOnly.Parse(userTimeClaim.Value);
+            
+            var currentTime = DateOnly.FromDateTime(DateTime.UtcNow);
+
+            return user.HasClaim(CustomClaimTypes.SubscriptionLevel, level.ToString()) &&
+                   (userCurrentTime > currentTime);
+        }
+        private static class CustomClaimTypes
+        {
+            public const string SubscriptionLevel = "SubscriptionLevel";
+            public const string SubscriptionTime = "SubscriptionTime";
+        } // TODO: move this class to other place (mb infrastructure)
+
+        private readonly struct AuthOptions
+        {
+            public AuthOptions(IConfiguration section)
+            {
+                Issuer = section.GetValue<string>("Issuer")!;
+                Audience = section.GetValue<string>("Audience")!;
+                Key = section.GetValue<string>("Key")!;
+            }
+            public string Issuer { get; }
+            public string Audience { get; }
+            private string Key { get; }
+            public SymmetricSecurityKey GetSymmetricSecurityKey() =>
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));
+        }
+    }
+}
