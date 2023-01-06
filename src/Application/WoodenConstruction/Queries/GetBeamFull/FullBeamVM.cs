@@ -22,7 +22,7 @@ namespace HDS.Application.WoodenConstruction.Queries.GetBeamFull
         public double ShrinkageInWidth { get; set; }
         public double ShrinkageInHeight { get; set; }
         public double EffectiveWidth { get; set; }
-        public double EffectiveHeight { get; set;}
+        public double EffectiveHeight { get; set; }
         public double CrossSectionArea { get; set; }
         public double PolarMomentOfInertia { get; set; }
         public double MomentOfInertiaY { get; set; }

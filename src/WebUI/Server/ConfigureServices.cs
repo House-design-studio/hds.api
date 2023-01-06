@@ -1,11 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Text;
 
@@ -78,7 +72,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var userTimeClaim = user.FindFirst(CustomClaimTypes.SubscriptionTime);
             if (userTimeClaim == null) return false;
             var userCurrentTime = DateOnly.Parse(userTimeClaim.Value);
-            
+
             var currentTime = DateOnly.FromDateTime(DateTime.UtcNow);
 
             return user.HasClaim(CustomClaimTypes.SubscriptionLevel, level.ToString()) &&

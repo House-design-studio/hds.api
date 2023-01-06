@@ -1,9 +1,3 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -30,7 +24,7 @@ try
         app.UseHsts();
     }
     app.UseHttpsRedirection();
-    
+
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
