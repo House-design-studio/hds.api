@@ -15,7 +15,7 @@ namespace HDS.Server.Controllers
         }
 
         [HttpGet("full_report")]
-        public async Task<string> IndexAsync(
+        public async Task<FullBeamVM> IndexAsync(
             [FromBody] GetBeamFullQuery query)
             => await _mediator.Send(query);
     }

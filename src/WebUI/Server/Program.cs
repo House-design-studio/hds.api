@@ -16,9 +16,6 @@ try
     // Add services to the container.
     builder.Services.AddHttpClient();
 
-    string connection = builder.Configuration.GetConnectionString("DefaultConnection");
-
-
     builder.Services.AddApplicationServices();
     builder.Services.AddInfrastructureServices(builder.Configuration);
     builder.Services.AddCoreServices();

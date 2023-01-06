@@ -7,7 +7,7 @@ using MediatR;
 
 namespace HDS.Application.WoodenConstruction.Queries.GetBeamFull
 {
-    public class GetBeamFullQuery : IRequest<string>
+    public class GetBeamFullQuery : IRequest<FullBeamVM>
     {
         public WoodenMaterials Material { get; set; }
         public bool DryWood { get; set; }
@@ -25,7 +25,7 @@ namespace HDS.Application.WoodenConstruction.Queries.GetBeamFull
         public IEnumerable<ConcentratedLoad> ConcentratedLoads { get; set; } = null!;
     }
 
-    public class GetBeamFullQueryHandeler : IRequestHandler<GetBeamFullQuery, string>
+    public class GetBeamFullQueryHandeler : IRequestHandler<GetBeamFullQuery, FullBeamVM>
     {
         private readonly IMapper _mapper;
         private readonly ILoadsCalculator<Beam> _loadsCalculator;
@@ -37,12 +37,13 @@ namespace HDS.Application.WoodenConstruction.Queries.GetBeamFull
             _mapper = mapper;
             _loadsCalculator = loadsCalculator;
         }
-        public async Task<string> Handle(GetBeamFullQuery request, CancellationToken cancellationToken)
+
+        public async Task<FullBeamVM> Handle(GetBeamFullQuery request, CancellationToken cancellationToken)
         {
             Beam beam = _mapper.Map<Beam>(request);
             var tmp = _loadsCalculator.GetFirstGroupOfLimitStates(beam);
             var tmp2 = _loadsCalculator.GetSecondGroupOfLimitStates(beam);
-            return "";
+            return _mapper.Map<FullBeamVM>(beam);
         }
     }
 }

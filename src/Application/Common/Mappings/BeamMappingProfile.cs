@@ -9,6 +9,7 @@ namespace HDS.Application.Common.Mappings
         public BeamMappingProfile()
         {
             CreateMap<GetBeamFullQuery, Beam>();
+            CreateMap<Beam, FullBeamVM>();
         }
     }
 }
