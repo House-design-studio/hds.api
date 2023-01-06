@@ -56,18 +56,18 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddPolicy("subscriber_1", policy => policy
                     .RequireAssertion(context =>
                         context.User.IsInRole("admin") ||
-                        context.User.HaveValidSubscription(1) ||
-                        context.User.HaveValidSubscription(2)))
+                        context.User.HasValidSubscription(1) ||
+                        context.User.HasValidSubscription(2)))
                 .AddPolicy("subscriber_2", policy => policy
                     .RequireAssertion(context =>
                         context.User.IsInRole("admin") ||
-                        context.User.HaveValidSubscription(2)))
+                        context.User.HasValidSubscription(2)))
                 .AddPolicy("admin", policy => policy
                     .RequireRole("admin"));
 
             return services;
         }
-        private static bool HaveValidSubscription(this ClaimsPrincipal user, int level)
+        private static bool HasValidSubscription(this ClaimsPrincipal user, int level)
         {
             var userTimeClaim = user.FindFirst(CustomClaimTypes.SubscriptionTime);
             if (userTimeClaim == null) return false;
