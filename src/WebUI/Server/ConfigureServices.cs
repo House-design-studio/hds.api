@@ -9,6 +9,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddServerServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddControllers();
+
             services.AddSwaggerGen(options =>
             {
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -35,6 +37,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     }
                 });
             });
+
             services.AddAuthentication()
                 .AddJwtBearer(options =>
                 {
@@ -50,7 +53,11 @@ namespace Microsoft.Extensions.DependencyInjection
                         ValidateIssuerSigningKey = true,
                     };
                 })
-                .AddGoogle();
+                .AddGoogle(options =>
+                {
+                    options.ClientSecret = configuration.GetValue<string>("Auth:Google:ClientSecret")!;
+                    options.ClientId = configuration.GetValue<string>("Auth:Google:ClientId")!;
+                });
 
             services.AddAuthorizationBuilder()
                 .AddPolicy("subscriber_1", policy => policy
@@ -64,7 +71,6 @@ namespace Microsoft.Extensions.DependencyInjection
                         context.User.HasValidSubscription(2)))
                 .AddPolicy("admin", policy => policy
                     .RequireRole("admin"));
-
             return services;
         }
         private static bool HasValidSubscription(this ClaimsPrincipal user, int level)

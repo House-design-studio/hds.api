@@ -1,4 +1,5 @@
 using Serilog;
+using Server.Middlewares;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -19,6 +20,8 @@ try
     builder.Host.UseSerilog();
     var app = builder.Build();
 
+    app.UseExceptionsMiddleware();
+
     if (!app.Environment.IsDevelopment())
     {
         app.UseHsts();
@@ -29,8 +32,8 @@ try
     {
         app.UseSwagger();
         app.UseSwaggerUI();
+        app.UseWebAssemblyDebugging();
     }
-
     app.UseBlazorFrameworkFiles();
     app.UseStaticFiles();
     app.UseRouting();
@@ -38,6 +41,7 @@ try
     app.UseAuthentication();
     app.UseAuthorization();
 
+    app.MapControllers();
     app.MapFallbackToFile("index.html");
 
     app.Run();
