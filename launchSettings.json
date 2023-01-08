@@ -4,8 +4,8 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "hds.db": "StartWithoutDebugging",
-        "hds.server": "StartDebugging"
+        "hds_db": "StartWithoutDebugging",
+        "hds_server": "StartDebugging"
       }
     }
   }

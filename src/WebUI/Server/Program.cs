@@ -1,3 +1,4 @@
+using HDS.Infrastructure.Database;
 using Serilog;
 using Server.Middlewares;
 
@@ -43,9 +44,11 @@ try
     app.UseAuthentication();
     app.UseAuthorization();
 
+    app.MapGet("/", (ApplicationDbContext db) => db.Users.ToList());
+    
     app.MapControllers();
     //app.MapFallbackToFile("index.html");
-
+   
     app.Run();
 }
 catch (Exception ex)

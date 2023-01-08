@@ -1,4 +1,5 @@
-﻿using Application.Account.Commands;
+﻿using System.Security.Claims;
+using Application.Account.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -41,10 +42,21 @@ namespace HDS.Server.Controllers
 
             var newToken = await _mediator.Send(new SignInByGoogleCommand()
             {
-
+                Id = User
+                    .Claims
+                    .Single(c => c.Type == ClaimTypes.NameIdentifier)
+                    .Value,
+                Name = User
+                    .Claims
+                    .Single(c => c.Type == ClaimTypes.Name)
+                    .Value
             });
-            
-            return "new token";
+            try
+            {
+                await HttpContext.SignOutAsync();
+            }
+            catch { }
+            return newToken;
         }
     }
 }

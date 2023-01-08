@@ -46,7 +46,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddAuthentication(options =>
                 {
-                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
                 })
@@ -68,7 +68,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 {
                     options.ClientSecret = configuration.GetValue<string>("Auth:Google:ClientSecret")!;
                     options.ClientId = configuration.GetValue<string>("Auth:Google:ClientId")!;
-                    options.SaveTokens = false;
+                    options.SaveTokens = true;
                 });
 
             services.AddAuthorizationBuilder()

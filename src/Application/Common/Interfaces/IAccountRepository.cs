@@ -7,9 +7,9 @@
         /// </summary>
         /// <param name="googleId">google id</param>
         /// <returns>system id</returns>
-        Task<int> CreateAccount(int googleId);
-        Task<bool> IsExistAccount(int googleId);
-        Task<int?> GetUserByGoogleId(int googleId);
+        Task<int> CreateAccount(string googleId);
+        Task<bool> IsExistAccount(string googleId);
+        Task<int?> GetUserByGoogleId(string googleId);
         Task AddSubscription(int userId, int level, TimeSpan lifeTime);
         Task<SubscriptionData?> GetSubscription(int userId);
     }

@@ -14,10 +14,11 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services,
             IConfiguration configuration)
         {
-            string connection = configuration.GetValue<string>("Database:ConnectionString") ??
-                                throw new ApplicationException("undefined connection string");
+            string connection = configuration.GetValue<string>("ConnectionStrings:DefaultConnection")!;
+
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connection));
-            services.AddScoped<IFemCalculator, FemClient>();
+            
+            services.AddScoped<IFemCalculator, FemClient>();                                                                                                                                                                                                                                                       
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddJwtBuilder(options =>
             {

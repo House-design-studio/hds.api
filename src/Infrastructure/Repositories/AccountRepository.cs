@@ -12,33 +12,33 @@ namespace Infrastructure.Repositories
         {
             _db = db;
         }
-        public async Task<int> CreateAccount(int googleId)
+        public async Task<int> CreateAccount(string googleId)
         {
             var user = new User()
             {
                 SignupDate = DateOnly.FromDateTime(DateTime.UtcNow),
                 OauthGoogle = new OauthGoogle()
                 {
-                    Subject = googleId.ToString() // REVIEW: id or subject is it?
+                    Subject = googleId
                 }
             };
             await _db.Users.AddAsync(user);
             await _db.SaveChangesAsync();
             return _db.Users
-                .First(u => u.OauthGoogle.Subject == googleId.ToString())
+                .First(u => u.OauthGoogle.Subject == googleId)
                 .UserId;
         }
 
-        public async Task<bool> IsExistAccount(int googleId)
+        public async Task<bool> IsExistAccount(string googleId)
         {
-            return await _db.Users.AnyAsync(u => u.OauthGoogle.Subject == googleId.ToString());
+            return await _db.Users.AnyAsync(u => u.OauthGoogle.Subject == googleId);
         }
 
-        public async Task<int?> GetUserByGoogleId(int googleId)
+        public async Task<int?> GetUserByGoogleId(string googleId)
         {
             return (await _db
                 .Users
-                .SingleOrDefaultAsync(u => u.OauthGoogle.Subject == googleId.ToString()))?
+                .SingleOrDefaultAsync(u => u.OauthGoogle.Subject == googleId))?
                 .UserId;
         }
 
@@ -53,13 +53,14 @@ namespace Infrastructure.Repositories
                     .AnyAsync(x => x.UserId == userId))
                 throw new ArgumentException($"user {userId} not found");
 
-            await _db.Subscriptions.AddAsync(new Subscription()
+            var newSubscription = new Subscription()
             {
                 UserId = userId,
                 SubscriptionLevelId = level,
                 Valid = DateOnly.FromDateTime(DateTime.UtcNow + time)
-            });
+            };
 
+            await _db.Subscriptions.AddAsync(newSubscription);
             await _db.SaveChangesAsync();
         }
 
