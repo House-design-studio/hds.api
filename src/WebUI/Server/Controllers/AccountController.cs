@@ -1,25 +1,44 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HDS.Server.Controllers
 {
+    [ApiController]
+    [Route("api/account")]
     public class AccountController : Controller
     {
-        public AccountController()
+        private readonly IMediator _mediator;
+
+        private string? _baseUri;
+
+        private string BaseUri
+        {
+            get => _baseUri ??= "https://" + HttpContext.Request.Host.ToUriComponent();
+            set => _baseUri = value;
+        }
+        public AccountController(IMediator mediator)
         {
         }
 
         [AllowAnonymous]
-        public IActionResult SignIn(string provider, string returnUrl)
+        [HttpGet("login")]
+        public IActionResult SignIn()
         {
-            return Challenge(new AuthenticationProperties { RedirectUri = "https://localhost:3001/Account/SignInCallback" }, provider);
-
+            return Challenge(new AuthenticationProperties { RedirectUri = BaseUri + "/api/account/callback" }, GoogleDefaults.AuthenticationScheme);
         }
 
         [Authorize]
-        public async Task<IActionResult> SignInCallback()
-        {/*
+        [HttpGet("callback")]
+        public async Task<string> SignInCallback()
+        { // TODO: refresh tokens
+            // тут будут клёвый кук с 5 клаймами гугла - наш аналог логина и пароля
+            var user = User;
+
+
+            /*
             //переписываем signin гугла на signin куков
             var newClaims = new List<Claim>();
 
@@ -91,7 +110,7 @@ namespace HDS.Server.Controllers
         {
             return View();
         }*/
-            return Json(null);
+            return "new token";
         }
     }
 }

@@ -8,6 +8,7 @@ services:
       - OAuth__Google__ClientId=${OAUTH_GOOGLE_CLIENT}
       - OAuth__Google__ClientSecret=${OAUTH_GOOGLE_SECRET}
       - ConnectionStrings__DefaultConnection=${PGSQL_CONNECTION}
+      - Logging__LogLevel__Default=Trace
     ports:
       - "80:80"
       - "443:443"

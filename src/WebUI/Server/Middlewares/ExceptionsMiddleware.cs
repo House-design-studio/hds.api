@@ -17,7 +17,7 @@ namespace Server.Middlewares
             {
                 await _next(httpContext);
             }
-            catch
+            catch (Exception ex)
             {
                 httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             }

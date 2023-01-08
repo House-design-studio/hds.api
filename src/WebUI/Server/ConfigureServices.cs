@@ -1,15 +1,18 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Infrastructure.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
-using System.Text;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class ConfigureServices
+    public static partial class ConfigureServices
     {
         public static IServiceCollection AddServerServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllers();
+            services.AddCors();
 
             services.AddSwaggerGen(options =>
             {
@@ -38,10 +41,14 @@ namespace Microsoft.Extensions.DependencyInjection
                 });
             });
 
-            services.AddAuthentication()
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+                })
                 .AddJwtBearer(options =>
                 {
-                    var jwtOptions = new AuthOptions(configuration.GetRequiredSection("Auth:Jwt"));
+                    var jwtOptions = new JwtBuilderConfig(configuration.GetRequiredSection("Auth:Jwt"));
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
@@ -57,6 +64,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 {
                     options.ClientSecret = configuration.GetValue<string>("Auth:Google:ClientSecret")!;
                     options.ClientId = configuration.GetValue<string>("Auth:Google:ClientId")!;
+                    options.SaveTokens = false;
                 });
 
             services.AddAuthorizationBuilder()
@@ -84,25 +92,6 @@ namespace Microsoft.Extensions.DependencyInjection
             return user.HasClaim(CustomClaimTypes.SubscriptionLevel, level.ToString()) &&
                    (userCurrentTime > currentTime);
         }
-        private static class CustomClaimTypes
-        {
-            public const string SubscriptionLevel = "SubscriptionLevel";
-            public const string SubscriptionTime = "SubscriptionTime";
-        } // TODO: move this class to other place (mb infrastructure)
-
-        private readonly struct AuthOptions
-        {
-            public AuthOptions(IConfiguration section)
-            {
-                Issuer = section.GetValue<string>("Issuer")!;
-                Audience = section.GetValue<string>("Audience")!;
-                Key = section.GetValue<string>("Key")!;
-            }
-            public string Issuer { get; }
-            public string Audience { get; }
-            private string Key { get; }
-            public SymmetricSecurityKey GetSymmetricSecurityKey() =>
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));
-        }
+        // TODO: move this class to other place (mb infrastructure)
     }
 }

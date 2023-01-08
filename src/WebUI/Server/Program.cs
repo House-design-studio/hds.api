@@ -26,6 +26,7 @@ try
     {
         app.UseHsts();
     }
+    app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin());
     app.UseHttpsRedirection();
 
     if (app.Environment.IsDevelopment())
@@ -34,15 +35,18 @@ try
         app.UseSwaggerUI();
         app.UseWebAssemblyDebugging();
     }
-    app.UseBlazorFrameworkFiles();
+    //app.UseBlazorFrameworkFiles();
     app.UseStaticFiles();
     app.UseRouting();
-
+    app.UseCookiePolicy(new CookiePolicyOptions()
+    {
+        MinimumSameSitePolicy = SameSiteMode.None
+    });
     app.UseAuthentication();
     app.UseAuthorization();
 
     app.MapControllers();
-    app.MapFallbackToFile("index.html");
+    //app.MapFallbackToFile("index.html");
 
     app.Run();
 }

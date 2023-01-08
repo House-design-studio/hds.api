@@ -3,7 +3,7 @@
 namespace HDS.Infrastructure.Database
 {
     public partial class ApplicationDbContext : DbContext
-    {
+    { // TODO: extract interface
         public ApplicationDbContext()
         {
         }
