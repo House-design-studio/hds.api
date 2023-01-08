@@ -1,6 +1,8 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Application.Common.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Identity
 {
@@ -9,11 +11,13 @@ namespace Infrastructure.Identity
     {
         private readonly List<Claim> _claims = new List<Claim>(3);
         private readonly JwtBuilderConfig _config;
-        public JwtBuilder(JwtBuilderConfig config)
+        public JwtBuilder(IConfigureOptions<JwtBuilderConfig> configOptions)
         {
+            var config = new JwtBuilderConfig();
+            configOptions.Configure(config);
             _config = config;
         }
-
+        
         public IJwtBuilder AddSubscriptionClaims(int level, TimeSpan lifetime)
         {
             _claims.Add(new Claim(CustomClaimTypes.SubscriptionLevel, level.ToString()));

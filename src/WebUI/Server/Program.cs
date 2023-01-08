@@ -20,10 +20,10 @@ try
     builder.Host.UseSerilog();
     var app = builder.Build();
 
-    app.UseExceptionsMiddleware();
-
+    
     if (!app.Environment.IsDevelopment())
     {
+        app.UseExceptionsMiddleware();
         app.UseHsts();
     }
     app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin());
@@ -38,10 +38,8 @@ try
     //app.UseBlazorFrameworkFiles();
     app.UseStaticFiles();
     app.UseRouting();
-    app.UseCookiePolicy(new CookiePolicyOptions()
-    {
-        MinimumSameSitePolicy = SameSiteMode.None
-    });
+
+    app.UseCookiePolicy();
     app.UseAuthentication();
     app.UseAuthorization();
 

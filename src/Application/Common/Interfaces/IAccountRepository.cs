@@ -1,6 +1,4 @@
-﻿using Serilog.Events;
-
-namespace Application.Common.Interfaces
+﻿namespace Application.Common.Interfaces
 {
     public interface IAccountRepository
     {

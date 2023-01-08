@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-
-namespace Infrastructure.Identity;
+﻿namespace Application.Common.Interfaces;
 
 public interface IJwtBuilder
 {

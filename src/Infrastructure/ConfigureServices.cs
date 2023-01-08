@@ -19,13 +19,16 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connection));
             services.AddScoped<IFemCalculator, FemClient>();
             services.AddScoped<IAccountRepository, AccountRepository>();
-            services.AddIdentityService(options 
-                => options = new JwtBuilderConfig(configuration.GetSection("Auth:Jwt")));
-
+            services.AddJwtBuilder(options =>
+            {
+                options.Issuer = configuration.GetValue<string>("Auth:Jwt:Issuer")!;
+                options.Audience = configuration.GetValue<string>("Auth:Jwt:Audience")!;
+                options.Key = configuration.GetValue<string>("Auth:Jwt:Key")!;
+            });
             return services;
         }
 
-        private static IServiceCollection AddIdentityService(this IServiceCollection services,
+        private static IServiceCollection AddJwtBuilder(this IServiceCollection services,
             Action<JwtBuilderConfig> optionsAction)
         {
             return services.AddTransient<IJwtBuilder, JwtBuilder>()

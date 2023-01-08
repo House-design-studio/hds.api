@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Text;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -46,17 +49,17 @@ namespace Microsoft.Extensions.DependencyInjection
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
                 })
+                .AddCookie() // TODO: try to do auth w/o cookies for google
                 .AddJwtBearer(options =>
                 {
-                    var jwtOptions = new JwtBuilderConfig(configuration.GetRequiredSection("Auth:Jwt"));
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
-                        ValidIssuer = jwtOptions.Issuer,
+                        ValidIssuer = configuration.GetValue<string>("Auth:Jwt:Issuer"),
                         ValidateAudience = true,
-                        ValidAudience = jwtOptions.Audience,
+                        ValidAudience = configuration.GetValue<string>("Auth:Jwt:Audience"),
                         ValidateLifetime = true,
-                        IssuerSigningKey = jwtOptions.GetSymmetricSecurityKey(),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("Auth:Jwt:Key")!)),
                         ValidateIssuerSigningKey = true,
                     };
                 })

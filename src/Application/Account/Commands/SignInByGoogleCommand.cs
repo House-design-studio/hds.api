@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-using Application.Common.Interfaces;
-using Infrastructure.Identity;
+﻿using Application.Common.Interfaces;
 using MediatR;
 
 namespace Application.Account.Commands
@@ -25,7 +23,8 @@ namespace Application.Account.Commands
         {
             if (!await _accountRepository.IsExistAccount(request.Id))
             {
-                await _accountRepository.CreateAccount(request.Id);
+                var id = await _accountRepository.CreateAccount(request.Id);
+                await _accountRepository.AddSubscription(id, 1, TimeSpan.FromDays(30));
                 return _jwtBuilder
                     .AddSubscriptionClaims(1, TimeSpan.FromDays(30))
                     .AddName(request.Name)
