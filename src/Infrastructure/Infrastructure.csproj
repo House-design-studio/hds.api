@@ -22,4 +22,8 @@
     <ProjectReference Include="..\MathCore\MathCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Database\Migrations\" />
+  </ItemGroup>
+
 </Project>
