@@ -361,9 +361,11 @@ namespace HDS.Infrastructure.Database
 
             modelBuilder.Entity<Subscription>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("subscriptions");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.SubscriptionLevelId).HasColumnName("subscription_level_id");
 

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230109000135_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230109004816_SubscriptionId")]
+    partial class SubscriptionId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -391,6 +391,13 @@ namespace Infrastructure.Database.Migrations
 
             modelBuilder.Entity("HDS.Infrastructure.Database.Subscription", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
+
                     b.Property<int>("SubscriptionLevelId")
                         .HasColumnType("integer")
                         .HasColumnName("subscription_level_id");
@@ -402,6 +409,8 @@ namespace Infrastructure.Database.Migrations
                     b.Property<DateOnly>("Valid")
                         .HasColumnType("date")
                         .HasColumnName("valid");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("SubscriptionLevelId");
 

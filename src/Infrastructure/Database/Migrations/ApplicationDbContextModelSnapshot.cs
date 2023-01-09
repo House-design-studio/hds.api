@@ -388,6 +388,13 @@ namespace Infrastructure.Database.Migrations
 
             modelBuilder.Entity("HDS.Infrastructure.Database.Subscription", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
+
                     b.Property<int>("SubscriptionLevelId")
                         .HasColumnType("integer")
                         .HasColumnName("subscription_level_id");
@@ -399,6 +406,8 @@ namespace Infrastructure.Database.Migrations
                     b.Property<DateOnly>("Valid")
                         .HasColumnType("date")
                         .HasColumnName("valid");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("SubscriptionLevelId");
 

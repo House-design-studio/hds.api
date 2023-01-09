@@ -2,6 +2,7 @@
 {
     public partial class Subscription
     {
+        public int Id { get; set; }
         public int UserId { get; set; }
         public int SubscriptionLevelId { get; set; }
         public DateOnly Valid { get; set; }

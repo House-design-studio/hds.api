@@ -1,4 +1,5 @@
 using HDS.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Server.Middlewares;
 
@@ -21,7 +22,13 @@ try
     builder.Host.UseSerilog();
     var app = builder.Build();
 
-    
+    // TODO: move this script to ci cd module 
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        db.Database.Migrate();
+    }
+
     if (!app.Environment.IsDevelopment())
     {
         app.UseExceptionsMiddleware();
