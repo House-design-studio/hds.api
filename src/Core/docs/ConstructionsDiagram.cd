@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Core.Entities.Beam">
+    <Position X="4.5" Y="4.75" Width="1.75" />
+    <AssociationLine Name="ConcentratedLoads" Type="Core.Entities.Loads.ConcentratedLoad" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="6.627" />
+        <Point X="4.75" Y="7.252" />
+        <Point X="3.5" Y="7.252" />
+        <Point X="3.5" Y="9.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="DistributedLoads" Type="Core.Entities.Loads.DistributedLoad" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.938" Y="6.627" />
+        <Point X="4.938" Y="7.506" />
+        <Point X="4.938" Y="7.506" />
+        <Point X="4.938" Y="9.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAIAAAAAAABAA=</HashCode>
+      <FileName>Entities\Beam.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ConcentratedLoads" />
+      <Property Name="DistributedLoads" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Entities.WoodenConstruction">
+    <Position X="7" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEACAEBAAAAAAACACAAAIADAAAAABAAAAiAAAAYAEAA=</HashCode>
+      <FileName>Entities\WoodenConstruction.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Entities.Construction">
+    <Position X="9.5" Y="4.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAQAIABAAQIABAAAAAAEBEAAAAAAADAAAAAABAAAg=</HashCode>
+      <FileName>Entities\Construction.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HDS.Core.Services.LoadsCalculator&lt;TObj&gt;">
+    <Position X="0.5" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Services\LoadsCalculator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_femCalculator" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Entities.Loads.ConcentratedLoad">
+    <Position X="1.25" Y="9.75" Width="2.5" />
+    <InheritanceLine Type="Core.Entities.Loads.Load" FixedFromPoint="true">
+      <Path>
+        <Point X="3.75" Y="12.25" />
+        <Point X="3.75" Y="11.927" />
+        <Point X="2.5" Y="11.927" />
+        <Point X="2.5" Y="11.434" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Entities\Loads\ConcentratedLoad.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Entities.Loads.DistributedLoad">
+    <Position X="4" Y="9.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Loads\DistributedLoad.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Entities.Loads.Load">
+    <Position X="2.75" Y="12.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAgAAAAAAAAA=</HashCode>
+      <FileName>Entities\Loads\Load.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Core.Common.Interfaces.IPhysicMechanicalCharacteristicable">
+    <Position X="6.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAAAAAAACAAAAABAAAAAAAAAAiAAAAYAAAA=</HashCode>
+      <FileName>Common\Interfaces\IPhysicMechanicalCharacteristicable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Common.Interfaces.ILoadable">
+    <Position X="4.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAIAAAAAAABAA=</HashCode>
+      <FileName>Common\Interfaces\ILoadable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Common.Interfaces.IGeometricCharacteristicable">
+    <Position X="9.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAQAIABAAQIABAAAAAAEBEAAAAAAADAAAAAABAAAg=</HashCode>
+      <FileName>Common\Interfaces\IGeometricCharacteristicable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Common.Interfaces.ILoadsCalculator&lt;TObj&gt;">
+    <Position X="0.5" Y="2.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Interfaces\ILoadsCalculator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MathCore.Common.Interfaces.IFemCalculator">
+    <Position X="0.5" Y="7" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
