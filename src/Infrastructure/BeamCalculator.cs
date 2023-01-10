@@ -1,6 +1,5 @@
 ﻿namespace Infrastructure;
 
-
 /*
     public class BeamCalculator : IBeamCalculator
     {
