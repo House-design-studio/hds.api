@@ -1,5 +1,7 @@
-﻿namespace HDS.Core.Beam
-{/*
+﻿namespace Infrastructure;
+
+
+/*
     public class BeamCalculator : IBeamCalculator
     {
         private readonly IFemClient _femClient;
@@ -208,4 +210,3 @@
             var response = await _femClient.DoRequest(request);
         }
     }*/
-}

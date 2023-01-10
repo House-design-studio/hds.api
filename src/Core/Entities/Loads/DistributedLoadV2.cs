@@ -1,39 +1,39 @@
-﻿using static HDS.Core.Data;
+﻿using static Core.Data;
 
-namespace HDS.Core.Entities.Loads
+namespace Core.Entities.Loads;
+
+public class DistributedLoadV2 : DistributedLoad
 {
-    public class DistributedLoadV2 : DistributedLoad
+    public DistributedLoadV2()
     {
-        public override double LoadForFirstGroup
-        {
-            get
-            {
-                if (NormativeValueUM == Units.kgm) return ReliabilityCoefficient * NormativeValue;
-                else return ReliabilityCoefficient * NormativeValue * (LoadAreaWidth ?? 0);
-            }
-        }
-        public override double LoadForSecondGroup
-        {
-            get
-            {
-                if (NormativeValueUM == Units.kgm) return ReducingFactor * NormativeValue;
-                else return ReducingFactor * NormativeValue * (LoadAreaWidth ?? 0);
-            }
-        }
+        NormativeValue = 0;
+        NormativeValueUM = Units.kgm;
+        LoadAreaWidth = 0;
+        ReliabilityCoefficient = 0;
+        ReducingFactor = 0;
+    }
 
-        public double NormativeValue { get; set; }
-        public Units NormativeValueUM { get; set; }
-        public double? LoadAreaWidth { get; set; }
-        public double ReliabilityCoefficient { get; set; }
-        public double ReducingFactor { get; set; }
-
-        public DistributedLoadV2()
+    public override double LoadForFirstGroup
+    {
+        get
         {
-            NormativeValue = 0;
-            NormativeValueUM = Units.kgm;
-            LoadAreaWidth = 0;
-            ReliabilityCoefficient = 0;
-            ReducingFactor = 0;
+            if (NormativeValueUM == Units.kgm) return ReliabilityCoefficient * NormativeValue;
+            return ReliabilityCoefficient * NormativeValue * (LoadAreaWidth ?? 0);
         }
     }
+
+    public override double LoadForSecondGroup
+    {
+        get
+        {
+            if (NormativeValueUM == Units.kgm) return ReducingFactor * NormativeValue;
+            return ReducingFactor * NormativeValue * (LoadAreaWidth ?? 0);
+        }
+    }
+
+    public double NormativeValue { get; set; }
+    public Units NormativeValueUM { get; set; }
+    public double? LoadAreaWidth { get; set; }
+    public double ReliabilityCoefficient { get; set; }
+    public double ReducingFactor { get; set; }
 }

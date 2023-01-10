@@ -1,18 +1,17 @@
-﻿using HDS.MathCore.Common.Base;
+﻿using MathCore.Common.Base;
 
-namespace HDS.MathCore.FemCalculator.Model
+namespace MathCore.FemCalculator.Model;
+
+public class BeamEnd
 {
-    public class BeamEnd
+    public BeamEnd()
     {
-        public int Node { get; set; }
-
-        public Vector6D<bool> IsFlexible { get; set; }
-        public Vector6D<bool> IsFixed { get; set; }
-
-        public BeamEnd()
-        {
-            IsFlexible = new Vector6D<bool>();
-            IsFixed = new Vector6D<bool>();
-        }
+        IsFlexible = new Vector6D<bool>();
+        IsFixed = new Vector6D<bool>();
     }
+
+    public int Node { get; set; }
+
+    public Vector6D<bool> IsFlexible { get; set; }
+    public Vector6D<bool> IsFixed { get; set; }
 }

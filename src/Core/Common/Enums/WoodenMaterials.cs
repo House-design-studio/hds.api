@@ -1,12 +1,11 @@
-﻿namespace HDS.Core.Common.Enums
+﻿namespace Core.Common.Enums;
+
+public enum WoodenMaterials
 {
-    public enum WoodenMaterials
-    {
-        PlankK16,
-        PlankK24,
-        PlankK26,
-        LvlK35,
-        LvlK40,
-        LvlK45
-    }
+    PlankK16,
+    PlankK24,
+    PlankK26,
+    LvlK35,
+    LvlK40,
+    LvlK45
 }

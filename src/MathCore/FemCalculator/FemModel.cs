@@ -1,21 +1,21 @@
-﻿using HDS.MathCore.FemCalculator.Model;
+﻿using MathCore.FemCalculator.Model;
 
-namespace HDS.MathCore.FemCalculator
+namespace MathCore.FemCalculator;
+
+public class FemModel
 {
-    public class FemModel
+    public FemModel(IEnumerable<Beam> beams, IEnumerable<Node> nodes)
     {
-        public IEnumerable<Beam> Beams { get; set; }
-        public IEnumerable<Node> Nodes { get; set; }
-
-        public FemModel(IEnumerable<Beam> beams, IEnumerable<Node> nodes)
-        {
-            Beams = beams;
-            Nodes = nodes;
-        }
-        public FemModel()
-        {
-            Beams = new List<Beam>();
-            Nodes = new List<Node>();
-        }
+        Beams = beams;
+        Nodes = nodes;
     }
+
+    public FemModel()
+    {
+        Beams = new List<Beam>();
+        Nodes = new List<Node>();
+    }
+
+    public IEnumerable<Beam> Beams { get; set; }
+    public IEnumerable<Node> Nodes { get; set; }
 }

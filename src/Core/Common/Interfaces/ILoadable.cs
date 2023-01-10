@@ -1,13 +1,12 @@
-﻿using HDS.Core.Common.Enums;
-using HDS.Core.Entities.Loads;
+﻿using Core.Common.Enums;
+using Core.Entities.Loads;
 
-namespace HDS.Core.Common.Interfaces
+namespace Core.Common.Interfaces;
+
+public interface ILoadable
 {
-    public interface ILoadable
-    {
-        LoadingModes LoadingMode { get; set; }
-        IEnumerable<double> Supports { get; set; }
-        IEnumerable<DistributedLoad> DistributedLoads { get; set; }
-        IEnumerable<ConcentratedLoad> ConcentratedLoads { get; set; }
-    }
+    LoadingModes LoadingMode { get; set; }
+    IEnumerable<double> Supports { get; set; }
+    IEnumerable<DistributedLoad> DistributedLoads { get; set; }
+    IEnumerable<ConcentratedLoad> ConcentratedLoads { get; set; }
 }

@@ -1,24 +1,24 @@
 ﻿using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 
-namespace HDS.Application.Common.Behaviours
+namespace Application.Common.Behaviour;
+
+public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest>
+    where TRequest : notnull
 {
-    public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest>
-        where TRequest : notnull
+    private readonly ILogger<TRequest> _logger;
+
+    public LoggingBehaviour(ILogger<TRequest> logger)
     {
-        private readonly ILogger<TRequest> _logger;
-        public LoggingBehaviour(ILogger<TRequest> logger)
-        {
-            _logger = logger;
-        }
+        _logger = logger;
+    }
 
-        public Task Process(TRequest request, CancellationToken cancellationToken)
-        {
-            var requestName = typeof(TRequest).Name;
+    public Task Process(TRequest request, CancellationToken cancellationToken)
+    {
+        var requestName = typeof(TRequest).Name;
 
-            _logger.LogInformation($"CleanArchitecture Request: {requestName}  {request}");
+        _logger.LogInformation($"CleanArchitecture Request: {requestName}  {request}");
 
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

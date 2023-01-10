@@ -1,12 +1,12 @@
-﻿using HDS.MathCore.Common.Interfaces;
+﻿using MathCore.Common.Interfaces;
+using MathCore.FemCalculator;
 
-namespace HDS.MathCore.FemCalculator
+namespace Infrastructure;
+
+public class FemClient : IFemCalculator
 {
-    public class FemClient : IFemCalculator
+    public Task CalculateAsync(FemModel model)
     {
-        public Task CalculateAsync(FemModel model)
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
     }
-}   
+}

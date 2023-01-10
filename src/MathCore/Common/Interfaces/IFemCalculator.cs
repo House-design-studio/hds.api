@@ -1,9 +1,8 @@
-﻿using HDS.MathCore.FemCalculator;
+﻿using MathCore.FemCalculator;
 
-namespace HDS.MathCore.Common.Interfaces
+namespace MathCore.Common.Interfaces;
+
+public interface IFemCalculator
 {
-    public interface IFemCalculator
-    {
-        Task CalculateAsync(FemModel model);
-    }
+    Task CalculateAsync(FemModel model);
 }

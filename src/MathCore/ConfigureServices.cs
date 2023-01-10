@@ -1,10 +1,11 @@
-﻿namespace Microsoft.Extensions.DependencyInjection
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace MathCore;
+
+public static class ConfigureServices
 {
-    public static class ConfigureServices
+    public static IServiceCollection AddMathCoreServices(this IServiceCollection services)
     {
-        public static IServiceCollection AddMathCoreServices(this IServiceCollection services)
-        {
-            return services;
-        }
+        return services;
     }
 }
