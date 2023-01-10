@@ -23,6 +23,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebUI", "WebUI", "{267BAFCE
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{58C14CD7-9E2E-4073-9952-682E52F4B772}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{A4E2993A-FCF1-4EBB-BF37-82D14ACC60A0}"
+	ProjectSection(SolutionItems) = preProject
+		.env = .env
+		.env.sample = .env.sample
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
