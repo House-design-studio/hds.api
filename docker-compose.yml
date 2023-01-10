@@ -7,7 +7,7 @@ services:
     container_name: hds_server
     build:
       context: .
-      dockerfile: src/WebUI/Server/Dockerfile
+      dockerfile: src/Server/Dockerfile
     networks:
       - hds_network
     depends_on:

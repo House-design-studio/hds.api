@@ -45,10 +45,8 @@ try
     {
         app.UseSwagger();
         app.UseSwaggerUI();
-        app.UseWebAssemblyDebugging();
     }
 
-    //app.UseBlazorFrameworkFiles();
     app.UseStaticFiles();
     app.UseRouting();
 
@@ -59,7 +57,6 @@ try
     app.MapGet("/", (ApplicationDbContext db) => db.Users.ToList());
 
     app.MapControllers();
-    //app.MapFallbackToFile("index.html");
 
     app.Run();
 }
