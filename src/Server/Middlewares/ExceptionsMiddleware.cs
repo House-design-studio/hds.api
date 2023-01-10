@@ -1,34 +1,33 @@
 ﻿using System.Net;
 
-namespace Server.Middlewares
+namespace Server.Middlewares;
+
+public class ExceptionsMiddleware
 {
-    public class ExceptionsMiddleware
+    private readonly RequestDelegate _next;
+
+    public ExceptionsMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
-
-        public ExceptionsMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public async Task Invoke(HttpContext httpContext)
-        {
-            try
-            {
-                await _next(httpContext);
-            }
-            catch (Exception ex)
-            {
-                httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            }
-        }
+        _next = next;
     }
 
-    public static class ExceptionsMiddlewareExtensions
+    public async Task Invoke(HttpContext httpContext)
     {
-        public static IApplicationBuilder UseExceptionsMiddleware(this IApplicationBuilder builder)
+        try
         {
-            return builder.UseMiddleware<ExceptionsMiddleware>();
+            await _next(httpContext);
         }
+        catch (Exception ex)
+        {
+            httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        }
+    }
+}
+
+public static class ExceptionsMiddlewareExtensions
+{
+    public static IApplicationBuilder UseExceptionsMiddleware(this IApplicationBuilder builder)
+    {
+        return builder.UseMiddleware<ExceptionsMiddleware>();
     }
 }

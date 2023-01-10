@@ -1,15 +1,14 @@
-﻿using AutoMapper;
-using HDS.Application.WoodenConstruction.Queries.GetBeamFull;
-using HDS.Core.Entities;
+﻿using Application.WoodenConstruction.Queries.GetBeamFull;
+using AutoMapper;
+using Core.Entities;
 
-namespace HDS.Application.Common.Mappings
+namespace Application.Common.Mappings;
+
+public class BeamMappingProfile : Profile
 {
-    public class BeamMappingProfile : Profile
+    public BeamMappingProfile()
     {
-        public BeamMappingProfile()
-        {
-            CreateMap<GetBeamFullQuery, Beam>();
-            CreateMap<Beam, FullBeamVM>();
-        }
+        CreateMap<GetBeamFullQuery, Beam>();
+        CreateMap<Beam, FullBeamVM>();
     }
 }

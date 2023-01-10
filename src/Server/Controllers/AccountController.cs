@@ -6,57 +6,62 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HDS.Server.Controllers
+namespace Server.Controllers;
+
+[ApiController]
+[Route("api/account")]
+public class AccountController : Controller
 {
-    [ApiController]
-    [Route("api/account")]
-    public class AccountController : Controller
+    private readonly IMediator _mediator;
+
+    private string? _baseUri;
+
+    public AccountController(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        private string? _baseUri;
+    private string BaseUri
+    {
+        get => _baseUri ??= "https://" + HttpContext.Request.Host.ToUriComponent();
+        set => _baseUri = value;
+    }
 
-        private string BaseUri
+    [AllowAnonymous]
+    [HttpGet("login")]
+    public IActionResult SignIn()
+    {
+        return Challenge(new AuthenticationProperties { RedirectUri = BaseUri + "/api/account/callback" },
+            GoogleDefaults.AuthenticationScheme);
+    }
+
+    [Authorize]
+    [HttpGet("callback")]
+    public async Task<string> SignInCallback()
+    {
+        // TODO: refresh tokens
+
+        var user = User;
+
+        var newToken = await _mediator.Send(new SignInByGoogleCommand
         {
-            get => _baseUri ??= "https://" + HttpContext.Request.Host.ToUriComponent();
-            set => _baseUri = value;
-        }
-        public AccountController(IMediator mediator)
+            Id = User
+                .Claims
+                .Single(c => c.Type == ClaimTypes.NameIdentifier)
+                .Value,
+            Name = User
+                .Claims
+                .Single(c => c.Type == ClaimTypes.Name)
+                .Value
+        });
+        try
         {
-            _mediator = mediator;
+            await HttpContext.SignOutAsync();
         }
-
-        [AllowAnonymous]
-        [HttpGet("login")]
-        public IActionResult SignIn()
+        catch
         {
-            return Challenge(new AuthenticationProperties { RedirectUri = BaseUri + "/api/account/callback" }, GoogleDefaults.AuthenticationScheme);
         }
 
-        [Authorize]
-        [HttpGet("callback")]
-        public async Task<string> SignInCallback()
-        { // TODO: refresh tokens
-
-            var user = User;
-
-            var newToken = await _mediator.Send(new SignInByGoogleCommand()
-            {
-                Id = User
-                    .Claims
-                    .Single(c => c.Type == ClaimTypes.NameIdentifier)
-                    .Value,
-                Name = User
-                    .Claims
-                    .Single(c => c.Type == ClaimTypes.Name)
-                    .Value
-            });
-            try
-            {
-                await HttpContext.SignOutAsync();
-            }
-            catch { }
-            return newToken;
-        }
+        return newToken;
     }
 }

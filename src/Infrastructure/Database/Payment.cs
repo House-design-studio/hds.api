@@ -1,11 +1,10 @@
-﻿namespace HDS.Infrastructure.Database
-{
-    public partial class Payment
-    {
-        public int OrderId { get; set; }
-        public decimal Amount { get; set; }
-        public DateTime Payed { get; set; }
+﻿namespace Infrastructure.Database;
 
-        public virtual Order Order { get; set; } = null!;
-    }
+public class Payment
+{
+    public int OrderId { get; set; }
+    public decimal Amount { get; set; }
+    public DateTime Payed { get; set; }
+
+    public virtual Order Order { get; set; } = null!;
 }

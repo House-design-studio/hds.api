@@ -1,9 +1,8 @@
-﻿namespace HDS.Infrastructure.Database
+﻿namespace Infrastructure.Database;
+
+public class Sp20133302016SnowArea
 {
-    public partial class Sp20133302016SnowArea
-    {
-        public int SnowAreaId { get; set; }
-        public string? Name { get; set; }
-        public double NormativeLoad { get; set; }
-    }
+    public int SnowAreaId { get; set; }
+    public string? Name { get; set; }
+    public double NormativeLoad { get; set; }
 }

@@ -1,4 +1,7 @@
-using HDS.Infrastructure.Database;
+using Application;
+using Core;
+using Infrastructure;
+using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Server.Middlewares;
@@ -34,6 +37,7 @@ try
         app.UseExceptionsMiddleware();
         app.UseHsts();
     }
+
     app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin());
     app.UseHttpsRedirection();
 
@@ -43,6 +47,7 @@ try
         app.UseSwaggerUI();
         app.UseWebAssemblyDebugging();
     }
+
     //app.UseBlazorFrameworkFiles();
     app.UseStaticFiles();
     app.UseRouting();
@@ -52,10 +57,10 @@ try
     app.UseAuthorization();
 
     app.MapGet("/", (ApplicationDbContext db) => db.Users.ToList());
-    
+
     app.MapControllers();
     //app.MapFallbackToFile("index.html");
-   
+
     app.Run();
 }
 catch (Exception ex)

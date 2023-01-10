@@ -1,17 +1,16 @@
-﻿namespace HDS.Core.Common.Enums
+﻿namespace Core.Common.Enums;
+
+public enum LoadingModes
 {
-    public enum LoadingModes
-    {
-        A,
-        B,
-        V,
-        G,
-        D,
-        E,
-        J,
-        I,
-        K,
-        L,
-        M
-    }
+    A,
+    B,
+    V,
+    G,
+    D,
+    E,
+    J,
+    I,
+    K,
+    L,
+    M
 }

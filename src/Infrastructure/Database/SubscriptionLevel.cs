@@ -1,8 +1,7 @@
-﻿namespace HDS.Infrastructure.Database
+﻿namespace Infrastructure.Database;
+
+public class SubscriptionLevel
 {
-    public partial class SubscriptionLevel
-    {
-        public int SubscriptionLevelId { get; set; }
-        public string Name { get; set; } = null!;
-    }
+    public int SubscriptionLevelId { get; set; }
+    public string Name { get; set; } = null!;
 }

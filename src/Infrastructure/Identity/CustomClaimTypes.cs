@@ -1,8 +1,7 @@
-﻿namespace Infrastructure.Identity
+﻿namespace Infrastructure.Identity;
+
+public static class CustomClaimTypes
 {
-    public static class CustomClaimTypes
-    {
-        public const string SubscriptionLevel = "SubscriptionLevel";
-        public const string SubscriptionTime = "SubscriptionTime";
-    }
+    public const string SubscriptionLevel = "SubscriptionLevel";
+    public const string SubscriptionTime = "SubscriptionTime";
 }
