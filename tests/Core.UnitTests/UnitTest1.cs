@@ -1,4 +1,4 @@
-namespace MathCore.UnitTests
+namespace Core.UnitTests
 {
     public class Tests
     {
