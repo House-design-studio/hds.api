@@ -30,12 +30,6 @@ jobs:
         key: build-cache
         path: ./
 
-    - name: Push dotnet files to cache
-      uses: actions/cache/save@v3
-      with:
-        key: dotnet7-cache
-        path: /usr/share/dotnet
-
   test:
     needs: [build]
     runs-on: ubuntu-latest
@@ -46,7 +40,7 @@ jobs:
       with:
         dotnet-version: 7.0.x
 
-    - name: Load builded files from artifacts
+    - name: Load builded files from cache
       uses: actions/cache/restore@v3
       with:
         key: build-cache
