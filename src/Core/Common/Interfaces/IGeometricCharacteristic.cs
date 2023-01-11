@@ -1,6 +1,6 @@
 ﻿namespace Core.Common.Interfaces;
 
-public interface IGeometricCharacteristicable
+public interface IGeometricCharacteristic
 {
     double Width { get; set; }
     double Height { get; set; }

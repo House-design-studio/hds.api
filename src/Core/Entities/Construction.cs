@@ -5,7 +5,7 @@ using static MathCore.Mathematics;
 
 namespace Core.Entities;
 
-public class Construction : IGeometricCharacteristicable
+public class Construction : IGeometricCharacteristic
 {
     public double Width { get; set; }
     public double Height { get; set; }

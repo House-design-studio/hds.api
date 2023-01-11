@@ -6,7 +6,7 @@ using static MathCore.Mathematics;
 
 namespace Core.Entities;
 
-public class WoodenConstruction : Construction, IPhysicMechanicalCharacteristicable
+public class WoodenConstruction : Construction, IPhysicMechanicalCharacteristic
 {
     public ExploitationsType Exploitation { get; set; }
     public WoodenMaterials Material { get; set; }

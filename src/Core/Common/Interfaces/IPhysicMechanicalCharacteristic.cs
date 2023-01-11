@@ -1,6 +1,6 @@
 ﻿namespace Core.Common.Interfaces;
 
-public interface IPhysicMechanicalCharacteristicable
+public interface IPhysicMechanicalCharacteristic
 {
     /// <summary>
     ///     Нормативный модуль упругости при изгибе с обеспеченностью 0.95 <br />

@@ -5,7 +5,7 @@ using MathCore.FemCalculator;
 namespace Core.Services;
 
 public class LoadsCalculator<TObj> : ILoadsCalculator<TObj>
-    where TObj : ILoadable, IPhysicMechanicalCharacteristicable, IGeometricCharacteristicable
+    where TObj : ILoadable, IPhysicMechanicalCharacteristic, IGeometricCharacteristic
 {
     private readonly IFemCalculator _femCalculator;
 

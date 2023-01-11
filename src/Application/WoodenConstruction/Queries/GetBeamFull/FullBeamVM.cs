@@ -2,7 +2,7 @@
 
 namespace Application.WoodenConstruction.Queries.GetBeamFull;
 
-public class FullBeamVM
+public class FullBeamVm
 {
     public ExploitationsType Exploitation { get; set; }
     public WoodenMaterials Material { get; set; }

@@ -5,7 +5,7 @@ namespace Application.Account.Commands;
 
 public class SignInByGoogleCommand : IRequest<string>
 {
-    public string Id { get; set; }
+    public string Id { get; set; } = null!;
     public string Name { get; set; } = null!;
 }
 
