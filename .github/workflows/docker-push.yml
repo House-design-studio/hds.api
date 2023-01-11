@@ -51,19 +51,23 @@ jobs:
       
 
   docker_build:
-    needs: [build, test]
+    needs: [test]
     runs-on: ubuntu-latest
+
+    env:
+      LOGIN: ${{ secrets.DOCKER_LOGIN }}
+      NAME: ${{ secrets.DOCKER_NAME }}
 
     steps:
     - uses: actions/checkout@v3
 
     - name: Build the Docker image
-      run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f ./src/Server/Dockerfile .
+      run: docker build -t $LOGIN/$NAME:latest -f ./src/Server/Dockerfile .
     
     - name: Save image to file
       run: |
         mkdir -p cache/docker
-        docker save $LOGIN/$NAME:${GITHUB_REF:11} > cache/docker/docker-image.tar
+        docker save $LOGIN/$NAME:latest > cache/docker/docker-image.tar
     
     - name: Push image file to cache
       uses: actions/cache/save@v3
