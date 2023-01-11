@@ -50,7 +50,7 @@ public static class Data
             }
         };
 
-    public static readonly KeyValuePair<double, double>[] ShrinkageValues =
+    public static readonly IEnumerable<ShrinkageValue> ShrinkageValues = new List<ShrinkageValue>()
     {
         new(0.013, 0.0007),
         new(0.016, 0.0009),
@@ -98,4 +98,6 @@ public static class Data
         new(0.290, 0.0107),
         new(0.300, 0.0109)
     };
+
+    public record ShrinkageValue(double Length, double Shrinkage);
 }

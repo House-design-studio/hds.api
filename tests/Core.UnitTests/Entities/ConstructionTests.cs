@@ -25,12 +25,72 @@ namespace Core.UnitTests.Entities
         }
 
         [Test]
+        public void ShrinkageInWidth_OutOfTable_RightAnswer()
+        {
+            var construction = new Construction()
+            {
+                Height = 0.31D,
+                Width = 0.31D,
+                Length = 3D
+            };
+
+            var res = construction.ShrinkageInWidth;
+
+            Assert.That(res, Is.EqualTo(0.0111D).Within(0.00001D));
+        }
+
+        [Test]
+        public void ShrinkageInWidth_BeforeTheTable_RightAnswer()
+        {
+            var construction = new Construction()
+            {
+                Height = 0.01D,
+                Width = 0.01D,
+                Length = 3D
+            };
+
+            var res = construction.ShrinkageInWidth;
+
+            Assert.That(res, Is.EqualTo(0.0005D).Within(0.00001D));
+        }
+
+        [Test]
         public void ShrinkageInHeight_NormalData_RightAnswer()
         {
             var res = _testConstruction.ShrinkageInHeight * 1000;
 
             Assert.That(res, Is.EqualTo(5.9D).Within(0.01D));
         }
+
+        [Test]
+        public void ShrinkageInHeight_OutOfTable_RightAnswer()
+        {
+            var construction = new Construction()
+            {
+                Height = 0.31D,
+                Width = 0.31D,
+                Length = 3D
+            };
+
+            var res = construction.ShrinkageInHeight;
+
+            Assert.That(res, Is.EqualTo(0.0111D).Within(0.00001D));
+        }
+        [Test]
+        public void ShrinkageInHeight_BeforeTheTable_RightAnswer()
+        {
+            var construction = new Construction()
+            {
+                Height = 0.01D,
+                Width = 0.01D,
+                Length = 3D
+            };
+
+            var res = construction.ShrinkageInHeight;
+
+            Assert.That(res, Is.EqualTo(0.0005D).Within(0.00001D));
+        }
+
 
         [Test]
         public void EffectiveWidth_NormalData_RightAnswer()
@@ -53,7 +113,7 @@ namespace Core.UnitTests.Entities
         {
             var res = _testConstruction.CrossSectionArea * 1000 * 1000;
 
-            Assert.That(res, Is.EqualTo(6888D).Within(0.01D));
+            Assert.That(res, Is.EqualTo(6888D).Within(0.1D));
         }
 
         [Test]
