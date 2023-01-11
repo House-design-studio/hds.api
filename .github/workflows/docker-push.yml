@@ -101,6 +101,6 @@ jobs:
       run: docker load < cache/docker/docker-image.tar
 
     - name: Push image to docker.io
-      run: docker push $LOGIN/$NAME:${GITHUB_REF:11}
+      run: docker push $LOGIN/$NAME:latest
 
 
