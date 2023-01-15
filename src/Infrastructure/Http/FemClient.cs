@@ -1,43 +1,40 @@
-﻿using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Json.Serialization;
+﻿using System.Text;
 using MathCore.Common.Base;
 using MathCore.Common.Interfaces;
 using MathCore.FemCalculator;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Infrastructure;
 
 public class FemClient : IFemCalculator
 {
-    private readonly HttpClient _httpClient;
     private readonly string _femUri;
-    
+    private readonly HttpClient _httpClient;
+
     public FemClient(HttpClient httpClient, IConfigureOptions<FemClientConfig> options)
     {
         var config = new FemClientConfig();
         options.Configure(config);
-        
+
         _httpClient = httpClient;
         _femUri = config.Connection;
     }
+
     public async Task CalculateAsync(FemModel model)
     {
-        var request = new StringContent(MapToJson(model), Encoding.UTF8,"application/json");
+        var request = new StringContent(MapToJson(model), Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync(_femUri, request);
         var result = JsonConvert.DeserializeObject<FemClientResponse.Root>(
             await response.Content.ReadAsStringAsync());
         MapFromJson(result!, model);
     }
 
-    private void MapFromJson(FemClientResponse.Root response, FemModel model)
+    private static void MapFromJson(FemClientResponse.Root response, FemModel model)
     {
-        for (var i = 0; i < model.Segments.Count(); i++)
+        for (var i = 0; i < model.Segments.Count; i++)
         {
-            model.Segments[i].Displacement = new Vector6D<double>()
+            model.Segments[i].Displacement = new Vector6D<double>
             {
                 X = response.Beams[i].Displacement.X,
                 Y = response.Beams[i].Displacement.Y,
@@ -46,7 +43,7 @@ public class FemClient : IFemCalculator
                 V = response.Beams[i].Displacement.V,
                 W = response.Beams[i].Displacement.W
             };
-            model.Segments[i].Force = new Vector6D<double>()
+            model.Segments[i].Force = new Vector6D<double>
             {
                 X = response.Beams[i].Force.X,
                 Y = response.Beams[i].Force.Y,
@@ -57,9 +54,8 @@ public class FemClient : IFemCalculator
             };
         }
 
-        for (var i = 0; i < model.Nodes.Count(); i++)
-        {
-            model.Nodes[i].Displacement = new Vector6D<double>()
+        for (var i = 0; i < model.Nodes.Count; i++)
+            model.Nodes[i].Displacement = new Vector6D<double>
             {
                 X = response.Nodes[i].Displacement.X,
                 Y = response.Nodes[i].Displacement.Y,
@@ -68,20 +64,20 @@ public class FemClient : IFemCalculator
                 V = response.Nodes[i].Displacement.V,
                 W = response.Nodes[i].Displacement.W
             };
-        }
     }
-    private string MapToJson(FemModel model)
+
+    private static string MapToJson(FemModel model)
     {
-        return JsonConvert.SerializeObject(new FemClientRequest.Root()
+        return JsonConvert.SerializeObject(new FemClientRequest.Root
         {
             Nc = model.Nodes.Count(),
             Bc = model.Segments.Count(),
-            Beams = model.Segments.Select(s => new FemClientRequest.Beam()
+            Beams = model.Segments.Select(s => new FemClientRequest.Beam
             {
-                First = new FemClientRequest.First()
+                First = new FemClientRequest.First
                 {
                     Node = s.First.Node,
-                    Fixed = new FemClientRequest.Fixed()
+                    Fixed = new FemClientRequest.Fixed
                     {
                         X = s.First.IsFixed.X,
                         Y = s.First.IsFixed.Y,
@@ -90,7 +86,7 @@ public class FemClient : IFemCalculator
                         V = s.First.IsFixed.V,
                         W = s.First.IsFixed.W
                     },
-                    Flexible = new FemClientRequest.Flexible()
+                    Flexible = new FemClientRequest.Flexible
                     {
                         X = s.First.IsFlexible.X,
                         Y = s.First.IsFlexible.Y,
@@ -100,10 +96,10 @@ public class FemClient : IFemCalculator
                         W = s.First.IsFlexible.W
                     }
                 },
-                Second = new FemClientRequest.Second()
+                Second = new FemClientRequest.Second
                 {
                     Node = s.Second.Node,
-                    Fixed = new FemClientRequest.Fixed()
+                    Fixed = new FemClientRequest.Fixed
                     {
                         X = s.Second.IsFixed.X,
                         Y = s.Second.IsFixed.Y,
@@ -112,7 +108,7 @@ public class FemClient : IFemCalculator
                         V = s.Second.IsFixed.V,
                         W = s.Second.IsFixed.W
                     },
-                    Flexible = new FemClientRequest.Flexible()
+                    Flexible = new FemClientRequest.Flexible
                     {
                         X = s.Second.IsFlexible.X,
                         Y = s.Second.IsFlexible.Y,
@@ -130,22 +126,22 @@ public class FemClient : IFemCalculator
                 ShearAreaZ = s.ShearAreaZ,
                 StiffnessModulus = s.StiffnessModulus,
                 ShearModulus = s.ShearModulus,
-                ZDirection = new FemClientRequest.ZDirection()
+                ZDirection = new FemClientRequest.ZDirection
                 {
                     X = s.ZDirection.X,
                     Y = s.ZDirection.Y,
                     Z = s.ZDirection.Z
                 }
             }),
-            Nodes = model.Nodes.Select(n => new FemClientRequest.Node()
+            Nodes = model.Nodes.Select(n => new FemClientRequest.Node
             {
-                Coordinate = new FemClientRequest.Coordinate()
+                Coordinate = new FemClientRequest.Coordinate
                 {
                     X = n.Coordinate.X,
                     Y = n.Coordinate.Y,
                     Z = n.Coordinate.Z
                 },
-                Support = new FemClientRequest.Support()
+                Support = new FemClientRequest.Support
                 {
                     X = n.Support.X,
                     Y = n.Support.Y,
@@ -154,7 +150,7 @@ public class FemClient : IFemCalculator
                     V = n.Support.V,
                     W = n.Support.W
                 },
-                Load = new FemClientRequest.Load()
+                Load = new FemClientRequest.Load
                 {
                     X = n.Load.X,
                     Y = n.Load.Y,

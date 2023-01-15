@@ -26,7 +26,7 @@ public class Point2D : IEquatable<Point2D>
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
+        if (obj.GetType() != GetType()) return false;
         return Equals((Point2D)obj);
     }
 

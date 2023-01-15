@@ -50,7 +50,7 @@ public static class Data
             }
         };
 
-    public static readonly IEnumerable<ShrinkageValue> ShrinkageValues = new List<ShrinkageValue>()
+    public static readonly IEnumerable<ShrinkageValue> ShrinkageValues = new List<ShrinkageValue>
     {
         new(0.013, 0.0007),
         new(0.016, 0.0009),

@@ -8,7 +8,6 @@ public class Beam : WoodenConstruction, ILoadable
 {
     public Beam()
     {
-
     }
 
     public Beam(WoodenConstruction data, ILoadable loads)

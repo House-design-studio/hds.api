@@ -10,7 +10,7 @@ public struct SegmentEnd
         IsFlexible = isFlexible;
         IsFixed = isFixed;
     }
-    
+
     public SegmentEnd()
     {
         IsFlexible = new Vector6D<bool>();

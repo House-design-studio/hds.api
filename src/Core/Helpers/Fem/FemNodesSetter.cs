@@ -7,29 +7,34 @@ public static class FemNodeSetter
     public static IEnumerable<Node> SetSupportsValues(this IEnumerable<Node> nodes, IEnumerable<double> supports)
     {
         var orderedSupports = supports.OrderBy(s => s);
-        
+
         for (var i = 0; i < orderedSupports.Count(); i++)
         {
             var supportViaNode = nodes.First(n => Math.Abs(n.Coordinate.X - orderedSupports.ElementAt(i)) < .00005);
-            
-            supportViaNode.Support.X = (i == 0);
+
+            supportViaNode.Support.X = i == 0;
             supportViaNode.Support.Y = true;
             supportViaNode.Support.Z = true;
         }
-        
+
         return nodes;
     }
-    public static IEnumerable<Node> SetConcentratedLoadsValues(this IEnumerable<Node> nodes, IEnumerable<(double x, double load)> loads)
+
+    public static IEnumerable<Node> SetConcentratedLoadsValues(this IEnumerable<Node> nodes,
+        IEnumerable<(double x, double load)> loads)
     {
-        foreach (var load in loads) 
+        foreach (var load in loads)
         {
             var concentratedLoadsViaNode = nodes.First(n => Math.Abs(n.Coordinate.X - load.x) < 0.000005);
 
             concentratedLoadsViaNode.Load.Z += -load.load;
         }
+
         return nodes;
     }
-    public static IEnumerable<Node> SetDistributedLoadsValues(this IEnumerable<Node> nodes, IEnumerable<(double offsetStart, double offsetEnd, double load)> loads)
+
+    public static IEnumerable<Node> SetDistributedLoadsValues(this IEnumerable<Node> nodes,
+        IEnumerable<(double offsetStart, double offsetEnd, double load)> loads)
     {
         foreach (var load in loads)
         {
@@ -37,7 +42,7 @@ public static class FemNodeSetter
                                                        node.Coordinate.X <= load.offsetEnd)
                 .OrderBy(node => node.Coordinate.X)
                 .ToArray();
-            
+
             for (var i = 0; i < nodesBetweenLoad.Length - 1; i++)
             {
                 var leftNode = nodesBetweenLoad[i];
@@ -53,6 +58,7 @@ public static class FemNodeSetter
                 rightNode.Load.V += M;
             }
         }
+
         return nodes;
     }
 }

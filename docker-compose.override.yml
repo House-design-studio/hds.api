@@ -3,7 +3,7 @@ version: '3.4'
 services:
   hds_client:
     ports:
-      - "3000:3000" 
+      - "3000:3000"
   hds_server:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development

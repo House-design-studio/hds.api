@@ -10,6 +10,7 @@ public class Node : Vector6D<double>
         Support = new Vector6D<bool>();
         Load = new Vector6D<double>();
     }
+
     public Node(Point3D coordinate)
     {
         Coordinate = coordinate;
@@ -23,10 +24,10 @@ public class Node : Vector6D<double>
         Support = new Vector6D<bool>();
         Load = new Vector6D<double>();
     }
-    
+
     public Point3D Coordinate { get; set; }
     public Vector6D<bool> Support { get; set; }
     public Vector6D<double> Load { get; set; }
-    
+
     public Vector6D<double> Displacement { get; set; }
 }

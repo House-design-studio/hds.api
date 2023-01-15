@@ -30,11 +30,11 @@ public class Construction : IGeometricCharacteristic
     {
         var point1 =
             ShrinkageValues.FirstOrDefault(v => v.Length > thickness) ??
-            ShrinkageValues.ElementAt(new Index(2, fromEnd: true));
+            ShrinkageValues.ElementAt(new Index(2, true));
 
         var point2 =
             ShrinkageValues.LastOrDefault(v => v.Length <= thickness) ??
-            ShrinkageValues.ElementAt(index: 1);
+            ShrinkageValues.ElementAt(1);
 
         return LinearInterpolation(
             new Point2D(point1.Length, point1.Shrinkage),
