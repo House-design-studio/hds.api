@@ -9,6 +9,6 @@ public class BeamMappingProfile : Profile
     public BeamMappingProfile()
     {
         CreateMap<GetBeamFullQuery, Beam>();
-        CreateMap<Beam, FullBeamVM>();
+        CreateMap<Beam, FullBeamVm>();
     }
 }

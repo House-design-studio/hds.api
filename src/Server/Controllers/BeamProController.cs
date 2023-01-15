@@ -16,7 +16,7 @@ public class BeamController : Controller
     }
 
     [HttpPost("full_report")]
-    public async Task<FullBeamVM> IndexAsync(
+    public async Task<FullBeamVm> IndexAsync(
         [FromBody] GetBeamFullQuery query)
     {
         return await _mediator.Send(query);

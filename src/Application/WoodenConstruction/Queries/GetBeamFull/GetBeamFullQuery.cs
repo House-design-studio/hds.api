@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Application.WoodenConstruction.Queries.GetBeamFull;
 
-public class GetBeamFullQuery : IRequest<FullBeamVM>
+public class GetBeamFullQuery : IRequest<FullBeamVm>
 {
     public WoodenMaterials Material { get; set; }
     public bool DryWood { get; set; }
@@ -25,12 +25,12 @@ public class GetBeamFullQuery : IRequest<FullBeamVM>
     public IEnumerable<ConcentratedLoad> ConcentratedLoads { get; set; } = null!;
 }
 
-public class GetBeamFullQueryHandeler : IRequestHandler<GetBeamFullQuery, FullBeamVM>
+public class GetBeamFullQueryHandler : IRequestHandler<GetBeamFullQuery, FullBeamVm>
 {
     private readonly ILoadsCalculator<Beam> _loadsCalculator;
     private readonly IMapper _mapper;
 
-    public GetBeamFullQueryHandeler(
+    public GetBeamFullQueryHandler(
         IMapper mapper,
         ILoadsCalculator<Beam> loadsCalculator)
     {
@@ -38,11 +38,11 @@ public class GetBeamFullQueryHandeler : IRequestHandler<GetBeamFullQuery, FullBe
         _loadsCalculator = loadsCalculator;
     }
 
-    public async Task<FullBeamVM> Handle(GetBeamFullQuery request, CancellationToken cancellationToken)
+    public async Task<FullBeamVm> Handle(GetBeamFullQuery request, CancellationToken cancellationToken)
     {
         var beam = _mapper.Map<Beam>(request);
-        var tmp = _loadsCalculator.GetFirstGroupOfLimitStates(beam);
-        var tmp2 = _loadsCalculator.GetSecondGroupOfLimitStates(beam);
-        return _mapper.Map<FullBeamVM>(beam);
+        var tmp = await _loadsCalculator.GetFirstGroupOfLimitStates(beam);
+        var tmp2 = await _loadsCalculator.GetSecondGroupOfLimitStates(beam);
+        return _mapper.Map<FullBeamVm>(beam);
     }
 }

@@ -1,5 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System.Text;
+﻿using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Identity;
 
@@ -11,6 +11,6 @@ public class JwtBuilderConfig
 
     public SymmetricSecurityKey GetSymmetricSecurityKey()
     {
-        return new(Encoding.UTF8.GetBytes(Key));
+        return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));
     }
 }
