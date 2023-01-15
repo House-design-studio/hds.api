@@ -32,7 +32,6 @@ public class LoadsCalculator<TObj> : ILoadsCalculator<TObj>
         var data = new FemModel(CreateSegments(model, maxDots.Count() - 1), maxDots);
 
         await _femCalculator.CalculateAsync(data);
-        Console.WriteLine(data.ToString());
         return data;
     }
 
@@ -98,10 +97,19 @@ public class LoadsCalculator<TObj> : ILoadsCalculator<TObj>
             for (var j = 1; j <= numberOfSegments; j++)
                 newNodes.Add(new Node(importantNodesList[i].Coordinate.X + segmentSize * j));
         }
-
         newNodes.Add(importantNodesList[^1]);
-        //TODO: connect same dots
-        return newNodes.OrderBy(n => n.Coordinate.X);
+        
+        var preRes = newNodes.OrderBy(n => n.Coordinate.X).ToList();
+        var res = new List<Node>(preRes.Count);
+        
+        foreach (var node in preRes)
+        {
+            if(!res.Any(v => Math.Abs(v.Coordinate.X - node.Coordinate.X) < .0005)){
+                res.Add(node);
+            }
+        }
+
+        return res.OrderBy(r => r.Coordinate.X);
     }
 
     private static IEnumerable<Segment> CreateSegments(TObj model, int count)
