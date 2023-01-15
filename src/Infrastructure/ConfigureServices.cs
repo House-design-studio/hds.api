@@ -18,7 +18,7 @@ public static class ConfigureServices
 
         services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connection));
 
-        services.AddScoped<IFemCalculator, FemClient>();
+        services.AddFemClient(options => options.Connection = configuration.GetValue<string>("Api:FemServer")!);
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddJwtBuilder(options =>
         {
@@ -33,6 +33,13 @@ public static class ConfigureServices
         Action<JwtBuilderConfig> optionsAction)
     {
         return services.AddTransient<IJwtBuilder, JwtBuilder>()
+            .Configure(optionsAction);
+    }
+
+    private static IServiceCollection AddFemClient(this IServiceCollection services,
+        Action<FemClientConfig> optionsAction)
+    {
+        return services.AddScoped<IFemCalculator, FemClient>()
             .Configure(optionsAction);
     }
 }

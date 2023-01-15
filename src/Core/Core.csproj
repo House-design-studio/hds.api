@@ -20,5 +20,4 @@
     <Folder Include="Common\Exceptions\" />
     <Folder Include="Database\" />
   </ItemGroup>
-
 </Project>

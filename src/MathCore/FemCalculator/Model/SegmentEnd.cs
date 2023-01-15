@@ -2,9 +2,16 @@
 
 namespace MathCore.FemCalculator.Model;
 
-public class BeamEnd
+public struct SegmentEnd
 {
-    public BeamEnd()
+    public SegmentEnd(int node, Vector6D<bool> isFlexible, Vector6D<bool> isFixed)
+    {
+        Node = node;
+        IsFlexible = isFlexible;
+        IsFixed = isFixed;
+    }
+    
+    public SegmentEnd()
     {
         IsFlexible = new Vector6D<bool>();
         IsFixed = new Vector6D<bool>();
