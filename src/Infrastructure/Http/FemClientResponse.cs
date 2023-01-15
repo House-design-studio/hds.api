@@ -4,41 +4,93 @@ namespace Infrastructure;
 
 public class FemClientResponse
 {
-    public class Root
+    public class Beam
     {
-        [JsonProperty("nc")] public int Nc { get; set; }
+        [JsonProperty("first")]
+        public First First { get; set; }
 
-        [JsonProperty("bc")] public int Bc { get; set; }
+        [JsonProperty("second")]
+        public Second Second { get; set; }
+    }
 
-        [JsonProperty("nodes")] public List<Node> Nodes { get; set; }
+    public class Displacement
+    {
+        [JsonProperty("z")]
+        public double Z { get; set; }
 
-        [JsonProperty("beams")] public List<Beam> Beams { get; set; }
+        [JsonProperty("x")]
+        public double X { get; set; }
+
+        [JsonProperty("w")]
+        public double W { get; set; }
+
+        [JsonProperty("v")]
+        public double V { get; set; }
+
+        [JsonProperty("u")]
+        public double U { get; set; }
+
+        [JsonProperty("y")]
+        public double Y { get; set; }
+    }
+
+    public class First
+    {
+        [JsonProperty("displacement")]
+        public Displacement Displacement { get; set; }
+
+        [JsonProperty("force")]
+        public Force Force { get; set; }
+    }
+
+    public class Force
+    {
+        [JsonProperty("z")]
+        public double Z { get; set; }
+
+        [JsonProperty("x")]
+        public double X { get; set; }
+
+        [JsonProperty("w")]
+        public double W { get; set; }
+
+        [JsonProperty("v")]
+        public double V { get; set; }
+
+        [JsonProperty("u")]
+        public double U { get; set; }
+
+        [JsonProperty("y")]
+        public double Y { get; set; }
     }
 
     public class Node
     {
-        [JsonProperty("displacement")] public AxisValues Displacement { get; set; }
+        [JsonProperty("displacement")]
+        public Displacement Displacement { get; set; }
     }
 
-    public class Beam
+    public class Root
     {
-        [JsonProperty("displacement")] public AxisValues Displacement { get; set; }
+        [JsonProperty("bc")]
+        public int Bc { get; set; }
 
-        [JsonProperty("force")] public AxisValues Force { get; set; }
+        [JsonProperty("nc")]
+        public int Nc { get; set; }
+
+        [JsonProperty("nodes")]
+        public List<Node> Nodes { get; set; }
+
+        [JsonProperty("beams")]
+        public List<Beam> Beams { get; set; }
     }
 
-    public class AxisValues
+    public class Second
     {
-        [JsonProperty("x")] public double X { get; set; }
+        [JsonProperty("displacement")]
+        public Displacement Displacement { get; set; }
 
-        [JsonProperty("y")] public double Y { get; set; }
-
-        [JsonProperty("z")] public double Z { get; set; }
-
-        [JsonProperty("u")] public double U { get; set; }
-
-        [JsonProperty("v")] public double V { get; set; }
-
-        [JsonProperty("w")] public double W { get; set; }
+        [JsonProperty("force")]
+        public Force Force { get; set; }
     }
 }

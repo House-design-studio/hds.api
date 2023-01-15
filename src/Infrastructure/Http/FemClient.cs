@@ -25,8 +25,8 @@ public class FemClient : IFemCalculator
     {
         var request = new StringContent(MapToJson(model), Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync(_femUri, request);
-        var result = JsonConvert.DeserializeObject<FemClientResponse.Root>(
-            await response.Content.ReadAsStringAsync());
+        var responseBody = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<FemClientResponse.Root>(responseBody);
         MapFromJson(result!, model);
     }
 
@@ -34,23 +34,41 @@ public class FemClient : IFemCalculator
     {
         for (var i = 0; i < model.Segments.Count; i++)
         {
-            model.Segments[i].Displacement = new Vector6D<double>
+            model.Segments[i].First.Displacement = new Vector6D<double>
             {
-                X = response.Beams[i].Displacement.X,
-                Y = response.Beams[i].Displacement.Y,
-                Z = response.Beams[i].Displacement.Z,
-                U = response.Beams[i].Displacement.U,
-                V = response.Beams[i].Displacement.V,
-                W = response.Beams[i].Displacement.W
+                Y = response.Beams[i].First.Displacement.Y,
+                Z = response.Beams[i].First.Displacement.Z,
+                U = response.Beams[i].First.Displacement.U,
+                X = response.Beams[i].First.Displacement.X,
+                V = response.Beams[i].First.Displacement.V,
+                W = response.Beams[i].First.Displacement.W
             };
-            model.Segments[i].Force = new Vector6D<double>
+            model.Segments[i].First.Force = new Vector6D<double>
             {
-                X = response.Beams[i].Force.X,
-                Y = response.Beams[i].Force.Y,
-                Z = response.Beams[i].Force.Z,
-                U = response.Beams[i].Force.U,
-                V = response.Beams[i].Force.V,
-                W = response.Beams[i].Force.W
+                Y = response.Beams[i].First.Force.Y,
+                Z = response.Beams[i].First.Force.Z,
+                U = response.Beams[i].First.Force.U,
+                V = response.Beams[i].First.Force.V,
+                X = response.Beams[i].First.Force.X,
+                W = response.Beams[i].First.Force.W
+            };
+            model.Segments[i].Second.Displacement = new Vector6D<double>
+            {
+                Y = response.Beams[i].Second.Displacement.Y,
+                Z = response.Beams[i].Second.Displacement.Z,
+                U = response.Beams[i].Second.Displacement.U,
+                X = response.Beams[i].Second.Displacement.X,
+                V = response.Beams[i].Second.Displacement.V,
+                W = response.Beams[i].Second.Displacement.W
+            };
+            model.Segments[i].Second.Force = new Vector6D<double>
+            {
+                Y = response.Beams[i].Second.Force.Y,
+                Z = response.Beams[i].Second.Force.Z,
+                U = response.Beams[i].Second.Force.U,
+                V = response.Beams[i].Second.Force.V,
+                X = response.Beams[i].Second.Force.X,
+                W = response.Beams[i].Second.Force.W
             };
         }
 
@@ -70,8 +88,8 @@ public class FemClient : IFemCalculator
     {
         return JsonConvert.SerializeObject(new FemClientRequest.Root
         {
-            Nc = model.Nodes.Count(),
-            Bc = model.Segments.Count(),
+            Nc = model.Nodes.Count,
+            Bc = model.Segments.Count,
             Beams = model.Segments.Select(s => new FemClientRequest.Beam
             {
                 First = new FemClientRequest.First

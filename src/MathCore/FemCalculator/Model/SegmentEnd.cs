@@ -21,4 +21,7 @@ public struct SegmentEnd
 
     public Vector6D<bool> IsFlexible { get; set; }
     public Vector6D<bool> IsFixed { get; set; }
+
+    public Vector6D<double>? Displacement { get; set; }
+    public Vector6D<double>? Force { get; set; }
 }

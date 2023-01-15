@@ -11,8 +11,8 @@ public class Segment
         ZDirection = new Point3D();
     }
 
-    public SegmentEnd First { get; set; }
-    public SegmentEnd Second { get; set; }
+    public SegmentEnd First;
+    public SegmentEnd Second;
     public Point3D ZDirection { get; set; }
     public double StiffnessModulus { get; set; }
     public double ShearModulus { get; set; }
@@ -22,7 +22,4 @@ public class Segment
     public double MomentOfInertiaX { get; set; }
     public double MomentOfInertiaY { get; set; }
     public double MomentOfInertiaZ { get; set; }
-
-    public Vector6D<double>? Displacement { get; set; }
-    public Vector6D<double>? Force { get; set; }
 }
