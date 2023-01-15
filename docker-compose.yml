@@ -3,8 +3,8 @@ version: '3.4'
 services:
   hds_client:
     image: mikhailgodunko/hds.client
-    depends_on: 
-     - hds_server
+    depends_on:
+      - hds_server
 
   hds_server:
     image: ${DOCKER_REGISTRY-}hds_server
@@ -24,6 +24,6 @@ services:
       - hds_network
 
 
-networks: 
+networks:
   hds_network:
     driver: bridge

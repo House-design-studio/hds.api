@@ -2,17 +2,17 @@
 
 namespace MathCore.FemCalculator.Model;
 
-public class Beam
+public class Segment
 {
-    public Beam()
+    public Segment()
     {
-        First = new BeamEnd();
-        Second = new BeamEnd();
+        First = new SegmentEnd();
+        Second = new SegmentEnd();
         ZDirection = new Point3D();
     }
 
-    public BeamEnd First { get; set; }
-    public BeamEnd Second { get; set; }
+    public SegmentEnd First;
+    public SegmentEnd Second;
     public Point3D ZDirection { get; set; }
     public double StiffnessModulus { get; set; }
     public double ShearModulus { get; set; }
@@ -22,7 +22,4 @@ public class Beam
     public double MomentOfInertiaX { get; set; }
     public double MomentOfInertiaY { get; set; }
     public double MomentOfInertiaZ { get; set; }
-
-    public Vector6D<double>? Displacement { get; set; }
-    public Vector6D<double>? Force { get; set; }
 }

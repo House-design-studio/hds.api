@@ -41,8 +41,8 @@ public class GetBeamFullQueryHandler : IRequestHandler<GetBeamFullQuery, FullBea
     public async Task<FullBeamVm> Handle(GetBeamFullQuery request, CancellationToken cancellationToken)
     {
         var beam = _mapper.Map<Beam>(request);
-        var tmp = _loadsCalculator.GetFirstGroupOfLimitStates(beam);
-        var tmp2 = _loadsCalculator.GetSecondGroupOfLimitStates(beam);
+        var tmp = await _loadsCalculator.GetFirstGroupOfLimitStates(beam);
+        var tmp2 = await _loadsCalculator.GetSecondGroupOfLimitStates(beam);
         return _mapper.Map<FullBeamVm>(beam);
     }
 }

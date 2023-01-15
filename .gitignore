@@ -400,3 +400,5 @@ FodyWeavers.xsd
 # Environment files
 **.env
 **/pgdata
+
+**.idea

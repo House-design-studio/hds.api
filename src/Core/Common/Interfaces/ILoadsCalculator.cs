@@ -1,8 +1,10 @@
-﻿namespace Core.Common.Interfaces;
+﻿using MathCore.FemCalculator;
+
+namespace Core.Common.Interfaces;
 
 public interface ILoadsCalculator<in TObj>
     where TObj : ILoadable, IPhysicMechanicalCharacteristic, IGeometricCharacteristic
 {
-    Task<string> GetFirstGroupOfLimitStates(TObj model);
-    Task<string> GetSecondGroupOfLimitStates(TObj model);
+    Task<FemModel> GetFirstGroupOfLimitStates(TObj model);
+    Task<FemModel> GetSecondGroupOfLimitStates(TObj model);
 }

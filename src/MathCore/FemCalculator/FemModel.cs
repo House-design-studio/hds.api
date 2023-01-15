@@ -4,18 +4,18 @@ namespace MathCore.FemCalculator;
 
 public class FemModel
 {
-    public FemModel(IEnumerable<Beam> beams, IEnumerable<Node> nodes)
+    public FemModel(IEnumerable<Segment> segments, IEnumerable<Node> nodes)
     {
-        Beams = beams;
-        Nodes = nodes;
+        Segments = segments.ToList();
+        Nodes = nodes.ToList();
     }
 
     public FemModel()
     {
-        Beams = new List<Beam>();
+        Segments = new List<Segment>();
         Nodes = new List<Node>();
     }
 
-    public IEnumerable<Beam> Beams { get; set; }
-    public IEnumerable<Node> Nodes { get; set; }
+    public List<Segment> Segments { get; set; }
+    public List<Node> Nodes { get; set; }
 }
