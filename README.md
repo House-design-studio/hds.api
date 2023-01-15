@@ -1,6 +1,6 @@
 # hds.api
 
-It's a new backend application for [mycalcs.ru](mycalcs.ru)
+It's a new backend application for [mycalcs.ru](https://mycalcs.ru/)
 
 ## how to start
 
