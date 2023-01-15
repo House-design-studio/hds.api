@@ -104,7 +104,7 @@ public class LoadsCalculator<TObj> : ILoadsCalculator<TObj>
         
         foreach (var node in preRes)
         {
-            if(!res.Any(v => Math.Abs(v.Coordinate.X - node.Coordinate.X) < .0005)){
+            if(!res.Any(v => Math.Abs(v.Coordinate.X - node.Coordinate.X) < .00005)){
                 res.Add(node);
             }
         }

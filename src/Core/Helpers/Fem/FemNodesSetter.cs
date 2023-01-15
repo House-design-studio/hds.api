@@ -25,7 +25,7 @@ public static class FemNodeSetter
     {
         foreach (var load in loads)
         {
-            var concentratedLoadsViaNode = nodes.First(n => Math.Abs(n.Coordinate.X - load.x) < 0.000005);
+            var concentratedLoadsViaNode = nodes.First(n => Math.Abs(n.Coordinate.X - load.x) < 0.00005);
 
             concentratedLoadsViaNode.Load.Z += -load.load;
         }
