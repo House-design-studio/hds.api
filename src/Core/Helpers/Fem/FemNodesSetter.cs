@@ -38,8 +38,8 @@ public static class FemNodeSetter
     {
         foreach (var load in loads)
         {
-            var nodesBetweenLoad = nodes.Where(node => node.Coordinate.X >= load.offsetStart &&
-                                                       node.Coordinate.X <= load.offsetEnd)
+            var nodesBetweenLoad = nodes.Where(node => node.Coordinate.X >= load.offsetStart - 0.00005 &&
+                                                       node.Coordinate.X <= load.offsetEnd + 0.00005)
                 .OrderBy(node => node.Coordinate.X)
                 .ToArray();
 
