@@ -32,9 +32,9 @@ public class UnitOfWork : IUnitOfWork
         return (IRepositoryAsync<T>)_repositories[type]!;
     }
 
-    public async Task<int> Commit(CancellationToken cancellationToken)
+    public async Task<int> Commit()
     {
-        return await _db.SaveChangesAsync(cancellationToken);
+        return await _db.SaveChangesAsync();
     }
 
     public Task Rollback()
