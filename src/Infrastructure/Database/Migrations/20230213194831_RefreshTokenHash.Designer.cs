@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230213194831_RefreshTokenHash")]
+    partial class RefreshTokenHash
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -444,10 +447,8 @@ namespace Infrastructure.Database.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("RefreshTokenExpireTime")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("RefreshTokenHash")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateOnly>("SignupDate")
@@ -684,7 +685,7 @@ namespace Infrastructure.Database.Migrations
                         .HasConstraintName("subscriptions_subscription_level_id_fkey");
 
                     b.HasOne("Infrastructure.Database.User", "User")
-                        .WithMany("Subscriptions")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .IsRequired()
                         .HasConstraintName("subscriptions_user_id_fkey");
@@ -748,8 +749,6 @@ namespace Infrastructure.Database.Migrations
                         .IsRequired();
 
                     b.Navigation("Orders");
-
-                    b.Navigation("Subscriptions");
                 });
 #pragma warning restore 612, 618
         }

@@ -7,7 +7,8 @@ public class TokenServiceConfig
     public string Issuer { get; set; } = null!;
     public string Audience { get; set; } = null!;
     public string Key { get; set; } = null!;
-    public int AccessTokenExpireTimeInDays { get; set; } = 2;
+    public TimeSpan AccessTokenExpireTime { get; set; }
+    public TimeSpan RefreshTokenExpireTime { get; set; }
 
     public SymmetricSecurityKey GetSymmetricSecurityKey() =>
         new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));

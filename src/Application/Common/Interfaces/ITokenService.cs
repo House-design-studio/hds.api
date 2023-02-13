@@ -5,14 +5,11 @@ namespace Application.Common.Interfaces;
 public interface ITokenService
 {
     /// <summary>
-    /// Generate tokens by user email
+    /// Generate tokens by google id
     /// </summary>
-    /// <remarks>
-    /// USE ONLY WITH VEREFIED EMAIL
-    /// </remarks>
-    /// <param name="email"></param>
+    /// <param name="googleId">google account id</param>
     /// <returns>refresh and access tokes model <see cref="TokensResponse"/></returns>
-    Task<TokensResponse> LoginByEmailAsync(string email);
+    Task<TokensResponse> LoginByGoogleAsync(string googleId);
 
     /// <summary>
     /// Refresh tokens when access token "died"
