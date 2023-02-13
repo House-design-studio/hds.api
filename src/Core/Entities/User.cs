@@ -1,13 +1,15 @@
-﻿namespace Infrastructure.Database;
+﻿using Core.Common.Interfaces;
 
-public class User
+namespace Infrastructure.Database;
+
+public class User : IAuditableEntity
 {
     public User()
     {
         Orders = new HashSet<Order>();
     }
 
-    public int UserId { get; set; }
+    public int Id { get; set; }
     public DateOnly SignupDate { get; set; }
 
     public virtual OauthGoogle OauthGoogle { get; set; } = null!;

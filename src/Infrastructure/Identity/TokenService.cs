@@ -38,7 +38,7 @@ namespace Infrastructure.Identity
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
+        
         private string GenerateRefreshToken()
         {
             var randomNumber = new byte[192];

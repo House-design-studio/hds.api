@@ -28,7 +28,7 @@ public class AccountRepository : IAccountRepository
         await _db.SaveChangesAsync();
         return _db.Users
             .First(u => u.OauthGoogle.Subject == googleId)
-            .UserId;
+            .Id;
     }
 
     public async Task<bool> IsExistAccount(string googleId)
@@ -41,7 +41,7 @@ public class AccountRepository : IAccountRepository
         return (await _db
                 .Users
                 .SingleOrDefaultAsync(u => u.OauthGoogle.Subject == googleId))?
-            .UserId;
+            .Id;
     }
 
     public async Task AddSubscription(int userId, int level, TimeSpan time)
@@ -52,7 +52,7 @@ public class AccountRepository : IAccountRepository
             throw new ArgumentException($"subscription level {level} not found");
         if (!await _db
                 .Users
-                .AnyAsync(x => x.UserId == userId))
+                .AnyAsync(x => x.Id == userId))
             throw new ArgumentException($"user {userId} not found");
 
         var newSubscription = new Subscription
