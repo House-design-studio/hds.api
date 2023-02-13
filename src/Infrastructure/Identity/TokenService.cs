@@ -33,7 +33,7 @@ namespace Infrastructure.Identity
                 issuer: _config.Issuer,
                 audience: _config.Audience,
                 claims: claims,
-                expires: DateTime.UtcNow.AddDays(2),
+                expires: DateTime.UtcNow.AddDays(_config.AccessTokenExpireTimeInDays),
                 signingCredentials: new SigningCredentials(_config.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
             return new JwtSecurityTokenHandler().WriteToken(token);
