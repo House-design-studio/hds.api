@@ -1,11 +1,8 @@
-﻿using System.Security.Principal;
-using Infrastructure.Identity.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Database;
 
-public partial class ApplicationDbContext : IdentityDbContext<HdsUser>
+public partial class ApplicationDbContext : DbContext
 {
     // TODO: extract interface
     public ApplicationDbContext()
@@ -31,7 +28,7 @@ public partial class ApplicationDbContext : IdentityDbContext<HdsUser>
     public virtual DbSet<State> States { get; set; } = null!;
     public virtual DbSet<Subscription> Subscriptions { get; set; } = null!;
     public virtual DbSet<SubscriptionLevel> SubscriptionLevels { get; set; } = null!;
-    public virtual DbSet<User> AdaUsers { get; set; } = null!;
+    public virtual DbSet<User> Users { get; set; } = null!;
     public virtual DbSet<UserSetting> UserSettings { get; set; } = null!;
 
     public virtual DbSet<UserSettingsSp131133302012ColdPeriod> UserSettingsSp131133302012ColdPeriods { get; set; } =
@@ -507,8 +504,7 @@ public partial class ApplicationDbContext : IdentityDbContext<HdsUser>
                 .HasForeignKey(d => d.WindDirectionId)
                 .HasConstraintName("user_settings_sp_131_13330_2012_cold_per_wind_direction_id_fkey");
         });
-        
-        base.OnModelCreating(modelBuilder);
+
         OnModelCreatingPartial(modelBuilder);
     }
 

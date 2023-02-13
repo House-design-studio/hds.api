@@ -24,22 +24,22 @@ public class AccountRepository : IAccountRepository
                 Subject = googleId
             }
         };
-        await _db.Set<User>().AddAsync(user);
+        await _db.Users.AddAsync(user);
         await _db.SaveChangesAsync();
-        return _db.Set<User>()
+        return _db.Users
             .First(u => u.OauthGoogle.Subject == googleId)
             .UserId;
     }
 
     public async Task<bool> IsExistAccount(string googleId)
     {
-        return await _db.Set<User>().AnyAsync(u => u.OauthGoogle.Subject == googleId);
+        return await _db.Users.AnyAsync(u => u.OauthGoogle.Subject == googleId);
     }
 
     public async Task<int?> GetUserByGoogleId(string googleId)
     {
         return (await _db
-                .Set<User>()
+                .Users
                 .SingleOrDefaultAsync(u => u.OauthGoogle.Subject == googleId))?
             .UserId;
     }
@@ -51,7 +51,7 @@ public class AccountRepository : IAccountRepository
                 .AnyAsync(x => x.SubscriptionLevelId == level))
             throw new ArgumentException($"subscription level {level} not found");
         if (!await _db
-                .Set<User>()
+                .Users
                 .AnyAsync(x => x.UserId == userId))
             throw new ArgumentException($"user {userId} not found");
 

@@ -1,10 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Text;
-using Infrastructure.Database;
-using Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -44,13 +41,7 @@ public static partial class ConfigureServices
             });
         });
 
-
-        services
-            .AddIdentity<HdsUser, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
-        
-        services.AddAuthentication(options =>   
+        services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
