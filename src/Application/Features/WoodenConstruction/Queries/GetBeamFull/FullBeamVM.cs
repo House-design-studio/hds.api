@@ -1,6 +1,6 @@
 ﻿using Core.Common.Enums;
 
-namespace Application.WoodenConstruction.Queries.GetBeamFull;
+namespace Application.Features.WoodenConstruction.Queries.GetBeamFull;
 
 public class FullBeamVm
 {
