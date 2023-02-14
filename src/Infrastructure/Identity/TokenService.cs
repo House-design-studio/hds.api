@@ -61,7 +61,12 @@ namespace Infrastructure.Identity
 
             if (user.RefreshTokenExpireTime <= DateTime.UtcNow)
             {
-                throw new TimeoutException("refresh token timeout");
+                throw new SecurityTokenException("refresh token timeout");
+            }
+
+            if(user.RefreshTokenHash != HashToken(model.RefreshToken))
+            {
+                throw new SecurityTokenException("bad refresh token");
             }
 
             var refreshToken = GenerateRefreshToken();
