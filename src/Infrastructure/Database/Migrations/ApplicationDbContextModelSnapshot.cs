@@ -447,8 +447,8 @@ namespace Infrastructure.Database.Migrations
                     b.Property<DateTime?>("RefreshTokenExpireTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("RefreshTokenHash")
-                        .HasColumnType("text");
+                    b.Property<byte[]>("RefreshTokenHash")
+                        .HasColumnType("bytea");
 
                     b.Property<DateOnly>("SignupDate")
                         .ValueGeneratedOnAdd()

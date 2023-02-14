@@ -32,7 +32,11 @@ namespace Infrastructure.Identity
             if (user == null)
             {
                 user = User.SignUpWithSubscription();
-                user.OauthGoogle.Subject = googleId;
+                user.OauthGoogle = new OauthGoogle
+                {
+                    Subject = googleId
+                };
+                await userRepository.AddAsync(user);
             }
             
             var refreshToken = GenerateRefreshToken();
@@ -143,9 +147,9 @@ namespace Infrastructure.Identity
             rng.GetBytes(randomNumber);
             return Convert.ToBase64String(randomNumber);
         }
-        private static string HashToken(string token)
+        private static byte[] HashToken(string token)
         {
-            return Encoding.UTF8.GetString(SHA256.HashData(Encoding.UTF8.GetBytes(token)));
+            return SHA256.HashData(Encoding.UTF8.GetBytes(token));
         }
     }
 }

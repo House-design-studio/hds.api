@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Server.Controllers;
 
 [ApiController]
-[Route("api/account")]
 public class AccountController : Controller
 {
     private readonly ITokenService _tokenService;
@@ -24,6 +23,7 @@ public class AccountController : Controller
     /// redirects to google login page
     /// </summary>
     /// <returns></returns>
+    [HttpGet]
     [Route("/login-google")]
     [AllowAnonymous]
     public IActionResult RedirectToGoogle()
@@ -39,6 +39,7 @@ public class AccountController : Controller
     /// exchange google cookies to jwt tokens
     /// </summary>
     /// <returns>jwt tokens</returns>
+    [HttpGet]
     [Route("/google-exchange")]
     [Authorize(AuthenticationSchemes = "Identity.External")] // IdentityConstants.ExternalScheme is a readonly parameter. Probably it will be fixed in dotnet 8
     public async Task<IActionResult> LoginWithGoogle()
@@ -57,6 +58,7 @@ public class AccountController : Controller
     /// </summary>
     /// <param name="model">access and refresh token</param>
     /// <returns>jwt tokens</returns>
+    [HttpPost]
     [Route("/refresh")]
     [AllowAnonymous]
     public async Task<IActionResult> RefreshTokens(RefreshTokenRequest model)

@@ -6,23 +6,21 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class RefreshTokenExpireTime : Migration
+    public partial class RefreshToken : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "RefreshTokenHash",
-                table: "users",
-                type: "text",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "text");
-
             migrationBuilder.AddColumn<DateTime>(
                 name: "RefreshTokenExpireTime",
                 table: "users",
                 type: "timestamp with time zone",
+                nullable: true);
+
+            migrationBuilder.AddColumn<byte[]>(
+                name: "RefreshTokenHash",
+                table: "users",
+                type: "bytea",
                 nullable: true);
         }
 
@@ -33,15 +31,9 @@ namespace Infrastructure.Database.Migrations
                 name: "RefreshTokenExpireTime",
                 table: "users");
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.DropColumn(
                 name: "RefreshTokenHash",
-                table: "users",
-                type: "text",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "text",
-                oldNullable: true);
+                table: "users");
         }
     }
 }

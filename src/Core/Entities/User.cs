@@ -25,7 +25,7 @@ public class User : IAuditableEntity
 
     public int Id { get; set; }
     public DateOnly SignupDate { get; set; }
-    public string? RefreshTokenHash { get; set; }
+    public byte[]? RefreshTokenHash { get; set; }
     public DateTime? RefreshTokenExpireTime { get; set; }
 
     public virtual ICollection<Subscription> Subscriptions { get; set; }    

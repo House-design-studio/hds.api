@@ -27,17 +27,9 @@ public static class ConfigureServices
             options.AccessTokenExpireTime = TimeSpan.Parse(configuration.GetValue<string>("Auth:Jwt:AccessTokenTime")!);
             options.RefreshTokenExpireTime = TimeSpan.Parse(configuration.GetValue<string>("Auth:Jwt:RefreshTokenTime")!);
         });
-
+        services.AddTransient<IUnitOfWork, UnitOfWork>();
         return services;
     }
-
-    private static IServiceCollection AddJwtBuilder(this IServiceCollection services,
-        Action<JwtBuilderConfig> optionsAction)
-    {
-        return services.AddTransient<IJwtBuilder, JwtBuilder>()
-            .Configure(optionsAction);
-    }
-
     private static IServiceCollection AddFemClient(this IServiceCollection services,
         Action<FemClientConfig> optionsAction)
     {

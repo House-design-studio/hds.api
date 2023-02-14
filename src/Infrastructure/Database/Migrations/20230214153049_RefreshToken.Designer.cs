@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230213194831_RefreshTokenHash")]
-    partial class RefreshTokenHash
+    [Migration("20230214153049_RefreshToken")]
+    partial class RefreshToken
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -447,9 +447,11 @@ namespace Infrastructure.Database.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("RefreshTokenHash")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<DateTime?>("RefreshTokenExpireTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<byte[]>("RefreshTokenHash")
+                        .HasColumnType("bytea");
 
                     b.Property<DateOnly>("SignupDate")
                         .ValueGeneratedOnAdd()
@@ -685,7 +687,7 @@ namespace Infrastructure.Database.Migrations
                         .HasConstraintName("subscriptions_subscription_level_id_fkey");
 
                     b.HasOne("Infrastructure.Database.User", "User")
-                        .WithMany()
+                        .WithMany("Subscriptions")
                         .HasForeignKey("UserId")
                         .IsRequired()
                         .HasConstraintName("subscriptions_user_id_fkey");
@@ -749,6 +751,8 @@ namespace Infrastructure.Database.Migrations
                         .IsRequired();
 
                     b.Navigation("Orders");
+
+                    b.Navigation("Subscriptions");
                 });
 #pragma warning restore 612, 618
         }
