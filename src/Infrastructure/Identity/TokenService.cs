@@ -63,15 +63,12 @@ namespace Infrastructure.Identity
             var userId = Int32.Parse(userPrincipal.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
             var user = await userRepository.GetByIdAsync(userId) ?? throw new SecurityTokenException("user not found by token");
 
-            if (user.RefreshTokenExpireTime <= DateTime.UtcNow)
-            {
-                throw new SecurityTokenException("refresh token timeout");
-            }
 
-            if(user.RefreshTokenHash != HashToken(model.RefreshToken))
-            {
+            if (user.RefreshTokenExpireTime <= DateTime.UtcNow) throw new SecurityTokenException("refresh token timeout");
+            if (user.RefreshTokenHash == null) throw new SecurityTokenException("bad refresh token");
+            if (!user.RefreshTokenHash.SequenceEqual(HashToken(model.RefreshToken)))
                 throw new SecurityTokenException("bad refresh token");
-            }
+            
 
             var refreshToken = GenerateRefreshToken();
             user.RefreshTokenHash = HashToken(refreshToken);
