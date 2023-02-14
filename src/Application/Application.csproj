@@ -7,32 +7,43 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Remove="Common\NewFolder\**"/>
-        <EmbeddedResource Remove="Common\NewFolder\**"/>
-        <None Remove="Common\NewFolder\**"/>
+        <Compile Remove="Account\Queries\**" />
+        <Compile Remove="Common\NewFolder\**" />
+        <Compile Remove="Features\Foundations\Queries\**" />
+        <Compile Remove="Features\Information\Queries\**" />
+        <Compile Remove="Features\RoofSystems\Queries\**" />
+        <EmbeddedResource Remove="Account\Queries\**" />
+        <EmbeddedResource Remove="Common\NewFolder\**" />
+        <EmbeddedResource Remove="Features\Foundations\Queries\**" />
+        <EmbeddedResource Remove="Features\Information\Queries\**" />
+        <EmbeddedResource Remove="Features\RoofSystems\Queries\**" />
+        <None Remove="Account\Queries\**" />
+        <None Remove="Common\NewFolder\**" />
+        <None Remove="Features\Foundations\Queries\**" />
+        <None Remove="Features\Information\Queries\**" />
+        <None Remove="Features\RoofSystems\Queries\**" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="12.0.0"/>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0"/>
-        <PackageReference Include="FluentValidation" Version="11.4.0"/>
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.4.0"/>
-        <PackageReference Include="MediatR" Version="11.1.0"/>
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0"/>
-        <PackageReference Include="Serilog" Version="2.12.0"/>
+        <PackageReference Include="AutoMapper" Version="12.0.0" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+        <PackageReference Include="FluentValidation" Version="11.4.0" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.4.0" />
+        <PackageReference Include="MediatR" Version="11.1.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+        <PackageReference Include="Serilog" Version="2.12.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Core\Core.csproj"/>
+        <ProjectReference Include="..\Core\Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Account\Queries\"/>
-        <Folder Include="Common\Exceptions\"/>
-        <Folder Include="Foundations\Queries\"/>
-        <Folder Include="Information\Queries\"/>
-        <Folder Include="RoofSystems\Queries\"/>
+        <Folder Include="Common\Exceptions\" />
+        <Folder Include="Features\Foundations\" />
+        <Folder Include="Features\Information\" />
+        <Folder Include="Features\RoofSystems\" />
     </ItemGroup>
 
 </Project>

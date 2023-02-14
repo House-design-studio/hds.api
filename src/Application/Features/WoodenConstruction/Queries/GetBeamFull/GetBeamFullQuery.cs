@@ -5,7 +5,7 @@ using Core.Entities;
 using Core.Entities.Loads;
 using MediatR;
 
-namespace Application.WoodenConstruction.Queries.GetBeamFull;
+namespace Application.Features.WoodenConstruction.Queries.GetBeamFull;
 
 public class GetBeamFullQuery : IRequest<FullBeamVm>
 {

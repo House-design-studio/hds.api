@@ -1,67 +1,68 @@
 ﻿using System.Security.Claims;
-using Application.Account.Commands;
-using MediatR;
+using Application.Account.Tokens;
+using Application.Common.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Server.Controllers;
 
 [ApiController]
-[Route("api/account")]
 public class AccountController : Controller
 {
-    private readonly IMediator _mediator;
+    private readonly ITokenService _tokenService;
 
-    private string? _baseUri;
-
-    public AccountController(IMediator mediator)
+    public AccountController(ITokenService tokenService)
     {
-        _mediator = mediator;
+        _tokenService = tokenService;
     }
 
-    private string BaseUri
-    {
-        get => _baseUri ??= "https://" + HttpContext.Request.Host.ToUriComponent();
-        set => _baseUri = value;
-    }
-
+    /// <summary>
+    /// redirects to google login page
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [Route("/login-google")]
     [AllowAnonymous]
-    [HttpGet("login")]
-    public IActionResult SignIn()
+    public IActionResult RedirectToGoogle()
     {
-        return Challenge(new AuthenticationProperties { RedirectUri = BaseUri + "/api/account/callback" },
-            GoogleDefaults.AuthenticationScheme);
+        var options = new AuthenticationProperties()
+        {
+            RedirectUri = "/google-exchange"
+        };
+        return new ChallengeResult(GoogleDefaults.AuthenticationScheme, options);
     }
 
-    [Authorize]
-    [HttpGet("callback")]
-    public async Task<string> SignInCallback()
+    /// <summary>
+    /// exchange google cookies to jwt tokens
+    /// </summary>
+    /// <returns>jwt tokens</returns>
+    [HttpGet]
+    [Route("/google-exchange")]
+    [Authorize(AuthenticationSchemes = "Identity.External")] // IdentityConstants.ExternalScheme is a readonly parameter. Probably it will be fixed in dotnet 8
+    public async Task<IActionResult> LoginWithGoogle()
     {
-        // TODO: refresh tokens
+        var googleId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        var user = User;
+        await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-        var newToken = await _mediator.Send(new SignInByGoogleCommand
-        {
-            Id = User
-                .Claims
-                .Single(c => c.Type == ClaimTypes.NameIdentifier)
-                .Value,
-            Name = User
-                .Claims
-                .Single(c => c.Type == ClaimTypes.Name)
-                .Value
-        });
-        try
-        {
-            await HttpContext.SignOutAsync();
-        }
-        catch
-        {
-        }
+        if (String.IsNullOrEmpty(googleId)) return Unauthorized("Google cookies not found");
 
-        return newToken;
+        return Ok(await _tokenService.LoginByGoogleAsync(googleId));
+    }
+
+    /// <summary>
+    /// refresh expired access token
+    /// </summary>
+    /// <param name="model">access and refresh token</param>
+    /// <returns>jwt tokens</returns>
+    [HttpPost]
+    [Route("/refresh")]
+    [AllowAnonymous]
+    public async Task<IActionResult> RefreshTokens(RefreshTokenRequest model)
+    {
+        return Ok(await _tokenService.RefreshTokensAsync(model));
     }
 }

@@ -2,6 +2,8 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -41,13 +43,7 @@ public static partial class ConfigureServices
             });
         });
 
-        services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-            })
-            .AddCookie() // TODO: try to do auth w/o cookies for google
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -57,9 +53,7 @@ public static partial class ConfigureServices
                     ValidateAudience = true,
                     ValidAudience = configuration.GetValue<string>("Auth:Jwt:Audience"),
                     ValidateLifetime = true,
-                    IssuerSigningKey =
-                        new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(configuration.GetValue<string>("Auth:Jwt:Key")!)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("Auth:Jwt:Key")!)),
                     ValidateIssuerSigningKey = true
                 };
             })
@@ -67,8 +61,9 @@ public static partial class ConfigureServices
             {
                 options.ClientSecret = configuration.GetValue<string>("Auth:Google:ClientSecret")!;
                 options.ClientId = configuration.GetValue<string>("Auth:Google:ClientId")!;
-                options.SaveTokens = true;
-            });
+                options.SignInScheme = IdentityConstants.ExternalScheme;
+            })
+            .AddExternalCookie();
 
         services.AddAuthorizationBuilder()
             .AddPolicy("subscriber_1", policy => policy

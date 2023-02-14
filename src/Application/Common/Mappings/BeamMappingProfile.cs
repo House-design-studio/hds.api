@@ -1,4 +1,4 @@
-﻿using Application.WoodenConstruction.Queries.GetBeamFull;
+﻿using Application.Features.WoodenConstruction.Queries.GetBeamFull;
 using AutoMapper;
 using Core.Entities;
 

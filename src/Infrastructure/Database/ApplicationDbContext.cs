@@ -383,7 +383,7 @@ public partial class ApplicationDbContext : DbContext
                 .HasConstraintName("subscriptions_subscription_level_id_fkey");
 
             entity.HasOne(d => d.User)
-                .WithMany()
+                .WithMany(d => d.Subscriptions)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("subscriptions_user_id_fkey");
@@ -409,7 +409,7 @@ public partial class ApplicationDbContext : DbContext
         {
             entity.ToTable("users");
 
-            entity.Property(e => e.UserId)
+            entity.Property(e => e.Id)
                 .HasColumnName("user_id")
                 .UseIdentityAlwaysColumn();
 

@@ -1,4 +1,4 @@
-﻿using Application.WoodenConstruction.Queries.GetBeamFull;
+﻿using Application.Features.WoodenConstruction.Queries.GetBeamFull;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
