@@ -1,6 +1,6 @@
 ﻿namespace Application.Common.Interfaces;
 
-public interface IRepositoryAsync<T> 
+public interface IRepositoryAsync<T>
 {
     IQueryable<T> Entities { get; }
 

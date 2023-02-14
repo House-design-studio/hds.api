@@ -4,6 +4,9 @@ namespace MathCore.FemCalculator.Model;
 
 public class Segment
 {
+    public SegmentEnd First;
+    public SegmentEnd Second;
+
     public Segment()
     {
         First = new SegmentEnd();
@@ -11,8 +14,6 @@ public class Segment
         ZDirection = new Point3D();
     }
 
-    public SegmentEnd First;
-    public SegmentEnd Second;
     public Point3D ZDirection { get; set; }
     public double StiffnessModulus { get; set; }
     public double ShearModulus { get; set; }

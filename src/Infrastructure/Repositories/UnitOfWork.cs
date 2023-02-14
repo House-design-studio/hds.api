@@ -1,23 +1,23 @@
-﻿using Application.Common.Interfaces;
+﻿using System.Collections;
+using Application.Common.Interfaces;
 using Core.Common.Interfaces;
 using Infrastructure.Database;
-using Microsoft.EntityFrameworkCore;
-using System.Collections;
-using System.Security.Cryptography;
 
 namespace Infrastructure.Repositories;
+
 public class UnitOfWork : IUnitOfWork
 {
     private readonly ApplicationDbContext _db;
-
-    private Hashtable _repositories;
     private bool _disposed;
+
+    private readonly Hashtable _repositories;
 
     public UnitOfWork(ApplicationDbContext db)
     {
         _db = db;
         _repositories = new Hashtable();
     }
+
     public IRepositoryAsync<T> Repository<T>() where T : IAuditableEntity
     {
         var type = typeof(T).Name;
@@ -45,10 +45,7 @@ public class UnitOfWork : IUnitOfWork
 
     public void Dispose()
     {
-        if (!_disposed)
-        {
-            _db.Dispose();
-        }
+        if (!_disposed) _db.Dispose();
         _disposed = true;
 
         GC.SuppressFinalize(this);

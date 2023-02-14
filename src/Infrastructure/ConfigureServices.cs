@@ -25,17 +25,20 @@ public static class ConfigureServices
             options.Audience = configuration.GetValue<string>("Auth:Jwt:Audience")!;
             options.Key = configuration.GetValue<string>("Auth:Jwt:Key")!;
             options.AccessTokenExpireTime = TimeSpan.Parse(configuration.GetValue<string>("Auth:Jwt:AccessTokenTime")!);
-            options.RefreshTokenExpireTime = TimeSpan.Parse(configuration.GetValue<string>("Auth:Jwt:RefreshTokenTime")!);
+            options.RefreshTokenExpireTime =
+                TimeSpan.Parse(configuration.GetValue<string>("Auth:Jwt:RefreshTokenTime")!);
         });
         services.AddTransient<IUnitOfWork, UnitOfWork>();
         return services;
     }
+
     private static IServiceCollection AddFemClient(this IServiceCollection services,
         Action<FemClientConfig> optionsAction)
     {
         return services.AddScoped<IFemCalculator, FemClient>()
             .Configure(optionsAction);
     }
+
     private static IServiceCollection AddTokenService(this IServiceCollection services,
         Action<TokenServiceConfig> optionsAction)
     {

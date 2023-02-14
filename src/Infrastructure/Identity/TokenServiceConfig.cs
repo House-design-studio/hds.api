@@ -1,7 +1,8 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System.Text;
+﻿using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Identity;
+
 public class TokenServiceConfig
 {
     public string Issuer { get; set; } = null!;
@@ -10,6 +11,5 @@ public class TokenServiceConfig
     public TimeSpan AccessTokenExpireTime { get; set; }
     public TimeSpan RefreshTokenExpireTime { get; set; }
 
-    public SymmetricSecurityKey GetSymmetricSecurityKey() =>
-        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));
+    public SymmetricSecurityKey GetSymmetricSecurityKey() => new(Encoding.UTF8.GetBytes(Key));
 }

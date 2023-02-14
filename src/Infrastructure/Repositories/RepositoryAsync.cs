@@ -4,15 +4,16 @@ using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
+
 public class RepositoryAsync<T> : IRepositoryAsync<T> where T : class, IAuditableEntity
 {
     private readonly ApplicationDbContext _dbContext;
-    
+
     public RepositoryAsync(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
-    
+
     public IQueryable<T> Entities => _dbContext.Set<T>();
 
     public async Task<T> AddAsync(T entity)

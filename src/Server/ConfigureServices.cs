@@ -1,7 +1,5 @@
 ﻿using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -53,7 +51,9 @@ public static partial class ConfigureServices
                     ValidateAudience = true,
                     ValidAudience = configuration.GetValue<string>("Auth:Jwt:Audience"),
                     ValidateLifetime = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("Auth:Jwt:Key")!)),
+                    IssuerSigningKey =
+                        new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(configuration.GetValue<string>("Auth:Jwt:Key")!)),
                     ValidateIssuerSigningKey = true
                 };
             })

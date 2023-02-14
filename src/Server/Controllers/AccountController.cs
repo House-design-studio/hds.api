@@ -20,7 +20,7 @@ public class AccountController : Controller
     }
 
     /// <summary>
-    /// redirects to google login page
+    ///     redirects to google login page
     /// </summary>
     /// <returns></returns>
     [HttpGet]
@@ -28,7 +28,7 @@ public class AccountController : Controller
     [AllowAnonymous]
     public IActionResult RedirectToGoogle()
     {
-        var options = new AuthenticationProperties()
+        var options = new AuthenticationProperties
         {
             RedirectUri = "/google-exchange"
         };
@@ -36,25 +36,26 @@ public class AccountController : Controller
     }
 
     /// <summary>
-    /// exchange google cookies to jwt tokens
+    ///     exchange google cookies to jwt tokens
     /// </summary>
     /// <returns>jwt tokens</returns>
     [HttpGet]
     [Route("/google-exchange")]
-    [Authorize(AuthenticationSchemes = "Identity.External")] // IdentityConstants.ExternalScheme is a readonly parameter. Probably it will be fixed in dotnet 8
+    [Authorize(AuthenticationSchemes =
+        "Identity.External")] // IdentityConstants.ExternalScheme is a readonly parameter. Probably it will be fixed in dotnet 8
     public async Task<IActionResult> LoginWithGoogle()
     {
         var googleId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-        if (String.IsNullOrEmpty(googleId)) return Unauthorized("Google cookies not found");
+        if (string.IsNullOrEmpty(googleId)) return Unauthorized("Google cookies not found");
 
         return Ok(await _tokenService.LoginByGoogleAsync(googleId));
     }
 
     /// <summary>
-    /// refresh expired access token
+    ///     refresh expired access token
     /// </summary>
     /// <param name="model">access and refresh token</param>
     /// <returns>jwt tokens</returns>

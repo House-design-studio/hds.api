@@ -97,17 +97,15 @@ public class LoadsCalculator<TObj> : ILoadsCalculator<TObj>
             for (var j = 1; j <= numberOfSegments; j++)
                 newNodes.Add(new Node(importantNodesList[i].Coordinate.X + segmentSize * j));
         }
+
         newNodes.Add(importantNodesList[^1]);
-        
+
         var preRes = newNodes.OrderBy(n => n.Coordinate.X).ToList();
         var res = new List<Node>(preRes.Count);
-        
+
         foreach (var node in preRes)
-        {
-            if(!res.Any(v => Math.Abs(v.Coordinate.X - node.Coordinate.X) < .00005)){
+            if (!res.Any(v => Math.Abs(v.Coordinate.X - node.Coordinate.X) < .00005))
                 res.Add(node);
-            }
-        }
 
         return res.OrderBy(r => r.Coordinate.X);
     }
