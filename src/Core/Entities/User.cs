@@ -28,8 +28,17 @@ public class User : IAuditableEntity
     public string? RefreshTokenHash { get; set; }
     public DateTime? RefreshTokenExpireTime { get; set; }
 
-
     public virtual ICollection<Subscription> Subscriptions { get; set; }    
     public virtual OauthGoogle OauthGoogle { get; set; } = null!;
     public virtual ICollection<Order> Orders { get; set; }
+
+
+    public Subscription? GetBestSubscription()
+    {
+        return Subscriptions?
+                .Where(s => s.Valid > DateOnly.FromDateTime(DateTime.UtcNow))
+                .OrderByDescending(s => s.SubscriptionLevel)
+                .ThenByDescending(s => s.Valid)
+                .FirstOrDefault();
+    }
 }

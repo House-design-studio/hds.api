@@ -1,9 +1,7 @@
 ﻿using Application.Account.Tokens;
 using Application.Common.Interfaces;
-using Core;
 using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -38,7 +36,7 @@ namespace Infrastructure.Identity
             }
             
             var refreshToken = GenerateRefreshToken();
-            user.RefreshTokenHash = ToHashToBase64(refreshToken);
+            user.RefreshTokenHash = HashToken(refreshToken);
             user.RefreshTokenExpireTime = DateTime.UtcNow + _config.RefreshTokenExpireTime;
 
             var accessToken = GenerateAccessToken(GetUserClaims(user));
@@ -53,9 +51,33 @@ namespace Infrastructure.Identity
             };
         }
 
-        public Task<TokensResponse> RefreshTokensAsync(RefreshTokenRequest model)
-        {
-            throw new NotImplementedException();
+        public async Task<TokensResponse> RefreshTokensAsync(RefreshTokenRequest model)
+        {            
+            var userPrincipal = GetPrincipalFromExpiredToken(model.AccessToken);
+            var userRepository = _unitOfWork.Repository<User>();
+
+            var userId = Int32.Parse(userPrincipal.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            var user = await userRepository.GetByIdAsync(userId) ?? throw new SecurityTokenException("user not found by token");
+
+            if (user.RefreshTokenExpireTime <= DateTime.UtcNow)
+            {
+                throw new TimeoutException("refresh token timeout");
+            }
+
+            var refreshToken = GenerateRefreshToken();
+            user.RefreshTokenHash = HashToken(refreshToken);
+            user.RefreshTokenExpireTime = DateTime.UtcNow + _config.RefreshTokenExpireTime;
+
+            var accessToken = GenerateAccessToken(GetUserClaims(user));
+
+            await _unitOfWork.Commit();
+
+            return new TokensResponse
+            {
+                AccessToken = accessToken,
+                RefreshToken = refreshToken,
+                RefreshTokenExpireTime = DateTime.UtcNow + _config.RefreshTokenExpireTime
+            };
         }
 
         private static IList<Claim> GetUserClaims(User user)
@@ -65,11 +87,7 @@ namespace Infrastructure.Identity
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
 
-            var bestSubscription = user.Subscriptions
-                .Where(s => s.Valid > DateOnly.FromDateTime(DateTime.UtcNow))
-                .OrderByDescending(s => s.SubscriptionLevel)
-                .ThenByDescending(s => s.Valid)
-                .FirstOrDefault();
+            var bestSubscription = user.GetBestSubscription();
 
             if (bestSubscription != null)
             {
@@ -77,6 +95,29 @@ namespace Infrastructure.Identity
                 claims.Add(new Claim(CustomClaimTypes.SubscriptionTime, bestSubscription.Valid.ToString()));
             }
             return claims;
+        }
+        private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
+        {
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = _config.GetSymmetricSecurityKey(),
+                ValidateIssuer = true,
+                ValidIssuer = _config.Issuer,
+                ValidateAudience = true,
+                ValidAudience = _config.Audience,
+                ClockSkew = TimeSpan.Zero,
+                ValidateLifetime = false
+            };
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
+            if (securityToken is not JwtSecurityToken jwtSecurityToken || 
+                !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new SecurityTokenException("Invalid token");
+            }
+
+            return principal;
         }
 
         private string GenerateAccessToken(IEnumerable<Claim> claims)
@@ -97,9 +138,9 @@ namespace Infrastructure.Identity
             rng.GetBytes(randomNumber);
             return Convert.ToBase64String(randomNumber);
         }
-        private string ToHashToBase64(string data)
+        private static string HashToken(string token)
         {
-            return Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(data)));
+            return Encoding.UTF8.GetString(SHA256.HashData(Encoding.UTF8.GetBytes(token)));
         }
     }
 }
