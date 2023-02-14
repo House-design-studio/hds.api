@@ -99,8 +99,7 @@ namespace Infrastructure.Identity
         }
         private string ToHashToBase64(string data)
         {
-            using var hasher = SHA256.Create();
-            return Convert.ToBase64String(hasher.ComputeHash(Encoding.UTF8.GetBytes(data)));
+            return Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(data)));
         }
     }
 }
