@@ -364,26 +364,23 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Subscription>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("subscriptions_pkey");
+
             entity.ToTable("subscriptions");
 
             entity.Property(e => e.Id)
-                .HasColumnName("id")
-                .UseIdentityAlwaysColumn();
-
+                .UseIdentityAlwaysColumn()
+                .HasColumnName("id");
             entity.Property(e => e.SubscriptionLevelId).HasColumnName("subscription_level_id");
-
             entity.Property(e => e.UserId).HasColumnName("user_id");
-
             entity.Property(e => e.Valid).HasColumnName("valid");
 
-            entity.HasOne(d => d.SubscriptionLevel)
-                .WithMany()
+            entity.HasOne(d => d.SubscriptionLevel).WithMany()
                 .HasForeignKey(d => d.SubscriptionLevelId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("subscriptions_subscription_level_id_fkey");
 
-            entity.HasOne(d => d.User)
-                .WithMany(d => d.Subscriptions)
+            entity.HasOne(d => d.User).WithMany(p => p.Subscriptions)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("subscriptions_user_id_fkey");
@@ -416,6 +413,9 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.SignupDate)
                 .HasColumnName("signup_date")
                 .HasDefaultValueSql("CURRENT_DATE");
+
+            entity.Navigation(e => e.Subscriptions)
+                .AutoInclude();
         });
 
         modelBuilder.Entity<UserSetting>(entity =>

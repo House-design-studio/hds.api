@@ -54,8 +54,6 @@ try
     app.UseAuthentication();
     app.UseAuthorization();
 
-    app.MapGet("/", (ApplicationDbContext db) => db.Users.ToList());
-
     app.MapControllers();
 
     app.Run();
