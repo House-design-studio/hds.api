@@ -1,9 +1,12 @@
-﻿using AutoMapper;
+﻿using Application.Services;
+using AutoMapper;
 using Core.Common.Enums;
 using Core.Common.Interfaces;
 using Core.Entities;
 using Core.Entities.Loads;
 using MediatR;
+using Newtonsoft.Json;
+using Svg;
 
 namespace Application.Features.WoodenConstruction.Queries.GetBeamFull;
 
@@ -43,6 +46,13 @@ public class GetBeamFullQueryHandler : IRequestHandler<GetBeamFullQuery, FullBea
         var beam = _mapper.Map<Beam>(request);
         var tmp = await _loadsCalculator.GetFirstGroupOfLimitStates(beam);
         var tmp2 = await _loadsCalculator.GetSecondGroupOfLimitStates(beam);
+
+        var svg = new DrawingService().DrawDisplacement(tmp);
+        var svg2 = new DrawingService().DrawForce(tmp2);
+
+        var xml = svg.GetXML();
+        var xml2 = svg2.GetXML();
+
         return _mapper.Map<FullBeamVm>(beam);
     }
 }
