@@ -53,6 +53,55 @@ public class LoadsCalculator<TObj> : ILoadsCalculator<TObj>
         return data;
     }
 
+    public IEnumerable<double> GetAbsoluteSupportsMaximum(TObj model, FemModel fem)
+    {
+        var baseDots = GetSupportWithConsolesCoordinates(model);
+        var maxNodes = new double[baseDots.Count - 1];
+
+        for (var i = 0; i < baseDots.Count - 1; i++)
+        {
+            var leftDot = baseDots[i];
+            var rightDot = baseDots[i + 1];
+
+            var nodesInside = fem.Nodes.Where(n => n.Coordinate.X >= leftDot && n.Coordinate.X <= rightDot);
+
+            maxNodes[i] = nodesInside.MaxBy(x => Math.Abs(x.Displacement.Z))!.Displacement.Z; // probably i need to move it as an argument Func<Node, double>
+        }
+
+        return maxNodes;
+    }
+
+    public IEnumerable<double> GetRelativeSupportsMaximum(TObj model, FemModel fem)
+    {
+        var baseDots = GetSupportWithConsolesCoordinates(model);
+        var maxNodes = new double[baseDots.Count - 1];
+
+        for (var i = 0; i < baseDots.Count() - 1; i++)
+        {
+            var leftDot = baseDots[i];
+            var rightDot = baseDots[i + 1];
+
+            var offset = rightDot - leftDot;
+
+            var nodesInside = fem.Nodes.Where(n => n.Coordinate.X >= leftDot && n.Coordinate.X <= rightDot);
+
+            maxNodes[i] = nodesInside.MaxBy(x => Math.Abs(x.Displacement.Z))!.Displacement.Z / offset;
+        }
+
+        return maxNodes;
+    }
+
+    private static List<double> GetSupportWithConsolesCoordinates(TObj model)
+    {
+        var dots = new List<double>();
+        dots.AddRange(model.Supports);
+
+        if (!dots.Any(d => d < 0.0000001)) dots.Add(0);
+        if (!(dots.Any(d => Math.Abs(d - model.Length) < 0.0000001))) dots.Add(model.Length);
+
+        return dots;
+    }
+
     private static IEnumerable<Node> CreateBaseDots(TObj model)
     {
         var nodes = new List<Node>

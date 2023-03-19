@@ -55,7 +55,6 @@ try
     app.UseAuthorization();
 
     app.MapControllers();
-
     app.Run();
 }
 catch (Exception ex)
