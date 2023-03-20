@@ -67,26 +67,26 @@ public class LoadsCalculator
     }
 
     [Test]
-    public void GetAbsoluteSupportsMaximum_NormalBeam_PositiveAndNegativeMaximums()
+    public void GetSegmentMaximums_NormalBeam_AbsoluteValue()
     {
 
-        var res = _calculator.GetAbsoluteSupportsMaximum(_normalBeam, _normalFem);
+        var res = _calculator.GetSegmentMaximums(_normalBeam, _normalFem);
 
         Assert.That(res.Count(), Is.EqualTo(3));
-        Assert.That(res.ElementAt(0), Is.EqualTo(0.5).Within(0.0000001));
-        Assert.That(res.ElementAt(1), Is.EqualTo(-1.0).Within(0.0000001));
-        Assert.That(res.ElementAt(2), Is.EqualTo(-2.0).Within(0.0000001));
+        Assert.That(res.ElementAt(0).AbsoluteValue, Is.EqualTo(0.5).Within(0.0000001));
+        Assert.That(res.ElementAt(1).AbsoluteValue, Is.EqualTo(-1.0).Within(0.0000001));
+        Assert.That(res.ElementAt(2).AbsoluteValue, Is.EqualTo(-2.0).Within(0.0000001));
     }
     [Test]
-    public void GetRelativeSupportsMaximum_NormalBeam_PositiveAndNegativeMaximums()
+    public void GetSegmentMaximums_NormalBeam_RelativeValue()
     {
 
-        var res = _calculator.GetRelativeSupportsMaximum(_normalBeam, _normalFem);
+        var res = _calculator.GetSegmentMaximums(_normalBeam, _normalFem);
 
         Assert.That(res.Count(), Is.EqualTo(3));
-        Assert.That(res.ElementAt(0), Is.EqualTo(0.25).Within(0.0000001)); // 0.5 / 2 
-        Assert.That(res.ElementAt(1), Is.EqualTo(-1.0).Within(0.0000001)); // -1.0 / 1
-        Assert.That(res.ElementAt(2), Is.EqualTo(-2.0).Within(0.0000001)); // -2 / 1
+        Assert.That(res.ElementAt(0).RelativeValue, Is.EqualTo(0.25).Within(0.0000001)); // 0.5 / 2 
+        Assert.That(res.ElementAt(1).RelativeValue, Is.EqualTo(-1.0).Within(0.0000001)); // -1.0 / 1
+        Assert.That(res.ElementAt(2).RelativeValue, Is.EqualTo(-2.0).Within(0.0000001)); // -2 / 1
     }
 }
 
