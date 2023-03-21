@@ -13,7 +13,8 @@ public class ConstructionTests
         {
             Height = 0.15D,
             Width = 0.05D,
-            Length = 3D
+            Length = 3D,
+            Amount = 1
         };
     }
 
