@@ -5,6 +5,7 @@ public interface IGeometricCharacteristic
     double Width { get; set; }
     double Height { get; set; }
     double Length { get; set; }
+    int Amount { get; set; }
 
     /// <summary>
     ///     Величина усушки доски по ширине

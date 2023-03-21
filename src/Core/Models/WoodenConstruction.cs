@@ -12,7 +12,6 @@ public class WoodenConstruction : Construction, IPhysicMechanicalCharacteristic
     public WoodenMaterials Material { get; set; }
     public bool DryWood { get; set; }
     public bool FlameRetardants { get; set; }
-    public int Amount { get; set; }
     public int LifeTime { get; set; }
     public int SteadyTemperature { get; set; }
 

@@ -10,10 +10,11 @@ public class Construction : IGeometricCharacteristic
     public double Width { get; set; }
     public double Height { get; set; }
     public double Length { get; set; }
+    public int Amount { get; set; }
     public double ShrinkageInWidth => GetShrinkage(Width);
     public double ShrinkageInHeight => GetShrinkage(Height);
-    public double EffectiveWidth => Width - ShrinkageInWidth;
-    public double EffectiveHeight => Height - ShrinkageInHeight;
+    public double EffectiveWidth => (Width - ShrinkageInWidth) * Amount;
+    public double EffectiveHeight => (Height - ShrinkageInHeight) * Amount;
     public double CrossSectionArea => EffectiveWidth * EffectiveHeight;
 
     public double PolarMomentOfInertia => EffectiveWidth * EffectiveHeight *
