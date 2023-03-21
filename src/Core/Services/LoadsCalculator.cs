@@ -76,6 +76,24 @@ public class LoadsCalculator<TObj> : ILoadsCalculator<TObj>
         return maxNodes;
     }
 
+    public ForceMaximum GetForceMaximum(TObj model, FemModel fem)
+    {
+        var maxSegment = fem.Segments
+            .SelectMany(s => new[] { s.First, s.Second})
+            .MaxBy(s => s.Force!.Z);
+
+        var stress = GetTangentialStress(
+            maxSegment.Force!.Z,
+            model.StaticMomentOfShearSectionY,
+            model.MomentOfInertiaY,
+            model.Width);
+
+        return new ForceMaximum(
+            maxSegment.Force!.Z,
+            stress,
+            stress / model.BendingShearResistance);
+    }
+
     private static List<double> GetSupportWithConsolesCoordinates(TObj model)
     {
         var dots = new List<double>();
@@ -169,5 +187,19 @@ public class LoadsCalculator<TObj> : ILoadsCalculator<TObj>
                 MomentOfInertiaZ = model.MomentOfInertiaZ
             };
         return segments;
+    }
+
+    /// <summary>
+    ///     расчёт касательного напряжения
+    /// </summary>
+    /// <param name="force">Q - расчётная поперечная сила</param>
+    /// <param name="staticMomentOfShearSection">Sбр - статический момент брутто сдвигаемой части относительно нейтральной оси </param>
+    /// <param name="momentOfInertia">момент инерции брутто поперечного сечения элемента относительно нейтральной оси</param>
+    /// <param name="width">bрас - расчётная ширина сечения элемента</param>
+    /// <param name="bendingShearResistance">Rск - расчётное сопротивление скалыванию при изгибе, коэффициенты аналогичны Rи</param>
+    /// <returns>касательное напряжение</returns>
+    private static double GetTangentialStress(double force, double staticMomentOfShearSection, double momentOfInertia, double width)
+    {
+        return force * staticMomentOfShearSection / momentOfInertia * width;
     }
 }
