@@ -53,10 +53,10 @@ public class LoadsCalculator<TObj> : ILoadsCalculator<TObj>
         return data;
     }
 
-    public IEnumerable<SegmentMaximum> GetSegmentMaximums(TObj model, FemModel fem)
+    public IEnumerable<SegmentDisplacementMaximum> GetSegmentDisplacementMaximums(TObj model, FemModel fem)
     {
         var baseDots = GetSupportWithConsolesCoordinates(model);
-        var maxNodes = new SegmentMaximum[baseDots.Count - 1];
+        var maxNodes = new SegmentDisplacementMaximum[baseDots.Count - 1];
         
         for (var i = 0; i < baseDots.Count - 1; i++)
         {
@@ -68,7 +68,7 @@ public class LoadsCalculator<TObj> : ILoadsCalculator<TObj>
 
             var node = nodesInside.MaxBy(x => Math.Abs(x.Displacement.Z))!;
 
-            maxNodes[i] = new SegmentMaximum(
+            maxNodes[i] = new SegmentDisplacementMaximum(
                 node, 
                 node.Displacement.Z, 
                 node.Displacement.Z / offset);

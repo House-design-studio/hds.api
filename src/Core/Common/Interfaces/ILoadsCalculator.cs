@@ -8,7 +8,7 @@ public interface ILoadsCalculator<in TObj>
 {
     Task<FemModel> GetFirstGroupOfLimitStates(TObj model);
     Task<FemModel> GetSecondGroupOfLimitStates(TObj model);
-    IEnumerable<SegmentMaximum> GetSegmentMaximums(TObj model, FemModel fem);
+    IEnumerable<SegmentDisplacementMaximum> GetSegmentDisplacementMaximums(TObj model, FemModel fem);
 }
-
+public record SegmentDisplacementMaximum(Node Node, double AbsoluteValue, double RelativeValue);
 public record SegmentMaximum(Node Node, double AbsoluteValue, double RelativeValue);
