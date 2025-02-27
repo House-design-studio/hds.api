@@ -16,7 +16,8 @@ public class FullBeamVm
     
     public SupportReaction[] SupportReactionsFirstGroup { get; set; } = null!;
     public SupportReaction[] SupportReactionsSecondGroup { get; set; } = null!;
-    
+
+    public ForceMaximum ForceMaximums { get; set; } = null!;
     public string? GraphDisplacementFirstGroup { get; set; } 
     public string? GraphMomentsFirstGroup { get; set; } 
     public string? GraphForcesFirstGroup { get; set; } 

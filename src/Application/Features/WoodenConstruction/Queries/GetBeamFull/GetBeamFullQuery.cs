@@ -120,6 +120,8 @@ public class GetBeamFullQueryHandler : IRequestHandler<GetBeamFullQuery, FullBea
         
         vm.SupportReactionsFirstGroup = _loadsCalculator.GetSupportReactions(beam, femFirst);
         vm.SupportReactionsSecondGroup = _loadsCalculator.GetSupportReactions(beam, femSecond);
+
+        vm.ForceMaximums = _loadsCalculator.GetForceMaximum(beam, femFirst); 
         
         vm.GraphDisplacementFirstGroup = _drawingService.DrawDisplacement(femFirst).GetXML();
         vm.GraphMomentsFirstGroup = _drawingService.DrawMoments(femFirst).GetXML();

@@ -42,28 +42,40 @@ public class LoadsCalculator<TObj> : ILoadsCalculator<TObj>
     }
 
     
-    /// <summary>
-    /// Расчёт нормального напряжения в расчётном сечении - τ
-    /// </summary>
-    /// <param name="model"></param>
-    /// <param name="fem"></param>
-    /// <returns>τ</returns>
+    /// <inheritdoc/>
     public ForceMaximum GetForceMaximum(TObj model, FemModel fem)
     {
-        var maxSegment = fem.Segments
-            .SelectMany(s => new[] { s.First, s.Second })
-            .MaxBy(s => s.Force.Z);
+        var maxForceSegment = fem.Segments
+            .SelectMany<Segment, SegmentEnd>(s => [s.First, s.Second])
+            .MaxBy(s => Math.Abs(s.Force.Z)); //todo: abs?
+
+        var maxForce = maxForceSegment.Force.Z;
+        var maxForceOffset = fem.Nodes[maxForceSegment.Node - 1].Coordinate.X;
         
         var stress = GetTangentialStress(
-            maxSegment.Force!.Z,
+            maxForce,
             model.StaticMomentOfShearSectionY,
             model.MomentOfInertiaY,
             model.EffectiveWidth);
 
+        var maxMomentSegment = fem.Segments
+            .SelectMany<Segment, SegmentEnd>(s => [s.First, s.Second])
+            .MaxBy(s => Math.Abs(s.Force.V));
+
+        var maxMomentOffset = fem.Nodes[maxMomentSegment.Node - 1].Coordinate.X;
+        var maxMoment = maxMomentSegment.Force.V;
+        
+        var normalStress = maxMoment / model.MomentOfResistanceY;
+
         return new ForceMaximum(
-            maxSegment.Force.Z,
-            stress,
-            stress / model.BendingShearResistance);
+            Moment: maxMoment,
+            MomentOffset: maxMomentOffset,
+            NormalStress: normalStress,
+            NormalStressLoadingCoefficient: normalStress / model.BendingResistance,
+            TransverseForce: maxForce,
+            TransverseForceOffset: maxForceOffset,
+            TangentialStress: stress,
+            TangentialStressLoadingCoefficient: stress / model.BendingShearResistance);
     }
 
     public SupportReaction[] GetSupportReactions(TObj model, FemModel fem)
