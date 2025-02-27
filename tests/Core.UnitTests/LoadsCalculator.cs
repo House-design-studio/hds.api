@@ -70,12 +70,15 @@ public class LoadsCalculator
     public void GetSegmentMaximums_NormalBeam_AbsoluteValue()
     {
 
-        var res = _calculator.GetSegmentDisplacementMaximums(_normalBeam, _normalFem);
+        var res = _calculator.GetSegmentDisplacementMaximums(_normalBeam, _normalFem).ToArray();
 
-        Assert.That(res.Count(), Is.EqualTo(3));
-        Assert.That(res.ElementAt(0).AbsoluteValue, Is.EqualTo(0.5).Within(0.0000001));
-        Assert.That(res.ElementAt(1).AbsoluteValue, Is.EqualTo(-1.0).Within(0.0000001));
-        Assert.That(res.ElementAt(2).AbsoluteValue, Is.EqualTo(-2.0).Within(0.0000001));
+        Assert.Multiple(() =>
+        {
+            Assert.That(res.Count(), Is.EqualTo(3));
+            Assert.That(res.ElementAt(0).AbsoluteValue, Is.EqualTo(0.5).Within(0.0000001));
+            Assert.That(res.ElementAt(1).AbsoluteValue, Is.EqualTo(-1.0).Within(0.0000001));
+            Assert.That(res.ElementAt(2).AbsoluteValue, Is.EqualTo(-2.0).Within(0.0000001));
+        });
     }
     [Test]
     public void GetSegmentMaximums_NormalBeam_RelativeValue()
