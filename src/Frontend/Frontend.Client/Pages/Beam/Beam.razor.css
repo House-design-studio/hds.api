@@ -2,4 +2,9 @@
   color: black;
 }
 
+.inbox__form {
+  display: flex;
+  flex-direction: column;
+}
+
 /*# sourceMappingURL=Beam.razor.css.map */

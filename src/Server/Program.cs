@@ -80,7 +80,10 @@ try
         app.UseHsts();
     }
 
-    app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin());
+    app.UseCors(corsPolicyBuilder => corsPolicyBuilder
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
 
 
     app.UseSwagger();

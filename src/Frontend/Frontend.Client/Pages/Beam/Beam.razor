@@ -1,4 +1,11 @@
+@inject HttpClient HttpClient
 @page "/Beam"
+@using System.Text
+@using System.Text.Json
+@using System.Text.RegularExpressions
+@using Application.Features.WoodenConstruction.Queries.GetBeamFull
+@using Frontend.Client.Helpers
+@rendermode InteractiveWebAssembly
 
 <section class="section1">
     <div class="container section1__container">
@@ -7,15 +14,70 @@
         </div>
         <div class="section1__inbox">
             <div class="inbox__preview">
-                
+
             </div>
             <div class="inbox__form">
-                
+                Request:
+                <textarea @bind="Request">
+
+                </textarea>
+                <br/>
+                <button @onclick="DoRequest">Send</button> <br/>
+
+                Graph: <br/>
+
+                Force:
+                @GraphForce?.AsMarkup()
+                Displacement:
+                @GraphDisplacement?.AsMarkup()
+                Moment:
+                @GraphMoment?.AsMarkup()
+
             </div>
         </div>
     </div>
 </section>
 
 @code {
-    
+    private string Request { get; set; }
+    private string? GraphForce { get; set; }
+    private string? GraphDisplacement { get; set; }
+    private string? GraphMoment { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        Request = 
+            "{\r\n  \"material\": \"plankK16\",\r\n  \"dryWood\": true,\r\n  \"flameRetardants\": false,\r\n  \"width\": 0.3,\r\n  \"height\": 0.3,\r\n  \"length\": 3,\r\n  \"amount\": 1,\r\n  \"exploitation\": \"class1A\",\r\n  \"lifeTime\": 60,\r\n  \"steadyTemperature\": 30,\r\n  \"loadingMode\": \"b\",\r\n  \"supports\": [\r\n    0.01, 2\r\n  ],\r\n  \"distributedLoads\": [\r\n    {\r\n      \"loadForFirstGroup\": 20000,\r\n      \"loadForSecondGroup\": 18000,\r\n      \"offsetStart\": 1,\r\n      \"offsetEnd\": 1.65\r\n    }\r\n  ],\r\n  \"concentratedLoads\": [\r\n    {\r\n      \"loadForFirstGroup\": 10,\r\n      \"loadForSecondGroup\": 5,\r\n      \"offset\": 2.98\r\n    }\r\n  ]\r\n}";
+        return base.OnInitializedAsync();
+    }
+
+    private async Task DoRequest()
+    {
+        var requestContent = new StringContent(Request, Encoding.UTF8, "application/json");
+        HttpResponseMessage res;
+        try
+        {
+            res = await HttpClient.PostAsync("http://localhost/api/beam/full_report", requestContent);
+        }
+        catch (Exception ex)
+        {
+            // ignored
+            return;
+        }
+        if (!res.IsSuccessStatusCode)
+            return;
+
+        var content = await res.Content.ReadFromJsonAsync<FullBeamVm>(options: JsonSerializerOptions.Web);
+
+        GraphForce = ReplaceWidthHeight(content!.GraphForcesFirstGroup!, "600", "300");
+        GraphDisplacement = ReplaceWidthHeight(content!.GraphDisplacementFirstGroup!, "600", "300");
+        GraphMoment = ReplaceWidthHeight(content!.GraphMomentsFirstGroup!, "600", "300");
+    }
+
+    private static string ReplaceWidthHeight(string svg, string newWidth, string newHeight)
+    {
+        svg = Regex.Replace(svg, " width=\".*?\"", $" width=\"{newWidth}\" viewBox=\"0 0 300 150\"");
+        svg = Regex.Replace(svg, " height=\".*?\"", $" height=\"{newHeight}\" viewBox=\"0 0 300 150\"");
+        return svg;
+    }
 }

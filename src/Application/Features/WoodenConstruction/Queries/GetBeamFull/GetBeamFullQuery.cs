@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Application.Services.DrawingService;
 using Application.Services.FemBuilder;
 using AutoMapper;
 using Core.Common.Enums;
@@ -64,11 +65,11 @@ public class GetBeamFullQuery : IRequest<FullBeamVm>
     /// <summary>
     /// Распределённые нагрузки
     /// </summary>
-    public IEnumerable<DistributedLoadV2> DistributedLoads { get; set; } = null!;
+    public IEnumerable<DistributedLoad> DistributedLoads { get; set; } = null!;
     /// <summary>
     /// Сосредоточеные нагрузки
     /// </summary>
-    public IEnumerable<ConcentratedLoadV2> ConcentratedLoads { get; set; } = null!;
+    public IEnumerable<ConcentratedLoad> ConcentratedLoads { get; set; } = null!;
 }
 
 public class GetBeamFullQueryHandler : IRequestHandler<GetBeamFullQuery, FullBeamVm>
@@ -120,10 +121,12 @@ public class GetBeamFullQueryHandler : IRequestHandler<GetBeamFullQuery, FullBea
         
         vm.SupportReactionsFirstGroup = _loadsCalculator.GetSupportReactions(beam, femFirst);
         vm.SupportReactionsSecondGroup = _loadsCalculator.GetSupportReactions(beam, femSecond);
-
+        var tt = _loadsCalculator.GetSegmentDisplacementMaximums(beam, femFirst);
         vm.ForceMaximums = _loadsCalculator.GetForceMaximum(beam, femFirst); 
         
-        vm.GraphDisplacementFirstGroup = _drawingService.DrawDisplacement(femFirst).GetXML();
+        var t = _drawingService.DrawDisplacement(femFirst);
+        t = _drawingService.DrawSupports(t, beam.Supports, beam.Length);
+        vm.GraphDisplacementFirstGroup = t.GetXML();
         vm.GraphMomentsFirstGroup = _drawingService.DrawMoments(femFirst).GetXML();
         vm.GraphForcesFirstGroup = _drawingService.DrawForce(femFirst).GetXML();
         

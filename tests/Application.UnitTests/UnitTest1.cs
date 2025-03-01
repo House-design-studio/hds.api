@@ -1,5 +1,6 @@
 using System.Xml;
 using Application.Services;
+using Application.Services.DrawingService;
 using MathCore.FemCalculator;
 
 namespace Application.UnitTests;

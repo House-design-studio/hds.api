@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Application.Common.Behaviour;
 using Application.Services;
+using Application.Services.DrawingService;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
